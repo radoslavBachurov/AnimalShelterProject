@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "5ReL0T9QEfieXH4P7d67rD8vo4Sim66m3/VyMTgpumxcQQerD99QA5hokJmzK+E2fs3aZ5/wCsU5U+2vprgEtA==",
+  "success": true,
+  "projectFilePath": "D:\\Programming\\Git\\AnimalShelterPlatform\\AnimalShelter.Common\\AnimalShelter.Common.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Rado\\.nuget\\packages\\stylecop.analyzers\\1.2.0-beta.205\\stylecop.analyzers.1.2.0-beta.205.nupkg.sha512",
+    "C:\\Users\\Rado\\.nuget\\packages\\stylecop.analyzers.unstable\\1.2.0.205\\stylecop.analyzers.unstable.1.2.0.205.nupkg.sha512"
+  ],
+  "logs": []
+}
