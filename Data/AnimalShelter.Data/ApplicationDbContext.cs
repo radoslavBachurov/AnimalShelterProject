@@ -26,6 +26,20 @@
 
         public DbSet<Setting> Settings { get; set; }
 
+        public DbSet<BankAccount> BankAccounts { get; set; }
+
+        public DbSet<HomePet> HomePets { get; set; }
+
+        public DbSet<PetAdoptionPost> PetAdoptionPosts { get; set; }
+
+        public DbSet<PetLostAndFoundPost> PetLostAndFoundPosts { get; set; }
+
+        public DbSet<Picture> Pictures { get; set; }
+
+        public DbSet<Reply> Replies { get; set; }
+
+        public DbSet<SuccessStory> SuccessStories { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

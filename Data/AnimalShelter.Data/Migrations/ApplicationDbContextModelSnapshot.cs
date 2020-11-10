@@ -15,7 +15,7 @@ namespace AnimalShelter.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.0")
+                .HasAnnotation("ProductVersion", "3.1.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -68,11 +68,17 @@ namespace AnimalShelter.Data.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DeletedOn")
@@ -88,6 +94,9 @@ namespace AnimalShelter.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Living")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -96,6 +105,9 @@ namespace AnimalShelter.Data.Migrations
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("NickName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasColumnType("nvarchar(256)")
@@ -117,6 +129,9 @@ namespace AnimalShelter.Data.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Sex")
+                        .HasColumnType("int");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -137,6 +152,290 @@ namespace AnimalShelter.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("AnimalShelter.Data.Models.BankAccount", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BankAccountNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("VetClinic")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("BankAccounts");
+                });
+
+            modelBuilder.Entity("AnimalShelter.Data.Models.HomePet", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Breed")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Sex")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("HomePets");
+                });
+
+            modelBuilder.Entity("AnimalShelter.Data.Models.PetAdoptionPost", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsAdopted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Likes")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Location")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Sex")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PetAdoptionPosts");
+                });
+
+            modelBuilder.Entity("AnimalShelter.Data.Models.PetLostAndFoundPost", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Likes")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Location")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PetStatus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Sex")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PetLostAndFoundPosts");
+                });
+
+            modelBuilder.Entity("AnimalShelter.Data.Models.Picture", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("HomePetId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("IsCoverPicture")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Path")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PetAdoptionPostId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("PetLostAndFoundPostId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ReplyId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("SuccessStoryId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HomePetId");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("PetAdoptionPostId");
+
+                    b.HasIndex("PetLostAndFoundPostId");
+
+                    b.HasIndex("ReplyId");
+
+                    b.HasIndex("SuccessStoryId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Pictures");
+                });
+
+            modelBuilder.Entity("AnimalShelter.Data.Models.Reply", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PetAdoptionPostId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("PetLostAndFoundPostId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("SuccessStoryId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("PetAdoptionPostId");
+
+                    b.HasIndex("PetLostAndFoundPostId");
+
+                    b.HasIndex("SuccessStoryId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Replies");
                 });
 
             modelBuilder.Entity("AnimalShelter.Data.Models.Setting", b =>
@@ -169,6 +468,47 @@ namespace AnimalShelter.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.ToTable("Settings");
+                });
+
+            modelBuilder.Entity("AnimalShelter.Data.Models.SuccessStory", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Likes")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PersonName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PetName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("SuccessStories");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -273,6 +613,80 @@ namespace AnimalShelter.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("AnimalShelter.Data.Models.HomePet", b =>
+                {
+                    b.HasOne("AnimalShelter.Data.Models.ApplicationUser", "User")
+                        .WithMany("HomePets")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("AnimalShelter.Data.Models.PetAdoptionPost", b =>
+                {
+                    b.HasOne("AnimalShelter.Data.Models.ApplicationUser", "User")
+                        .WithMany("PetAdoptionPosts")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("AnimalShelter.Data.Models.PetLostAndFoundPost", b =>
+                {
+                    b.HasOne("AnimalShelter.Data.Models.ApplicationUser", "User")
+                        .WithMany("PetLostAndFoundPosts")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("AnimalShelter.Data.Models.Picture", b =>
+                {
+                    b.HasOne("AnimalShelter.Data.Models.HomePet", null)
+                        .WithMany("PetPictures")
+                        .HasForeignKey("HomePetId");
+
+                    b.HasOne("AnimalShelter.Data.Models.PetAdoptionPost", null)
+                        .WithMany("PostPictures")
+                        .HasForeignKey("PetAdoptionPostId");
+
+                    b.HasOne("AnimalShelter.Data.Models.PetLostAndFoundPost", null)
+                        .WithMany("PostPictures")
+                        .HasForeignKey("PetLostAndFoundPostId");
+
+                    b.HasOne("AnimalShelter.Data.Models.Reply", null)
+                        .WithMany("ReplyPictures")
+                        .HasForeignKey("ReplyId");
+
+                    b.HasOne("AnimalShelter.Data.Models.SuccessStory", null)
+                        .WithMany("PostPictures")
+                        .HasForeignKey("SuccessStoryId");
+
+                    b.HasOne("AnimalShelter.Data.Models.ApplicationUser", "User")
+                        .WithMany("UserPictures")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("AnimalShelter.Data.Models.Reply", b =>
+                {
+                    b.HasOne("AnimalShelter.Data.Models.PetAdoptionPost", null)
+                        .WithMany("Replies")
+                        .HasForeignKey("PetAdoptionPostId");
+
+                    b.HasOne("AnimalShelter.Data.Models.PetLostAndFoundPost", null)
+                        .WithMany("Replies")
+                        .HasForeignKey("PetLostAndFoundPostId");
+
+                    b.HasOne("AnimalShelter.Data.Models.SuccessStory", null)
+                        .WithMany("Replies")
+                        .HasForeignKey("SuccessStoryId");
+
+                    b.HasOne("AnimalShelter.Data.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("AnimalShelter.Data.Models.SuccessStory", b =>
+                {
+                    b.HasOne("AnimalShelter.Data.Models.ApplicationUser", "User")
+                        .WithMany("SuccessStories")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
