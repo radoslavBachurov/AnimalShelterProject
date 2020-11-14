@@ -6,11 +6,10 @@ using System.Text;
 
 namespace AnimalShelter.Data.Models
 {
-    public class Reply : BaseDeletableModel<string>
+    public class Reply : BaseDeletableModel<int>
     {
         public Reply()
         {
-            this.Id = Guid.NewGuid().ToString();
             this.ReplyPictures = new HashSet<Picture>();
         }
 

@@ -6,11 +6,10 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public class PetAdoptionPost : BaseDeletableModel<string>
+    public class PetAdoptionPost : BaseDeletableModel<int>
     {
         public PetAdoptionPost()
         {
-            this.Id = Guid.NewGuid().ToString();
             this.PostPictures = new HashSet<Picture>();
             this.Replies = new HashSet<Reply>();
         }

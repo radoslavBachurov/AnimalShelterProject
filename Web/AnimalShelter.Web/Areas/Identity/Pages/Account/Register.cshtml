@@ -1,0 +1,85 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<!-- Breadcrumbs & Page title-->
+<div class="page-title">
+    <div class="page-title-text">Регистрация</div>
+    <ul class="breadcrumbs-custom">
+        <li><a asp-area="" asp-controller="Home" asp-action="Index">Начало</a></li>
+        <li class="active">Регистрация</li>
+    </ul>
+</div>
+<!-- Register page-->
+<section class="section-md bg-white text-center">
+    <div class="shell">
+        <div class="range range-sm-center spacing-55">
+            <div class="cell-xs-12">
+                <h2>Register</h2>
+            </div>
+            <div class="cell-sm-9 cell-md-7 cell-lg-6">
+                <div class="inset-sm-25">
+                    <section>
+                        <hr />
+                        @{
+                            if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                            {
+                                <div>
+                                    <p>
+                                        There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
+                                        for details on setting up this ASP.NET application to support logging in via external services.
+                                    </p>
+                                </div>
+                            }
+                            else
+                            {
+                                <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                                    <div>
+                                        <p>
+                                            @foreach (var provider in Model.ExternalLogins)
+                                            {
+                                                <div class="group-sm group-sm-justify group-middle"> <button type="submit" class="btn btn-round btn-facebook btn-icon btn-icon-left" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><span class="icon fa fa-facebook"></span>@provider.DisplayName</button></div>
+                                            }
+                                        </p>
+                                    </div>
+                                </form>
+                            }
+                        }
+                    </section>
+                    <div class="text-decoration-lines"><span class="text-decoration-lines-content">OR</span></div>
+                    <!-- RD Mailform-->
+                    <form class="rd-mailform form-label-centered" data-form-output="form-output-global" data-form-type="contact" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                        <hr />
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <label class="form-label-outside" for="register-name">Name</label>
+                            <input class="form-control" id="register-name" type="text" name="name">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label-outside" asp-for="Input.Email">E-mail</label>
+                            <input class="form-control" id="register-email" type="email" name="email" asp-for="Input.Email">
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label-outside" asp-for="Input.Password">Password</label>
+                            <input class="form-control" id="register-password" type="password" name="pass" asp-for="Input.Password">
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label-outside" asp-for="Input.ConfirmPassword">Repeat your password</label>
+                            <input class="form-control" id="register-password-2" type="password" name="pass2" asp-for="Input.ConfirmPassword">
+                            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                        </div>
+                        <button class="btn btn-tan-hide btn-block" type="submit">Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

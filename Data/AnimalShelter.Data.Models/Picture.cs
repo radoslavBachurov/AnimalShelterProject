@@ -15,6 +15,8 @@ namespace AnimalShelter.Data.Models
 
         public string Path { get; set; }
 
+        public string Extension { get; set; }
+
         [ForeignKey(nameof(User))]
         public string UserId { get; set; }
 

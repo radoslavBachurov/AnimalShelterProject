@@ -7,11 +7,10 @@ using System.Text;
 
 namespace AnimalShelter.Data.Models
 {
-    public class PetLostAndFoundPost : BaseDeletableModel<string>
+    public class PetLostAndFoundPost : BaseDeletableModel<int>
     {
         public PetLostAndFoundPost()
         {
-            this.Id = Guid.NewGuid().ToString();
             this.PostPictures = new HashSet<Picture>();
             this.Replies = new HashSet<Reply>();
         }
@@ -34,6 +33,8 @@ namespace AnimalShelter.Data.Models
         public PetStatus PetStatus { get; set; }
 
         public int Likes { get; set; }
+
+        public bool IsFound { get; set; }
 
         public virtual ICollection<Picture> PostPictures { get; set; }
 

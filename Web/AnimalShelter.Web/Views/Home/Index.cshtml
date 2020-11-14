@@ -1,4 +1,11 @@
-﻿ <!-- Swiper-->
+﻿@{
+    this.Layout = "_LayoutMainPage";
+}
+@{
+    this.ViewData["Title"] = "Home Page";
+}
+@model AnimalShelter.Web.ViewModels.Home.IndexViewModel
+<!-- Swiper-->
 <section>
     <div class="swiper-bg-wrap swiper-style-1 bg-gray-dark">
         <div class="swiper-container swiper-slider swiper-bg swiper-height-1" data-autoplay="3500" data-slide-effect="fade">
@@ -90,8 +97,15 @@
                         <div class="thumbnail-modern-caption-body">
                             <div class="thumbnail-modern-title-left">Кучета</div>
                             <div class="thumbnail-modern-title-right">
-                                <span>Повече от</span>
-                                <div><span class="number">124</span><span>кучета</span></div>
+                                @if (Model.DogsCount > 0)
+                                {
+                                    <span>Повече от</span>
+                                    <div><span class="number">@Model.DogsCount</span><span>кучета</span></div>
+                                }
+                                else
+                                {
+                                    <span>Няма животни</span>
+                                }
                             </div>
                         </div>
                         <div class="thumbnail-modern-caption-aside"><a class="thumbnail-modern-control" href="adopt-a-pet.html#adopt-dogs">повече</a></div>
@@ -106,8 +120,15 @@
                         <div class="thumbnail-modern-caption-body">
                             <div class="thumbnail-modern-title-left">Котки</div>
                             <div class="thumbnail-modern-title-right">
-                                <span>повече от</span>
-                                <div><span class="number">155</span><span>котки</span></div>
+                                @if (Model.CatCount > 0)
+                                {
+                                    <span>Повече от</span>
+                                    <div><span class="number">@Model.CatCount</span><span>котки</span></div>
+                                }
+                                else
+                                {
+                                    <span>Няма животни</span>
+                                }
                             </div>
                         </div>
                         <div class="thumbnail-modern-caption-aside"><a class="thumbnail-modern-control" href="adopt-a-pet.html#adopt-cats">повече</a></div>
@@ -122,8 +143,15 @@
                         <div class="thumbnail-modern-caption-body">
                             <div class="thumbnail-modern-title-left">Други</div>
                             <div class="thumbnail-modern-title-right">
-                                <span>повече от</span>
-                                <div><span class="number">155</span><span>други животни</span></div>
+                                @if (Model.OtherAnimalsCount > 0)
+                                {
+                                    <span>Повече от</span>
+                                    <div><span class="number">@Model.OtherAnimalsCount</span><span>други</span></div>
+                                }
+                                else
+                                {
+                                    <span>Няма животни</span>
+                                }
                             </div>
                         </div>
                         <div class="thumbnail-modern-caption-aside"><a class="thumbnail-modern-control" href="adopt-a-pet.html#adopt-small-pets">повече</a></div>
@@ -133,12 +161,15 @@
         </div>
     </div>
     <div class="shell text-center">
-        <article class="box-text">
-            <h1>повече от 2450</h1>
-            <div class="group-lg group-middle">
-                <h3 class="displacement-1">животни</h3><a class="btn btn-blue-marguerite btn-effect-anis" href="adopt-a-pet.html">виж всички</a>
-            </div>
-        </article>
+        @if (Model.AllAnimals > 0)
+        {
+            <article class="box-text">
+                <h1>повече от @Model.AllAnimals</h1>
+                <div class="group-lg group-middle">
+                    <h3 class="displacement-1">животни</h3><a class="btn btn-blue-marguerite btn-effect-anis" href="adopt-a-pet.html">виж всички</a>
+                </div>
+            </article>
+        }
     </div>
 </section>
 
@@ -155,16 +186,16 @@
                 <div class="section-decoration-content">
                     <div class="section-lg">
                         <h2>About Us</h2>-->
-                        <!-- Bootstrap tabs-->
-                        <!--<div class="tabs-custom tabs-horizontal tabs-line tabs-left" id="tabs-1">-->
-                            <!-- Nav tabs-->
-                            <!--<ul class="nav nav-tabs">
-                                <li class="active"><a href="#tabs-1-1" data-toggle="tab">our mission</a></li>
-                                <li><a href="#tabs-1-2" data-toggle="tab">Our goal</a></li>
-                                <li><a href="#tabs-1-3" data-toggle="tab">OUR VISION</a></li>
-                            </ul>-->
-                            <!-- Tab panes-->
-                            <!--<div class="tab-content">
+<!-- Bootstrap tabs-->
+<!--<div class="tabs-custom tabs-horizontal tabs-line tabs-left" id="tabs-1">-->
+<!-- Nav tabs-->
+<!--<ul class="nav nav-tabs">
+    <li class="active"><a href="#tabs-1-1" data-toggle="tab">our mission</a></li>
+    <li><a href="#tabs-1-2" data-toggle="tab">Our goal</a></li>
+    <li><a href="#tabs-1-3" data-toggle="tab">OUR VISION</a></li>
+</ul>-->
+<!-- Tab panes-->
+<!--<div class="tab-content">
                                 <div class="tab-pane fade in active" id="tabs-1-1">
                                     <p>Every year hundreds of animals such as dogs or cats become homeless for many reasons. Our mission is to find the homeless animals around the country and give them a better life.</p>
                                 </div>
@@ -182,101 +213,51 @@
         </div>
     </div>
 </section>-->
-
 <!-- SUCCESS STORIES-->
 <section class="section-md bg-gray-light text-center">
     <div class="shell">
         <div class="range spacing-30">
             <div class="cell-xs-12">
                 <h2>история с щастлив край</h2>
-                <p class="large">Сподели снимка и кажи какво значи твоят домашен любимец за теб</p>
+                <p class="large"><a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" href="adopt-a-pet.html" data-wow-delay="0.2s" data-wow-duration=".75s">Сподели</a>снимка и кажи какво значи твоят домашен любимец за теб</p>
             </div>
             <div class="cell-xs-12">
                 <div class="range range-sm-center spacing-30">
-                    <div class="cell-sm-10 cell-md-6 height-fill">
-                        <!-- Quote boxed-->
-                        <blockquote class="quote-boxed">
-                            <div class="quote-boxed-left">
-                                <img class="quote-boxed-image" src="images/home1-6-280x320.jpg" alt="" width="280" height="320" />
+                    @if (Model.HappyStories.Any())
+                    {
+                        foreach (var story in Model.HappyStories)
+                        {
+                            <div class="cell-sm-10 cell-md-6 height-fill">
+                                <!-- Quote boxed-->
+                                <blockquote class="quote-boxed">
+                                    <div class="quote-boxed-left">
+                                        <img class="quote-boxed-image" src="images/home1-6-280x320.jpg" alt="" width="280" height="320" />
+                                    </div>
+                                    <div class="quote-boxed-body">
+                                        <cite>@story.PersonName</cite>
+                                        <p class="caption">and @story.PetName</p>
+                                        <p class="quote-text">
+                                            <q>@story.Description</q>
+                                        </p>
+                                        <div class="quote-boxed-meta">
+                                            <ul class="quote-boxed-meta-list">
+                                                <li class="object-inline"><span class="icon icon-sm icon-primary-filled icon-circle mdi mdi-thumb-up-outline"></span><span>10</span></li>
+                                                <li><span>@story.CreatedOn</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </blockquote>
                             </div>
-                            <div class="quote-boxed-body">
-                                <cite>Karen Sanders</cite>
-                                <p class="caption">and Lex</p>
-                                <p class="quote-text">
-                                    <q>When I saw her picture on the site, I knew she had found her home.  She is a non-shedding bundle of cuteness affectionately known as ‘Lex”.</q>
-                                </p>
-                                <div class="quote-boxed-meta">
-                                    <ul class="quote-boxed-meta-list">
-                                        <li class="object-inline"><span class="icon icon-sm icon-primary-filled icon-circle mdi mdi-thumb-up-outline"></span><span>10</span></li>
-                                        <li><span>March 15, 2016</span></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </blockquote>
-                    </div>
-                    <div class="cell-sm-10 cell-md-6 height-fill">
-                        <!-- Quote boxed-->
-                        <blockquote class="quote-boxed">
-                            <div class="quote-boxed-left">
-                                <img class="quote-boxed-image" src="images/home1-7-280x320.jpg" alt="" width="280" height="320" />
-                            </div>
-                            <div class="quote-boxed-body">
-                                <cite>Jasmine Lee</cite>
-                                <p class="caption">and Misty</p>
-                                <p class="quote-text">
-                                    <q>After adopting Misty in 2012, my life has changed greatly. I really appreciate what you did for her, and I’m glad that she found us.</q>
-                                </p>
-                                <div class="quote-boxed-meta">
-                                    <ul class="quote-boxed-meta-list">
-                                        <li class="object-inline"><span class="icon icon-sm icon-primary-filled icon-circle mdi mdi-thumb-up-outline"></span><span>43</span></li>
-                                        <li><span>May 08, 2016</span></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </blockquote>
-                    </div>
-                    <div class="cell-sm-10 cell-md-6 height-fill">
-                        <!-- Quote boxed-->
-                        <blockquote class="quote-boxed">
-                            <div class="quote-boxed-left">
-                                <img class="quote-boxed-image" src="images/home1-8-280x320.jpg" alt="" width="280" height="320" />
-                            </div>
-                            <div class="quote-boxed-body">
-                                <cite>Joanna Smith</cite>
-                                <p class="caption">and Delta</p>
-                                <p class="quote-text">
-                                    <q>Delta is one of the most energetic and cheerful dogs I ever had! Thank you, Animal Shelter, for making my life more positive and happier!</q>
-                                </p>
-                                <div class="quote-boxed-meta">
-                                    <ul class="quote-boxed-meta-list">
-                                        <li class="object-inline"><span class="icon icon-sm icon-primary-filled icon-circle mdi mdi-thumb-up-outline"></span><span>23</span></li>
-                                        <li><span>June 16, 2016</span></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </blockquote>
-                    </div>
-                    <div class="cell-sm-10 cell-md-6 height-fill">
-                        <!-- Quote boxed-->
-                        <blockquote class="quote-boxed">
-                            <div class="quote-boxed-left">
-                                <img class="quote-boxed-image" src="images/home1-9-280x320.jpg" alt="" width="280" height="320" />
-                            </div>
-                            <div class="quote-boxed-body">
-                                <cite>Emily Peterson</cite>
-                                <p class="caption">and Franco</p>
-                                <p class="quote-text">
-                                    <q>Thank you for helping me find a great friend for our family and children. Franco feels great in his new forever home, and it’s thanks to you!</q>
-                                </p>
-                                <div class="quote-boxed-meta">
-                                    <ul class="quote-boxed-meta-list">
-                                        <li class="object-inline"><span class="icon icon-sm icon-primary-filled icon-circle mdi mdi-thumb-up-outline"></span><span>13</span></li>
-                                        <li><span>July 26, 2016</span></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </blockquote>
-                    </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="shell text-center">
+                            <article class="box-text">
+                                <h1>Няма истории</h1>
+                            </article>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
@@ -288,19 +269,19 @@
         <div class="range range-custom-bordered-small">
             <div class="cell-xs-6 cell-sm-4 cell-md-3 cell-bordered">
                 <div class="counter-box-bold">
-                    <div class="counter" data-from="0" data-to="12">12</div>
+                    <div class="counter" data-from="0" data-to="@Model.AllAnimals">@Model.AllAnimals</div>
                     <p class="counter-box-header">Търсещи дом</p>
                 </div>
             </div>
             <div class="cell-xs-6 cell-sm-4 cell-md-3 cell-bordered">
                 <div class="counter-box-bold">
-                    <div class="counter counter-k" data-from="0" data-to="2.5" data-formatter="false">2.5</div>
+                    <div class="counter" data-from="0" data-to="@Model.AdoptedAnimals" data-formatter="false">@Model.AdoptedAnimals</div>
                     <p class="counter-box-header">Осиновени животни</p>
                 </div>
             </div>
             <div class="cell-xs-6 cell-sm-4 cell-md-3 cell-bordered">
                 <div class="counter-box-bold">
-                    <div class="counter" data-from="0" data-to="140">140</div>
+                    <div class="counter" data-from="0" data-to="@Model.Volunteers">@Model.Volunteers</div>
                     <p class="counter-box-header">Доброволци</p>
                 </div>
             </div>
@@ -322,54 +303,54 @@
         <h2>recent news</h2>
         <div class="range range-sm-center spacing-30">
             <div class="cell-sm-10 cell-md-6">-->
-                <!-- Post boxed-->
-                <!--<article class="post-boxed">
-                    <div class="post-boxed-image-wrap">
-                        <img class="post-boxed-image" src="images/home1-10-572x333.jpg" alt="" width="572" height="333" />
-                    </div>
-                    <div class="post-boxed-body">
-                        <p class="post-boxed-title"><a href="single-post.html">Top 4 Dog Breeds You Can Easily Take to Work</a></p>
-                        <div class="post-boxed-text">
-                            <p>A dog in the workplace provides many positive benefits. However, before you decide to bring your dog to work with you check your company policies...</p>
-                        </div>
-                        <div class="post-boxed-footer">
-                            <ul class="post-meta">
-                                <li>
-                                    <span class="icon icon-xs icon-tan-hide material-icons-access_time"></span>
-                                    <time datetime="2016-01-01">February 10, 2016</time>
-                                </li>
-                                <li><span class="icon icon-xs icon-tan-hide mdi mdi-thumb-up"></span><span>23</span></li>
-                                <li><a href="single-post.html"><span class="icon icon-xs icon-tan-hide mdi mdi-comment-outline"></span><span>6</span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </article>
+<!-- Post boxed-->
+<!--<article class="post-boxed">
+        <div class="post-boxed-image-wrap">
+            <img class="post-boxed-image" src="images/home1-10-572x333.jpg" alt="" width="572" height="333" />
+        </div>
+        <div class="post-boxed-body">
+            <p class="post-boxed-title"><a href="single-post.html">Top 4 Dog Breeds You Can Easily Take to Work</a></p>
+            <div class="post-boxed-text">
+                <p>A dog in the workplace provides many positive benefits. However, before you decide to bring your dog to work with you check your company policies...</p>
             </div>
-            <div class="cell-sm-10 cell-md-6">-->
-                <!-- Post boxed-->
-                <!--<article class="post-boxed post-boxed-xs-horizontal post-boxed-blue-marguerite">
-                    <div class="post-boxed-image-wrap">
-                        <img class="post-boxed-image" src="images/home1-11-237x268.jpg" alt="" width="237" height="268" />
-                    </div>
-                    <div class="post-boxed-body">
-                        <p class="post-boxed-title"><a href="single-post.html">Wellness Care Plans for Your Pets</a></p>
-                        <div class="post-boxed-text">
-                            <p>Have you ever considered enrolling your pet in a wellness care plan? These plans are quickly gaining popularity, and with good reason...</p>
-                        </div>
-                        <div class="post-boxed-footer">
-                            <ul class="post-meta">
-                                <li>
-                                    <span class="icon icon-xs icon-tan-hide material-icons-access_time"></span>
-                                    <time datetime="2016-01-01">February 10, 2016</time>
-                                </li>
-                                <li><span class="icon icon-xs icon-tan-hide mdi mdi-thumb-up"></span><span>23</span></li>
-                                <li><a href="single-post.html"><span class="icon icon-xs icon-tan-hide mdi mdi-comment-outline"></span><span>6</span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </article>-->
-                <!-- Post boxed-->
-                <!--<article class="post-boxed post-boxed-xs-horizontal post-boxed-tan-hide">
+            <div class="post-boxed-footer">
+                <ul class="post-meta">
+                    <li>
+                        <span class="icon icon-xs icon-tan-hide material-icons-access_time"></span>
+                        <time datetime="2016-01-01">February 10, 2016</time>
+                    </li>
+                    <li><span class="icon icon-xs icon-tan-hide mdi mdi-thumb-up"></span><span>23</span></li>
+                    <li><a href="single-post.html"><span class="icon icon-xs icon-tan-hide mdi mdi-comment-outline"></span><span>6</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </article>
+</div>
+<div class="cell-sm-10 cell-md-6">-->
+<!-- Post boxed-->
+<!--<article class="post-boxed post-boxed-xs-horizontal post-boxed-blue-marguerite">
+    <div class="post-boxed-image-wrap">
+        <img class="post-boxed-image" src="images/home1-11-237x268.jpg" alt="" width="237" height="268" />
+    </div>
+    <div class="post-boxed-body">
+        <p class="post-boxed-title"><a href="single-post.html">Wellness Care Plans for Your Pets</a></p>
+        <div class="post-boxed-text">
+            <p>Have you ever considered enrolling your pet in a wellness care plan? These plans are quickly gaining popularity, and with good reason...</p>
+        </div>
+        <div class="post-boxed-footer">
+            <ul class="post-meta">
+                <li>
+                    <span class="icon icon-xs icon-tan-hide material-icons-access_time"></span>
+                    <time datetime="2016-01-01">February 10, 2016</time>
+                </li>
+                <li><span class="icon icon-xs icon-tan-hide mdi mdi-thumb-up"></span><span>23</span></li>
+                <li><a href="single-post.html"><span class="icon icon-xs icon-tan-hide mdi mdi-comment-outline"></span><span>6</span></a></li>
+            </ul>
+        </div>
+    </div>
+</article>-->
+<!-- Post boxed-->
+<!--<article class="post-boxed post-boxed-xs-horizontal post-boxed-tan-hide">
                     <div class="post-boxed-image-wrap">
                         <img class="post-boxed-image" src="images/home1-12-237x268.jpg" alt="" width="237" height="268" />
                     </div>
@@ -394,7 +375,6 @@
         </div>
     </div>
 </section>-->
-
 <!-- RD Google Map-->
 <section class="box-wrap">
     <div class="box-wrap-map">

@@ -7,11 +7,10 @@ using System.Text;
 
 namespace AnimalShelter.Data.Models
 {
-    public class HomePet : BaseDeletableModel<string>
+    public class HomePet : BaseDeletableModel<int>
     {
         public HomePet()
         {
-            this.Id = Guid.NewGuid().ToString();
             this.PetPictures = new HashSet<Picture>();
         }
 

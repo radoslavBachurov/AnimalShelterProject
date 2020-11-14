@@ -156,8 +156,10 @@ namespace AnimalShelter.Data.Migrations
 
             modelBuilder.Entity("AnimalShelter.Data.Models.BankAccount", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
@@ -189,8 +191,10 @@ namespace AnimalShelter.Data.Migrations
 
             modelBuilder.Entity("AnimalShelter.Data.Models.HomePet", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Breed")
                         .HasColumnType("nvarchar(max)");
@@ -233,8 +237,10 @@ namespace AnimalShelter.Data.Migrations
 
             modelBuilder.Entity("AnimalShelter.Data.Models.PetAdoptionPost", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -283,8 +289,10 @@ namespace AnimalShelter.Data.Migrations
 
             modelBuilder.Entity("AnimalShelter.Data.Models.PetLostAndFoundPost", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -293,6 +301,9 @@ namespace AnimalShelter.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsFound")
                         .HasColumnType("bit");
 
                     b.Property<int>("Likes")
@@ -342,8 +353,11 @@ namespace AnimalShelter.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("HomePetId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<string>("Extension")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("HomePetId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsCoverPicture")
                         .HasColumnType("bit");
@@ -357,17 +371,17 @@ namespace AnimalShelter.Data.Migrations
                     b.Property<string>("Path")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PetAdoptionPostId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("PetAdoptionPostId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("PetLostAndFoundPostId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("PetLostAndFoundPostId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("ReplyId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("ReplyId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("SuccessStoryId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("SuccessStoryId")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -393,8 +407,10 @@ namespace AnimalShelter.Data.Migrations
 
             modelBuilder.Entity("AnimalShelter.Data.Models.Reply", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -408,14 +424,14 @@ namespace AnimalShelter.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("PetAdoptionPostId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("PetAdoptionPostId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("PetLostAndFoundPostId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("PetLostAndFoundPostId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("SuccessStoryId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("SuccessStoryId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
@@ -472,8 +488,10 @@ namespace AnimalShelter.Data.Migrations
 
             modelBuilder.Entity("AnimalShelter.Data.Models.SuccessStory", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");

@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\AnimalShelter.Data.Common\AnimalShelter.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\AnimalShelter.Data.Models\AnimalShelter.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Web\AnimalShelter.Web.ViewModels\AnimalShelter.Web.ViewModels.csproj" />
     <ProjectReference Include="..\AnimalShelter.Services.Mapping\AnimalShelter.Services.Mapping.csproj" />
   </ItemGroup>
 
