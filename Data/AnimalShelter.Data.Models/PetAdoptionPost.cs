@@ -14,9 +14,7 @@
             this.Replies = new HashSet<Reply>();
         }
 
-        public string Title { get; set; }
-
-        public string Text { get; set; }
+        public string Description { get; set; }
 
         [ForeignKey(nameof(User))]
         public string UserId { get; set; }

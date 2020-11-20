@@ -61,16 +61,19 @@
                                     <a asp-area="" asp-controller="Home" asp-action="Index">За нас</a>
                                 </li>
                                 <li>
-                                    <a asp-area="" asp-controller="Home" asp-action="Index">Осинови</a>
+                                    <a asp-area="" asp-controller="Adopt" asp-action="Index">Осинови</a>
                                     <ul class="rd-navbar-dropdown tabs-nav">
                                         <li>
-                                            <a asp-area="" asp-controller="Home" asp-action="Index">Осинови Котка</a>
+                                            <a href="Adopt/Index/#adopt-cats">Осинови Котка</a>
                                         </li>
                                         <li>
-                                            <a asp-area="" asp-controller="Home" asp-action="Index">Осинови Куче</a>
+                                            <a href="Adopt/Index/#adopt-dogs">Осинови Куче</a>
                                         </li>
                                         <li>
-                                            <a asp-area="" asp-controller="Home" asp-action="Index">Други</a>
+                                            <a href="Adopt/Index/#adopt-other">Други</a>
+                                        </li>
+                                        <li>
+                                            <a asp-area="" asp-controller="Adopt" asp-action="Create">Създай пост за осиновяване</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -105,9 +108,12 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li>
-                                    <a asp-area="" asp-controller="Home" asp-action="Index">Профил</a>
-                                </li>
+                                @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                                {
+                                    <li>
+                                        <a asp-area="" asp-controller="Home" asp-action="Index">Профил</a>
+                                    </li>
+                                }
                                 <partial name="_LoginPartial" />
                             </ul>
                         </div>
@@ -228,7 +234,7 @@
     @await this.RenderSectionAsync("Scripts", required: false)
     <script src="~/js/core.min.js"></script>
     <script src="~/js/script.js"></script>
-</body>
-</html>
+    </body>
+    </html>
 
 

@@ -61,16 +61,19 @@
                                     <a asp-area="" asp-controller="Home" asp-action="Loginn">@Localizer["AboutUs"]</a>
                                 </li>
                                 <li>
-                                    <a asp-area="" asp-controller="Home" asp-action="Index">@Localizer["Adopt"]</a>
+                                    <a asp-area="" asp-controller="Adopt" asp-action="Index">@Localizer["Adopt"]</a>
                                     <ul class="rd-navbar-dropdown tabs-nav">
                                         <li>
-                                            <a asp-area="" asp-controller="Home" asp-action="Index">@Localizer["AdoptCat"]</a>
+                                            <a href="Adopt/Index/#adopt-cats">@Localizer["AdoptCat"]</a>
                                         </li>
                                         <li>
-                                            <a asp-area="" asp-controller="Home" asp-action="Index">@Localizer["AdoptDog"]</a>
+                                            <a href="Adopt/Index/#adopt-dogs">@Localizer["AdoptDog"]</a>
                                         </li>
                                         <li>
-                                            <a asp-area="" asp-controller="Home" asp-action="Index">@Localizer["AdoptOther"]</a>
+                                            <a href="Adopt/Index/#adopt-other">@Localizer["AdoptOther"]</a>
+                                        </li>
+                                        <li>
+                                            <a asp-area="" asp-controller="Adopt" asp-action="Create">Създай пост за осиновяване</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -107,9 +110,9 @@
                                 </li>
                                 @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                                 {
-                                <li>
-                                    <a asp-area="" asp-controller="Home" asp-action="Index">Профил</a>
-                                </li>
+                                    <li>
+                                        <a asp-area="" asp-controller="Home" asp-action="Index">Профил</a>
+                                    </li>
                                 }
                                 <li>
                                     <a><i class="fas fa-globe"></i></a>
@@ -279,6 +282,6 @@
     <script src="~/js/core.min.js"></script>
     <script src="~/js/script.js"></script>
 </body>
-</html>
+    </html>
 
 

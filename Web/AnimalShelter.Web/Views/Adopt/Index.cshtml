@@ -1,0 +1,178 @@
+﻿@{
+    this.ViewData["Title"] = "Adopt a Pet";
+}
+
+<!-- Breadcrumbs & Page title-->
+<div class="page-title">
+    <div class="page-title-text"><span data-content-to="#adopt-cats">Adopt Cats</span><span data-content-to="#adopt-dogs">Adopt Dogs</span><span data-content-to="#adopt-other">Adopt Other</span></div>
+    <ul class="breadcrumbs-custom">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="adopt-a-pet.html">Adopt a Pet</a></li>
+        <li class="active"><span data-content-to="#adopt-cats">Adopt Cats</span><span data-content-to="#adopt-dogs">Adopt Dogs</span><span data-content-to="#adopt-other">Adopt Other</span></li>
+    </ul>
+</div>
+<!-- RD Mailform-->
+<form class="rd-mailform form-style-classic">
+    <div class="range range-xs-center range-sm-bottom spacing-30">
+        <div class="cell-xs-10 cell-sm-6 cell-md-4">
+            <div class="form-group">
+                <label class="form-label-outside" for="form-location">Град</label>
+                <!--Select 2-->
+                <select class="form-control select-filter" id="form-location" data-placeholder="Any location" data-minimum-results-for-search="Infinity" data-constraints="@@Required" name="location">
+                    <option value="1">Навсякъде</option>
+                </select>
+            </div>
+        </div>
+        <div class="cell-xs-10 cell-sm-6 cell-md-4">
+            <div class="form-group">
+                <label class="form-label-outside" for="form-animal-type">Тип</label>
+                <!--Select 2-->
+                <select class="form-control select-filter" id="form-animal-type" data-placeholder="All" data-minimum-results-for-search="Infinity" data-constraints="@@Required" name="animal-type">
+                    <option value="1">Всички</option>
+                    <option value="2">Котка</option>
+                    <option value="3">Куче</option>
+                    <option value="4">Друго</option>
+                </select>
+            </div>
+        </div>
+        <div class="cell-xs-10 cell-sm-6 cell-md-4">
+            <div class="form-group">
+                <label class="form-label-outside" for="form-sex">Пол</label>
+                <!--Select 2-->
+                <select class="form-control select-filter" id="form-sex" data-placeholder="All" data-minimum-results-for-search="Infinity" data-constraints="@@Required" name="sex">
+                    <option value="1">Всички</option>
+                    <option value="2">Женско</option>
+                    <option value="3">Мъжко</option>
+                </select>
+            </div>
+        </div>
+        <div class="cell-xs-10 cell-sm-6 cell-md-4">
+            <div class="form-group">
+                <button class="btn btn-block btn-primary btn-effect-anis" type="submit">Намери</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- Adopt pets-->
+<section class="section-md bg-white text-center">
+    <div class="shell">
+        <!-- Bootstrap tabs-->
+        <div class="tabs tabs-custom tabs-vertical tabs-corporate tabs-wide" id="tabs-1" data-url-tabs="true">
+            <!-- Nav tabs-->
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#adopt-cats" data-toggle="tab">Adopt Cats</a></li>
+                <li><a href="#adopt-dogs" data-toggle="tab">Adopt Dogs</a></li>
+                <li><a href="#adopt-other" data-toggle="tab">Adopt Other</a></li>
+            </ul>
+            <!-- Tab panes-->
+            <div class="tab-content">
+                <!-- Tab 1-->
+                <div class="tab-pane fade in active" id="adopt-cats">
+                    <div class="range spacing-30">
+                        <div class="cell-xs-12">
+                            <!-- Thumbnail boxed horizontal-->
+                            <div class="thumbnail-boxed thumbnail-boxed-horizontal">
+                                <div class="thumbnail-boxed-left">
+                                    <img class="thumbnail-boxed-image" src="images/adopt-dogs-1-370x254.jpg" alt="" width="370" height="254" />
+                                </div>
+                                <div class="thumbnail-boxed-body">
+                                    <p class="thumbnail-boxed-title">Beasley</p>
+                                    <div class="thumbnail-boxed-text">
+                                        <p>He was in a shelter that lacked the resources to continue to care for him, so Beasley came to our shelter to find a new home. He is playful and cheerful dog, who enjoys playing with toys and often...</p>
+                                    </div>
+                                    <div class="thumbnail-boxed-footer">
+                                        <ul class="thumbnail-boxed-meta">
+                                            <li><span class="icon icon-xs icon-tan-hide material-icons-event_available"></span><span>2.5 years old</span></li>
+                                            <li><span class="icon icon-xs icon-tan-hide material-icons-done"></span><span>42 pounds</span></li>
+                                            <li><span class="icon icon-xs icon-tan-hide material-icons-place"></span><span>New York</span></li>
+                                        </ul>
+                                    </div>
+                                    <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" href="adopt-a-pet.html" data-wow-delay="0.2s" data-wow-duration=".75s">learn more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="pagination-custom">
+                        <li class="disabled"><a href="#" aria-label="Previous"></a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#" aria-label="Next"></a></li>
+                    </ul>
+                </div>
+                <!-- Tab 2-->
+                <div class="tab-pane fade" id="adopt-dogs">
+                    <div class="range spacing-30">
+                        <div class="cell-xs-12">
+                            <!-- Thumbnail boxed horizontal-->
+                            <div class="thumbnail-boxed thumbnail-boxed-horizontal">
+                                <div class="thumbnail-boxed-left">
+                                    <img class="thumbnail-boxed-image" src="images/adopt-dogs-1-370x254.jpg" alt="" width="370" height="254" />
+                                </div>
+                                <div class="thumbnail-boxed-body">
+                                    <p class="thumbnail-boxed-title">Beasley</p>
+                                    <div class="thumbnail-boxed-text">
+                                        <p>He was in a shelter that lacked the resources to continue to care for him, so Beasley came to our shelter to find a new home. He is playful and cheerful dog, who enjoys playing with toys and often...</p>
+                                    </div>
+                                    <div class="thumbnail-boxed-footer">
+                                        <ul class="thumbnail-boxed-meta">
+                                            <li><span class="icon icon-xs icon-tan-hide material-icons-event_available"></span><span>2.5 years old</span></li>
+                                            <li><span class="icon icon-xs icon-tan-hide material-icons-done"></span><span>42 pounds</span></li>
+                                            <li><span class="icon icon-xs icon-tan-hide material-icons-place"></span><span>New York</span></li>
+                                        </ul>
+                                    </div>
+                                    <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" href="adopt-a-pet.html" data-wow-delay="0.2s" data-wow-duration=".75s">learn more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="pagination-custom">
+                        <li class="disabled"><a href="#" aria-label="Previous"></a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#" aria-label="Next"></a></li>
+                    </ul>
+                </div>
+                <!-- Tab 3-->
+                <div class="tab-pane fade" id="adopt-other">
+                    <div class="range spacing-30">
+                        <div class="cell-xs-12">
+                            <!-- Thumbnail boxed horizontal-->
+                            <div class="thumbnail-boxed thumbnail-boxed-horizontal">
+                                <div class="thumbnail-boxed-left">
+                                    <img class="thumbnail-boxed-image" src="images/adopt-dogs-1-370x254.jpg" alt="" width="370" height="254" />
+                                </div>
+                                <div class="thumbnail-boxed-body">
+                                    <p class="thumbnail-boxed-title">Beasley</p>
+                                    <div class="thumbnail-boxed-text">
+                                        <p>He was in a shelter that lacked the resources to continue to care for him, so Beasley came to our shelter to find a new home. He is playful and cheerful dog, who enjoys playing with toys and often...</p>
+                                    </div>
+                                    <div class="thumbnail-boxed-footer">
+                                        <ul class="thumbnail-boxed-meta">
+                                            <li><span class="icon icon-xs icon-tan-hide material-icons-event_available"></span><span>2.5 years old</span></li>
+                                            <li><span class="icon icon-xs icon-tan-hide material-icons-done"></span><span>42 pounds</span></li>
+                                            <li><span class="icon icon-xs icon-tan-hide material-icons-place"></span><span>New York</span></li>
+                                        </ul>
+                                    </div>
+                                    <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" href="adopt-a-pet.html" data-wow-delay="0.2s" data-wow-duration=".75s">learn more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="pagination-custom">
+                        <li class="disabled"><a href="#" aria-label="Previous"></a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#" aria-label="Next"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
