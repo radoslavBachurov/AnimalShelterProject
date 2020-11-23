@@ -5,5 +5,7 @@
         public const string SystemName = "AnimalShelter";
 
         public const string AdministratorRoleName = "Administrator";
+
+        public const string ModeratorRoleName = "Moderator";
     }
 }

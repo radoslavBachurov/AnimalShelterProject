@@ -33,7 +33,7 @@ namespace AnimalShelter.Data.Models
 
         public DateTime? DeletedOn { get; set; }
 
-        public string NickName { get; set; }
+        public string Nickname { get; set; }
 
         public int Age { get; set; }
 

@@ -49,27 +49,28 @@
                         }
                     </section>
                     <div class="text-decoration-lines"><span class="text-decoration-lines-content">OR</span></div>
-                    <!-- RD Mailform-->
-                    <form class="form-label-centered" data-form-output="form-output-global" data-form-type="contact" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                    <!-- Register Form-->
+                    <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
                         <hr />
                         <div asp-validation-summary="All" class="text-danger"></div>
                         <div class="form-group">
-                            <label class="form-label-outside" for="register-name">Name</label>
-                            <input class="form-control" id="register-name" type="text" name="name">
+                            <label class="form-label-outside" asp-for="Input.UserName"></label>
+                            <input asp-for="Input.UserName" class="form-control" />
+                            <span asp-validation-for="Input.UserName" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label class="form-label-outside" asp-for="Input.Email">E-mail</label>
-                            <input class="form-control" id="register-email" type="email" name="email" asp-for="Input.Email">
+                            <input class="form-control" asp-for="Input.Email">
                             <span asp-validation-for="Input.Email" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label class="form-label-outside" asp-for="Input.Password">Password</label>
-                            <input class="form-control" id="register-password" type="password" name="pass" asp-for="Input.Password">
+                            <input class="form-control" asp-for="Input.Password">
                             <span asp-validation-for="Input.Password" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label class="form-label-outside" asp-for="Input.ConfirmPassword">Repeat your password</label>
-                            <input class="form-control" id="register-password-2" type="password" name="pass2" asp-for="Input.ConfirmPassword">
+                            <input class="form-control" asp-for="Input.ConfirmPassword">
                             <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                         </div>
                         <button class="btn btn-tan-hide btn-block" type="submit">Register</button>

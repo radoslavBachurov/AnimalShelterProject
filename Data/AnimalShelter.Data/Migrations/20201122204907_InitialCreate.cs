@@ -48,7 +48,7 @@ namespace AnimalShelter.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    NickName = table.Column<string>(nullable: true),
+                    Nickname = table.Column<string>(nullable: true),
                     Age = table.Column<int>(nullable: false),
                     Living = table.Column<string>(nullable: true),
                     Sex = table.Column<int>(nullable: false),
@@ -240,14 +240,14 @@ namespace AnimalShelter.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Title = table.Column<string>(nullable: true),
-                    Text = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: true),
                     Likes = table.Column<int>(nullable: false),
                     Location = table.Column<int>(nullable: false),
                     Sex = table.Column<int>(nullable: false),
                     Type = table.Column<int>(nullable: false),
-                    IsAdopted = table.Column<bool>(nullable: false)
+                    IsAdopted = table.Column<bool>(nullable: false),
+                    IsApproved = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -270,15 +270,15 @@ namespace AnimalShelter.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Title = table.Column<string>(nullable: true),
-                    Text = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: true),
                     Location = table.Column<int>(nullable: false),
                     Sex = table.Column<int>(nullable: false),
                     Type = table.Column<int>(nullable: false),
                     PetStatus = table.Column<int>(nullable: false),
                     Likes = table.Column<int>(nullable: false),
-                    IsFound = table.Column<bool>(nullable: false)
+                    IsFound = table.Column<bool>(nullable: false),
+                    IsApproved = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

@@ -32,6 +32,8 @@
         <header class="page-header">
             <!-- RD Navbar-->
             <div class="rd-navbar-wrap">
+                <ul class="rd-navbar-nav">
+                </ul>
                 <nav class="rd-navbar rd-navbar-transparent" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-sm-device-layout="rd-navbar-fixed" data-md-layout="rd-navbar-static" data-md-device-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-static" data-lg-layout="rd-navbar-static" data-body-class="rd-navbar-absolute-linked" data-stick-up-clone="false" data-md-stick-up-offset="72px" data-lg-stick-up-offset="72px">
                     <div class="rd-navbar-top-panel">
                         <div class="rd-navbar-top-panel-toggle" data-rd-navbar-toggle=".rd-navbar-top-panel"><span></span></div>
@@ -41,6 +43,10 @@
                                 <li><a class="icon icon-xxs icon-circle icon-gray-outline icon-effect-1 fa fa-facebook" href="https://www.facebook.com/4lapi" target="_blank" rel="noreferrer noopener"></a></li>
                                 <li><a class="icon icon-xxs icon-circle icon-gray-outline icon-effect-1 fa fa-youtube-play" href="https://www.youtube.com/user/VierPfotenBG" target="_blank" rel="noreferrer noopener"></a></li>
                             </ul>
+                            <div class="object-inline">
+                                <a class="link link-md link-white" href="?culture=bg-BG">BG</a>
+                                <a class="link link-md link-white" href="?culture=en-US">EN</a>
+                            </div>
                         </div>
                     </div>
                     <div class="rd-navbar-inner">
@@ -108,27 +114,14 @@
                                         </li>
                                     </ul>
                                 </li>
-                                @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-                                {
-                                    <li>
-                                        <a asp-area="" asp-controller="Home" asp-action="Index">Профил</a>
-                                    </li>
-                                }
-                                <li>
-                                    <a><i class="fas fa-globe"></i></a>
-                                    <ul class="rd-navbar-dropdown tabs-nav">
-                                        <li><a href="?culture=bg-BG">BG</a></li>
-                                        <li><a href="?culture=en-US">EN</a></li>
-                                    </ul>
-                                </li>
                                 <partial name="_LoginPartial" />
-
                             </ul>
                         </div>
                     </div>
                 </nav>
             </div>
         </header>
+        <partial name="_CookieConsentPartial" />
         @this.RenderBody()
         <!-- Page Footer-->
         <section class="pre-footer-default text-center text-sm-left">
@@ -229,7 +222,7 @@
                     </div>
                     <div class="cell-md-4 cell-lg-3 text-md-right">
                         <p class="rights">
-                            Animal Shelter&nbsp;&copy;&nbsp;<span id="copyright-year"></span>.&nbsp;<br class="veil-sm"><a class="link-underline" asp-area="" asp-controller="Home" asp-action="Index">Privacy Policy</a>
+                            Animal Shelter&nbsp;&copy;&nbsp;<span id="copyright-year"></span>.&nbsp;<br class="veil-sm"><a class="link-underline" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Policy</a>
                             <!-- {%FOOTER_LINK}-->
                         </p>
                     </div>
@@ -282,6 +275,6 @@
     <script src="~/js/core.min.js"></script>
     <script src="~/js/script.js"></script>
 </body>
-    </html>
+</html>
 
 

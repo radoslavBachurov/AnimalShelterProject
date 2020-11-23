@@ -34,6 +34,8 @@ namespace AnimalShelter.Data.Models
 
         public bool IsFound { get; set; }
 
+        public bool IsApproved { get; set; }
+
         public virtual ICollection<Picture> PostPictures { get; set; }
 
         public virtual ICollection<Reply> Replies { get; set; }

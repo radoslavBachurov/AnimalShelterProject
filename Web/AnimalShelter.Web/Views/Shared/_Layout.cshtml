@@ -108,12 +108,6 @@
                                         </li>
                                     </ul>
                                 </li>
-                                @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-                                {
-                                    <li>
-                                        <a asp-area="" asp-controller="Home" asp-action="Index">Профил</a>
-                                    </li>
-                                }
                                 <partial name="_LoginPartial" />
                             </ul>
                         </div>
@@ -121,6 +115,7 @@
                 </nav>
             </div>
         </header>
+        <partial name="_CookieConsentPartial" />
         @this.RenderBody()
         <!-- Page Footer-->
         <section class="pre-footer-minimal bg-gray-dark bg-decorated">
@@ -151,30 +146,6 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="cell-sm-4 cell-md-3">
-                            <h4>Opening Hours</h4>
-                            <dl class="terms-list-inline">
-                                <dt>Week Days</dt>
-                                <dd>08:00am–7:30pm</dd>
-                            </dl>
-                            <dl class="terms-list-inline">
-                                <dt>Sunday, Saturday</dt>
-                                <dd>08:00am–4:00pm</dd>
-                            </dl>
-                        </div>
-                        <div class="cell-sm-4 cell-md-2">
-                            <h4>Phone</h4>
-                            <ul class="list-xxs">
-                                <li><a class="link link-md" href="callto:#">+1 (409) 987–5874</a></li>
-                                <li><a class="link" href="mailto:#">info@demolink.org</a></li>
-                            </ul>
-                        </div>
-                        <div class="cell-sm-4 cell-md-3">
-                            <h4>Address</h4>
-                            <address class="reveal-inline-block" style="max-width: 215px">
-                                <p>Washington, USA 6036 Richmond hwy., Alexandria, VA, 2230</p>
-                            </address>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -185,7 +156,7 @@
         <footer class="page-footer-minimal">
             <div class="shell">
                 <p class="rights">
-                    Animal Shelter&nbsp;&copy;&nbsp;<span id="copyright-year"></span>.&nbsp;<br class="veil-sm"><a class="link-underline" href="privacy-policy.html">Privacy Policy</a>
+                    Animal Shelter&nbsp;&copy;&nbsp;<span id="copyright-year"></span>.&nbsp;<br class="veil-sm"><a class="link-underline" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Policy</a>
                 </p>
             </div>
         </footer>
@@ -234,7 +205,7 @@
     @await this.RenderSectionAsync("Scripts", required: false)
     <script src="~/js/core.min.js"></script>
     <script src="~/js/script.js"></script>
-    </body>
-    </html>
+</body>
+</html>
 
 
