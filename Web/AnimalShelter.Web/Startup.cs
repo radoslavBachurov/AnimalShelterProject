@@ -2,7 +2,7 @@
 {
     using System.Globalization;
     using System.Reflection;
-    using System.Resources;
+
     using AnimalShelter.Data;
     using AnimalShelter.Data.Common;
     using AnimalShelter.Data.Common.Repositories;

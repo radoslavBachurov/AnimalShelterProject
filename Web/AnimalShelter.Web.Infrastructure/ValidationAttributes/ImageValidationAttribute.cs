@@ -1,14 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Formats;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using System.Web.Mvc;
-
-namespace AnimalShelter.Web.Infrastructure.ValidationAttributes
+﻿namespace AnimalShelter.Web.Infrastructure.ValidationAttributes
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+
+    using Microsoft.AspNetCore.Http;
+    using SixLabors.ImageSharp;
+    using SixLabors.ImageSharp.Formats;
+
     public class ImageValidationAttribute : ValidationAttribute
     {
         private const string DefaultFileTooBigMessage =
@@ -53,7 +52,7 @@ namespace AnimalShelter.Web.Infrastructure.ValidationAttributes
                 {
                     using (var stream = file.OpenReadStream())
 
-                    using (var pic = Image.Load(stream, out IImageFormat format)) ;
+                    using (var pic = Image.Load(stream, out IImageFormat format));
                 }
                 catch (Exception)
                 {
