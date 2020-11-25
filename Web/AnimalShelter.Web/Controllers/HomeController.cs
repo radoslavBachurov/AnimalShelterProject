@@ -1,6 +1,7 @@
 ﻿namespace AnimalShelter.Web.Controllers
 {
     using System.Diagnostics;
+    using System.Threading.Tasks;
     using AnimalShelter.Services.Data;
     using AnimalShelter.Web.ViewModels;
 
@@ -8,9 +9,9 @@
 
     public class HomeController : BaseController
     {
-        private readonly IGetCountsService getCountService;
+        private readonly IGetCountService getCountService;
 
-        public HomeController(IGetCountsService getCountService)
+        public HomeController(IGetCountService getCountService)
         {
             this.getCountService = getCountService;
         }

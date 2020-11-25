@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +9,7 @@ using System.Web.Mvc;
 
 namespace AnimalShelter.Web.Infrastructure.ValidationAttributes
 {
-    public class MaxFileSizeAttribute : ValidationAttribute
+    public class ImageValidationAttribute : ValidationAttribute
     {
         private const string DefaultFileTooBigMessage =
         "Sorry but the maximum size of a single image is 15mb";
@@ -15,9 +17,12 @@ namespace AnimalShelter.Web.Infrastructure.ValidationAttributes
         private const string DefaultFilesTooManyMessage =
         "Sorry but you can upload maximum of 20 images";
 
+        private const string DefaultFileNotImageMessage =
+        "Uploaded files must be images";
+
         private readonly int maxFileSize;
 
-        public MaxFileSizeAttribute(int maxFileSize)
+        public ImageValidationAttribute(int maxFileSize)
         {
             this.maxFileSize = maxFileSize;
         }
@@ -25,6 +30,8 @@ namespace AnimalShelter.Web.Infrastructure.ValidationAttributes
         public string FileTooBigMessage { get; set; }
 
         public string FilesTooManyMessage { get; set; }
+
+        public string FileNotImageMessage { get; set; }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
@@ -41,10 +48,20 @@ namespace AnimalShelter.Web.Infrastructure.ValidationAttributes
                 {
                     return new ValidationResult(this.FileTooBigMessage ?? DefaultFileTooBigMessage);
                 }
+
+                try
+                {
+                    using (var stream = file.OpenReadStream())
+
+                    using (var pic = Image.Load(stream, out IImageFormat format)) ;
+                }
+                catch (Exception)
+                {
+                    return new ValidationResult(this.FileNotImageMessage ?? DefaultFileNotImageMessage);
+                }
             }
 
             return ValidationResult.Success;
         }
-
     }
 }

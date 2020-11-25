@@ -66,6 +66,7 @@
             services.AddSingleton(this.configuration);
 
             services.AddLocalization(options => options.ResourcesPath = "Resources");
+
             services.AddMvc()
               .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
               .AddDataAnnotationsLocalization();
@@ -78,7 +79,8 @@
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
-            services.AddTransient<IGetCountsService, GetCountService>();
+            services.AddTransient<IGetCountService, GetCountService>();
+            services.AddTransient<IAdoptService, AdoptService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,13 +91,13 @@
             var supportedCultures = new[]
             {
                 new CultureInfo("en-US"),
-                new CultureInfo("bg-BG")
+                new CultureInfo("bg-BG"),
             };
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
                 DefaultRequestCulture = new RequestCulture("bg-BG"),
                 SupportedCultures = supportedCultures,
-                SupportedUICultures = supportedCultures
+                SupportedUICultures = supportedCultures,
             });
 
             // Seed data on application startup

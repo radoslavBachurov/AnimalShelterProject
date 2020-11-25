@@ -31,7 +31,7 @@ namespace AnimalShelter.Web.ViewModels.Adopt
         public TypePet Type { get; set; }
 
         [Required]
-        [MaxFileSizeAttribute(15)]
+        [ImageValidationAttribute(15 * 1024 * 1024)]
         public IEnumerable<IFormFile> Images { get; set; }
     }
 }
