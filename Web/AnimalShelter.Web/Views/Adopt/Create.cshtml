@@ -3,7 +3,7 @@
 }
 @using AnimalShelter.Web.ViewModels.Adopt
 @using AnimalShelter.Data.Models.Enums
-@model CreatePetInputModel
+@model CreateAdoptPetInputModel
 <!-- Breadcrumbs & Page title-->
 <div class="page-title">
     <div class="page-title-text">Create Post for Adoption</div>
@@ -23,6 +23,13 @@
                 <form method="post" enctype="multipart/form-data">
                     <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="range range-sm-bottom spacing-20">
+                        <div class="cell-sm-6">
+                            <div class="form-group">
+                                <input class="form-control" asp-for="Name"></input>
+                                <label class="form-label" asp-for="Name"></label>
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                        </div>
                         <div class="cell-sm-12">
                             <div class="form-group">
                                 <textarea class="form-control" asp-for="Description"></textarea>

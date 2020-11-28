@@ -22,6 +22,8 @@ namespace AnimalShelter.Data.Models
 
         public int Likes { get; set; }
 
+        public bool IsApproved { get; set; } = true;
+
         [ForeignKey(nameof(User))]
         public string UserId { get; set; }
 

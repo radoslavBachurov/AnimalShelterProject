@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AnimalShelter.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201122204907_InitialCreate")]
+    [Migration("20201127133702_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -251,6 +251,7 @@ namespace AnimalShelter.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsAdopted")
@@ -270,6 +271,10 @@ namespace AnimalShelter.Data.Migrations
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Sex")
                         .HasColumnType("int");
@@ -378,6 +383,9 @@ namespace AnimalShelter.Data.Migrations
 
                     b.Property<int?>("PetLostAndFoundPostId")
                         .HasColumnType("int");
+
+                    b.Property<string>("RemoteImageUrl")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ReplyId")
                         .HasColumnType("int");
@@ -503,6 +511,9 @@ namespace AnimalShelter.Data.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -658,15 +669,15 @@ namespace AnimalShelter.Data.Migrations
 
             modelBuilder.Entity("AnimalShelter.Data.Models.Picture", b =>
                 {
-                    b.HasOne("AnimalShelter.Data.Models.HomePet", null)
+                    b.HasOne("AnimalShelter.Data.Models.HomePet", "HomePet")
                         .WithMany("PetPictures")
                         .HasForeignKey("HomePetId");
 
-                    b.HasOne("AnimalShelter.Data.Models.PetAdoptionPost", null)
+                    b.HasOne("AnimalShelter.Data.Models.PetAdoptionPost", "PetAdoptionPost")
                         .WithMany("PostPictures")
                         .HasForeignKey("PetAdoptionPostId");
 
-                    b.HasOne("AnimalShelter.Data.Models.PetLostAndFoundPost", null)
+                    b.HasOne("AnimalShelter.Data.Models.PetLostAndFoundPost", "PetLostAndFoundPost")
                         .WithMany("PostPictures")
                         .HasForeignKey("PetLostAndFoundPostId");
 
@@ -674,7 +685,7 @@ namespace AnimalShelter.Data.Migrations
                         .WithMany("ReplyPictures")
                         .HasForeignKey("ReplyId");
 
-                    b.HasOne("AnimalShelter.Data.Models.SuccessStory", null)
+                    b.HasOne("AnimalShelter.Data.Models.SuccessStory", "SuccessStory")
                         .WithMany("PostPictures")
                         .HasForeignKey("SuccessStoryId");
 
@@ -685,11 +696,11 @@ namespace AnimalShelter.Data.Migrations
 
             modelBuilder.Entity("AnimalShelter.Data.Models.Reply", b =>
                 {
-                    b.HasOne("AnimalShelter.Data.Models.PetAdoptionPost", null)
+                    b.HasOne("AnimalShelter.Data.Models.PetAdoptionPost", "PetAdoptionPost")
                         .WithMany("Replies")
                         .HasForeignKey("PetAdoptionPostId");
 
-                    b.HasOne("AnimalShelter.Data.Models.PetLostAndFoundPost", null)
+                    b.HasOne("AnimalShelter.Data.Models.PetLostAndFoundPost", "PetLostAndFound")
                         .WithMany("Replies")
                         .HasForeignKey("PetLostAndFoundPostId");
 

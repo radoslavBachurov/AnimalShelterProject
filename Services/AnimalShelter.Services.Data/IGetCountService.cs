@@ -9,5 +9,11 @@ namespace AnimalShelter.Services.Data
     public interface IGetCountService
     {
         IndexViewModel GetIndexCounts();
+
+        int GetAdoptDogCount();
+
+        int GetAdoptCatCount();
+
+        int GetAdoptOtherCount();
     }
 }

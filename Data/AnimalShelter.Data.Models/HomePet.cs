@@ -1,12 +1,13 @@
-﻿using AnimalShelter.Data.Common.Models;
-using AnimalShelter.Data.Models.Enums;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
-
-namespace AnimalShelter.Data.Models
+﻿namespace AnimalShelter.Data.Models
 {
+
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    using AnimalShelter.Data.Common.Models;
+    using AnimalShelter.Data.Models.Enums;
+
     public class HomePet : BaseDeletableModel<int>
     {
         public HomePet()

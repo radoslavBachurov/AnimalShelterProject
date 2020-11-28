@@ -22,7 +22,7 @@
     <div class="page">
         <div class="page-loader">
             <div class="brand-name">
-                <img src="~/images/logo-default-176x45.png" alt="" width="176" height="45" />
+                <img src="images/logo-default-176x45.png" alt="" width="176" height="45" />
             </div>
             <div class="page-loader-body">
                 <div class="cssload-jumping"><span></span><span></span><span></span><span></span><span></span></div>
@@ -71,13 +71,13 @@
                                     <a asp-area="" asp-controller="Adopt" asp-action="Index">@Localizer["Adopt"]</a>
                                     <ul class="rd-navbar-dropdown tabs-nav">
                                         <li>
-                                            <a href="Adopt/Index/#adopt-cats">@Localizer["AdoptCat"]</a>
+                                            <a href="Adopt/All/#adopt-cats">@Localizer["AdoptCat"]</a>
                                         </li>
                                         <li>
-                                            <a href="Adopt/Index/#adopt-dogs">@Localizer["AdoptDog"]</a>
+                                            <a href="Adopt/All/#adopt-dogs">@Localizer["AdoptDog"]</a>
                                         </li>
                                         <li>
-                                            <a href="Adopt/Index/#adopt-other">@Localizer["AdoptOther"]</a>
+                                            <a href="Adopt/All/#adopt-other">@Localizer["AdoptOther"]</a>
                                         </li>
                                         @if (this.User.Identity.IsAuthenticated)
                                         {
@@ -125,7 +125,7 @@
                 </nav>
             </div>
         </header>
-        
+
         @this.RenderBody()
         <!-- Page Footer-->
         <section class="pre-footer-default text-center text-sm-left">

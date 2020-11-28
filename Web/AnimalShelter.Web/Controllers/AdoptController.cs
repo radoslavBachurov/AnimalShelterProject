@@ -15,20 +15,37 @@
         private readonly IAdoptService adoptService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IWebHostEnvironment webHostEnvironment;
+        private readonly IGetCountService getCountService;
 
         public AdoptController(
             IAdoptService adoptService,
             UserManager<ApplicationUser> userManager,
-            IWebHostEnvironment webHostEnvironment)
+            IWebHostEnvironment webHostEnvironment,
+            IGetCountService getCountService)
         {
             this.adoptService = adoptService;
             this.userManager = userManager;
             this.webHostEnvironment = webHostEnvironment;
+            this.getCountService = getCountService;
         }
 
         public IActionResult All()
         {
             return this.View();
+        }
+
+        public IActionResult AllDogs(int id = 1)
+        {
+            const int itemsPerPage = 2;
+            var viewModel = new PetListViewModel()
+            {
+                ItemsPerPage = itemsPerPage,
+                PageNumber = id,
+                DogCount = this.getCountService.GetAdoptDogCount(),
+                Dogs = this.adoptService.GetAllDogs<PetInListViewModel>(id, itemsPerPage),
+            };
+
+            return this.Json(viewModel);
         }
 
         public IActionResult SearchResults()
@@ -44,7 +61,7 @@
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Create(CreatePetInputModel input)
+        public async Task<IActionResult> Create(CreateAdoptPetInputModel input)
         {
             if (!this.ModelState.IsValid)
             {

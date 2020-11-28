@@ -1,10 +1,11 @@
 ﻿namespace AnimalShelter.Data.Models
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     using AnimalShelter.Data.Common.Models;
     using AnimalShelter.Data.Models.Enums;
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations.Schema;
 
     public class PetAdoptionPost : BaseDeletableModel<int>
     {
@@ -14,7 +15,11 @@
             this.Replies = new HashSet<Reply>();
         }
 
+        [Required]
         public string Description { get; set; }
+
+        [Required]
+        public string Name { get; set; }
 
         [ForeignKey(nameof(User))]
         public string UserId { get; set; }

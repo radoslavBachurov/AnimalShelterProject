@@ -240,7 +240,8 @@ namespace AnimalShelter.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
                     UserId = table.Column<string>(nullable: true),
                     Likes = table.Column<int>(nullable: false),
                     Location = table.Column<int>(nullable: false),
@@ -305,6 +306,7 @@ namespace AnimalShelter.Data.Migrations
                     PersonName = table.Column<string>(nullable: true),
                     PetName = table.Column<string>(nullable: true),
                     Likes = table.Column<int>(nullable: false),
+                    IsApproved = table.Column<bool>(nullable: false),
                     UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -373,14 +375,15 @@ namespace AnimalShelter.Data.Migrations
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Path = table.Column<string>(nullable: true),
+                    RemoteImageUrl = table.Column<string>(nullable: true),
                     Extension = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true),
                     IsCoverPicture = table.Column<bool>(nullable: false),
+                    UserId = table.Column<string>(nullable: true),
                     HomePetId = table.Column<int>(nullable: true),
                     PetAdoptionPostId = table.Column<int>(nullable: true),
                     PetLostAndFoundPostId = table.Column<int>(nullable: true),
-                    ReplyId = table.Column<int>(nullable: true),
-                    SuccessStoryId = table.Column<int>(nullable: true)
+                    SuccessStoryId = table.Column<int>(nullable: true),
+                    ReplyId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {

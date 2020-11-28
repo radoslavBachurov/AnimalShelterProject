@@ -1,14 +1,13 @@
 ﻿@{
     this.ViewData["Title"] = "Adopt a Pet";
 }
-
 <!-- Breadcrumbs & Page title-->
 <div class="page-title">
-    <div class="page-title-text"><span data-content-to="#adopt-cats">Adopt Cats</span><span data-content-to="#adopt-dogs">Adopt Dogs</span><span data-content-to="#adopt-other">Adopt Other</span></div>
+    <div class="page-title-text"><span data-content-to="#adopt-cats">Adopt Cats</span><span data-content-to="#adopt-dogs">Adopt Dogs</span><span data-content-to="#adopt-small-pets">Adopt Small Pets</span></div>
     <ul class="breadcrumbs-custom">
         <li><a href="index.html">Home</a></li>
         <li><a href="adopt-a-pet.html">Adopt a Pet</a></li>
-        <li class="active"><span data-content-to="#adopt-cats">Adopt Cats</span><span data-content-to="#adopt-dogs">Adopt Dogs</span><span data-content-to="#adopt-other">Adopt Other</span></li>
+        <li class="active"><span data-content-to="#adopt-cats">Adopt Cats</span><span data-content-to="#adopt-dogs">Adopt Dogs</span><span data-content-to="#adopt-small-pets">Adopt Small Pets</span></li>
     </ul>
 </div>
 <!-- RD Mailform-->
@@ -61,9 +60,9 @@
         <div class="tabs tabs-custom tabs-vertical tabs-corporate tabs-wide" id="tabs-1" data-url-tabs="true">
             <!-- Nav tabs-->
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#adopt-cats" data-toggle="tab">Adopt Cats</a></li>
-                <li><a href="#adopt-dogs" data-toggle="tab">Adopt Dogs</a></li>
-                <li><a href="#adopt-other" data-toggle="tab">Adopt Other</a></li>
+                <li onclick="loadCats()" class="active"><a href="#adopt-cats" data-toggle="tab">Adopt Cats</a></li>
+                <li onclick="loadDogs()"><a href="#adopt-dogs" data-toggle="tab">Adopt Dogs</a></li>
+                <li onclick="loadOther()"><a href="#adopt-other" data-toggle="tab">Adopt Other</a></li>
             </ul>
             <!-- Tab panes-->
             <div class="tab-content">
@@ -74,18 +73,18 @@
                             <!-- Thumbnail boxed horizontal-->
                             <div class="thumbnail-boxed thumbnail-boxed-horizontal">
                                 <div class="thumbnail-boxed-left">
-                                    <img class="thumbnail-boxed-image" src="images/adopt-dogs-1-370x254.jpg" alt="" width="370" height="254" />
+                                    <img class="mr-3 img-responsive" src= alt="" width="370" height="254" />
                                 </div>
                                 <div class="thumbnail-boxed-body">
-                                    <p class="thumbnail-boxed-title">Beasley</p>
+                                    <p class="thumbnail-boxed-title">Name</p>
                                     <div class="thumbnail-boxed-text">
-                                        <p>He was in a shelter that lacked the resources to continue to care for him, so Beasley came to our shelter to find a new home. He is playful and cheerful dog, who enjoys playing with toys and often...</p>
+                                        <p>Description</p>
                                     </div>
                                     <div class="thumbnail-boxed-footer">
                                         <ul class="thumbnail-boxed-meta">
-                                            <li><span class="icon icon-xs icon-tan-hide material-icons-event_available"></span><span>2.5 years old</span></li>
-                                            <li><span class="icon icon-xs icon-tan-hide material-icons-done"></span><span>42 pounds</span></li>
-                                            <li><span class="icon icon-xs icon-tan-hide material-icons-place"></span><span>New York</span></li>
+                                            <li><span class="icon icon-xs icon-tan-hide material-icons-event_available"></span><span>CreatedOn</span></li>
+                                            <li><span class="icon icon-xs icon-tan-hide material-icons-done"></span><span>Sex</span></li>
+                                            <li><span class="icon icon-xs icon-tan-hide material-icons-place"></span><span>City</span></li>
                                         </ul>
                                     </div>
                                     <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" href="adopt-a-pet.html" data-wow-delay="0.2s" data-wow-duration=".75s">learn more</a>
@@ -94,12 +93,12 @@
                         </div>
                     </div>
                     <ul class="pagination-custom">
-                        <li class="disabled"><a href="#" aria-label="Previous"></a></li>
+                        <li class=enabled><a href="" aria-label="Previous"></a></li>
                         <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#" aria-label="Next"></a></li>
+                        @*<li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>*@
+                        <li class= disabled><a href="" aria-label="Next"></a></li>
                     </ul>
                 </div>
                 <!-- Tab 2-->
@@ -109,18 +108,18 @@
                             <!-- Thumbnail boxed horizontal-->
                             <div class="thumbnail-boxed thumbnail-boxed-horizontal">
                                 <div class="thumbnail-boxed-left">
-                                    <img class="thumbnail-boxed-image" src="images/adopt-dogs-1-370x254.jpg" alt="" width="370" height="254" />
+                                    <img class="mr-3 img-responsive" src= alt="" width="370" height="254" />
                                 </div>
                                 <div class="thumbnail-boxed-body">
-                                    <p class="thumbnail-boxed-title">Beasley</p>
+                                    <p class="thumbnail-boxed-title">Name</p>
                                     <div class="thumbnail-boxed-text">
-                                        <p>He was in a shelter that lacked the resources to continue to care for him, so Beasley came to our shelter to find a new home. He is playful and cheerful dog, who enjoys playing with toys and often...</p>
+                                        <p>Description</p>
                                     </div>
                                     <div class="thumbnail-boxed-footer">
                                         <ul class="thumbnail-boxed-meta">
-                                            <li><span class="icon icon-xs icon-tan-hide material-icons-event_available"></span><span>2.5 years old</span></li>
-                                            <li><span class="icon icon-xs icon-tan-hide material-icons-done"></span><span>42 pounds</span></li>
-                                            <li><span class="icon icon-xs icon-tan-hide material-icons-place"></span><span>New York</span></li>
+                                            <li><span class="icon icon-xs icon-tan-hide material-icons-event_available"></span><span>CreatedOn</span></li>
+                                            <li><span class="icon icon-xs icon-tan-hide material-icons-done"></span><span>Sex</span></li>
+                                            <li><span class="icon icon-xs icon-tan-hide material-icons-place"></span><span>City</span></li>
                                         </ul>
                                     </div>
                                     <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" href="adopt-a-pet.html" data-wow-delay="0.2s" data-wow-duration=".75s">learn more</a>
@@ -129,12 +128,12 @@
                         </div>
                     </div>
                     <ul class="pagination-custom">
-                        <li class="disabled"><a href="#" aria-label="Previous"></a></li>
+                        <li class=enabled><a href="" aria-label="Previous"></a></li>
                         <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#" aria-label="Next"></a></li>
+                        @*<li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>*@
+                        <li class=disabled><a href="" aria-label="Next"></a></li>
                     </ul>
                 </div>
                 <!-- Tab 3-->
@@ -144,18 +143,18 @@
                             <!-- Thumbnail boxed horizontal-->
                             <div class="thumbnail-boxed thumbnail-boxed-horizontal">
                                 <div class="thumbnail-boxed-left">
-                                    <img class="thumbnail-boxed-image" src="images/adopt-dogs-1-370x254.jpg" alt="" width="370" height="254" />
+                                    <img class="mr-3 img-responsive" src= alt="" width="370" height="254" />
                                 </div>
                                 <div class="thumbnail-boxed-body">
-                                    <p class="thumbnail-boxed-title">Beasley</p>
+                                    <p class="thumbnail-boxed-title">Name</p>
                                     <div class="thumbnail-boxed-text">
-                                        <p>He was in a shelter that lacked the resources to continue to care for him, so Beasley came to our shelter to find a new home. He is playful and cheerful dog, who enjoys playing with toys and often...</p>
+                                        <p>Description</p>
                                     </div>
                                     <div class="thumbnail-boxed-footer">
                                         <ul class="thumbnail-boxed-meta">
-                                            <li><span class="icon icon-xs icon-tan-hide material-icons-event_available"></span><span>2.5 years old</span></li>
-                                            <li><span class="icon icon-xs icon-tan-hide material-icons-done"></span><span>42 pounds</span></li>
-                                            <li><span class="icon icon-xs icon-tan-hide material-icons-place"></span><span>New York</span></li>
+                                            <li><span class="icon icon-xs icon-tan-hide material-icons-event_available"></span><span>CreatedOn</span></li>
+                                            <li><span class="icon icon-xs icon-tan-hide material-icons-done"></span><span>Sex</span></li>
+                                            <li><span class="icon icon-xs icon-tan-hide material-icons-place"></span><span>City</span></li>
                                         </ul>
                                     </div>
                                     <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" href="adopt-a-pet.html" data-wow-delay="0.2s" data-wow-duration=".75s">learn more</a>
@@ -164,15 +163,49 @@
                         </div>
                     </div>
                     <ul class="pagination-custom">
-                        <li class="disabled"><a href="#" aria-label="Previous"></a></li>
+                        <li class=enabled><a href="" aria-label="Previous"></a></li>
                         <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#" aria-label="Next"></a></li>
+                        @*<li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>*@
+                        <li class=disabled><a href="" aria-label="Next"></a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<script>
+    function loadCats() {
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var data = JSON.parse(this.responseText);
+            }
+        }
+        xhr.open("GET", "/Adopt/All");
+        xhr.send();
+    }
+
+    async function loadDogs() {
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var data = JSON.parse(this.responseText);
+                console.log(data)
+            }
+        }
+        xhr.open("GET", "/Adopt/AllDogs");
+        xhr.send();
+    }
+
+    function loadOther() {
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+
+        }
+        xhr.open("GET", "/Adopt/All");
+        xhr.send();
+    }
+</script>
