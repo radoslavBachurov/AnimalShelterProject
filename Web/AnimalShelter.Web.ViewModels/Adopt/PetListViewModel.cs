@@ -13,15 +13,15 @@
 
         public bool HasNextPage => this.PageNumber < this.PagesCount;
 
-        public int PagesCount => (int)Math.Ceiling((double)this.DogCount / this.ItemsPerPage);
+        public int PagesCount => (int)Math.Ceiling((double)this.AnimalCount / this.ItemsPerPage);
 
         public int PreviousPageNumber => this.PageNumber - 1;
 
         public int NextPageNumber => this.PageNumber + 1;
 
-        public IEnumerable<PetInListViewModel> Dogs { get; set; }
+        public IEnumerable<PetInListViewModel> Animals { get; set; }
 
-        public int DogCount { get; set; }
+        public int AnimalCount { get; set; }
 
     }
 }

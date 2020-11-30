@@ -62,22 +62,22 @@
                             <div class="rd-navbar-nav-wrap-bg"></div>
                             <ul class="rd-navbar-nav">
                                 <li class="active">
-                                    <a asp-area="" asp-controller="Home" asp-action="All">@Localizer["Home"]</a>
+                                    <a asp-area="" asp-controller="Home" asp-action="Index">@Localizer["Home"]</a>
                                 </li>
                                 <li>
                                     <a asp-area="" asp-controller="Home" asp-action="Loginn">@Localizer["AboutUs"]</a>
                                 </li>
                                 <li>
-                                    <a asp-area="" asp-controller="Adopt" asp-action="Index">@Localizer["Adopt"]</a>
+                                    <a asp-area="" asp-controller="Adopt" asp-action="All">@Localizer["Adopt"]</a>
                                     <ul class="rd-navbar-dropdown tabs-nav">
                                         <li>
-                                            <a href="Adopt/All/#adopt-cats">@Localizer["AdoptCat"]</a>
+                                            <a href="/Adopt/All/#adopt-cats">@Localizer["AdoptCat"]</a>
                                         </li>
                                         <li>
-                                            <a href="Adopt/All/#adopt-dogs">@Localizer["AdoptDog"]</a>
+                                            <a href="/Adopt/All/#adopt-dogs">@Localizer["AdoptDog"]</a>
                                         </li>
                                         <li>
-                                            <a href="Adopt/All/#adopt-other">@Localizer["AdoptOther"]</a>
+                                            <a href="/Adopt/All/#adopt-other">@Localizer["AdoptOther"]</a>
                                         </li>
                                         @if (this.User.Identity.IsAuthenticated)
                                         {

@@ -16,11 +16,11 @@
 
         public string UserId { get; set; }
 
-        public City Location { get; set; }
+        public string Location { get; set; }
 
-        public Sex Sex { get; set; }
+        public string Sex { get; set; }
 
-        public TypePet Type { get; set; }
+        public string Type { get; set; }
 
         public string CreatedOn { get; set; }
 

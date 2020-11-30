@@ -48,9 +48,10 @@
             await this.adoptionPostsRepository.SaveChangesAsync();
         }
 
-        IEnumerable<T> IAdoptService.GetAll<T>(int pageNumber, int itemsPerPage)
+        public IEnumerable<T> GetAll<T>(int pageNumber, int itemsPerPage)
         {
             var pets = this.adoptionPostsRepository.AllAsNoTracking()
+                .Where(x => x.IsAdopted == false && x.IsApproved == true)
                 .OrderByDescending(x => x.Id)
                 .Skip((pageNumber - 1) * itemsPerPage).Take(itemsPerPage)
                 .To<T>()
@@ -59,10 +60,10 @@
             return pets;
         }
 
-        IEnumerable<T> IAdoptService.GetAllDogs<T>(int pageNumber, int itemsPerPage)
+        public IEnumerable<T> GetAllDogs<T>(int pageNumber, int itemsPerPage)
         {
             var pets = this.adoptionPostsRepository.AllAsNoTracking()
-                .Where(x => x.Type == TypePet.Dog)
+                .Where(x => x.Type == TypePet.Dog && x.IsAdopted == false && x.IsApproved == true)
                 .OrderByDescending(x => x.Id)
                 .Skip((pageNumber - 1) * itemsPerPage).Take(itemsPerPage)
                 .To<T>()
@@ -71,10 +72,10 @@
             return pets;
         }
 
-        IEnumerable<T> IAdoptService.GetAllCats<T>(int pageNumber, int itemsPerPage)
+        public IEnumerable<T> GetAllCats<T>(int pageNumber, int itemsPerPage)
         {
             var pets = this.adoptionPostsRepository.AllAsNoTracking()
-                .Where(x => x.Type == TypePet.Cat)
+                .Where(x => x.Type == TypePet.Cat && x.IsAdopted == false && x.IsApproved == true)
                 .OrderByDescending(x => x.Id)
                 .Skip((pageNumber - 1) * itemsPerPage).Take(itemsPerPage)
                 .To<T>()
@@ -83,10 +84,10 @@
             return pets;
         }
 
-        IEnumerable<T> IAdoptService.GetAllOther<T>(int pageNumber, int itemsPerPage)
+        public IEnumerable<T> GetAllOther<T>(int pageNumber, int itemsPerPage)
         {
             var pets = this.adoptionPostsRepository.AllAsNoTracking()
-                .Where(x => x.Type == TypePet.Other)
+                .Where(x => x.Type == TypePet.Other && x.IsAdopted == false && x.IsApproved == true)
                 .OrderByDescending(x => x.Id)
                 .Skip((pageNumber - 1) * itemsPerPage).Take(itemsPerPage)
                 .To<T>()
