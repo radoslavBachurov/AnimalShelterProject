@@ -378,6 +378,8 @@ namespace AnimalShelter.Data.Migrations
                     RemoteImageUrl = table.Column<string>(nullable: true),
                     Extension = table.Column<string>(nullable: true),
                     IsCoverPicture = table.Column<bool>(nullable: false),
+                    Width = table.Column<int>(nullable: false),
+                    Height = table.Column<int>(nullable: false),
                     UserId = table.Column<string>(nullable: true),
                     HomePetId = table.Column<int>(nullable: true),
                     PetAdoptionPostId = table.Column<int>(nullable: true),

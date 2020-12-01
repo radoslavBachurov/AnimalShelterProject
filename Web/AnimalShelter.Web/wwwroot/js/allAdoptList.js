@@ -26,7 +26,7 @@ async function loadAnimals(page, type) {
         currentType = type;
     }
 
-    var uri = `/api/AdoptList?page=${currentPage}&type=${currentType}`;
+    var uri = `/api/AdoptList?type=${currentType}&page=${currentPage}`;
 
     fetch(uri, {
         method: "GET",
@@ -79,6 +79,7 @@ function createAdoptSection(animals, data) {
         let description = el.description;
         let location = el.location;
         let sex = el.sex;
+        let id = el.id;
 
         //Creating Body
         let cell = document.createElement('div');
@@ -188,7 +189,7 @@ function createAdoptSection(animals, data) {
         anker.classList.add('btn-effect-anis');
         anker.classList.add('wow');
         anker.classList.add('fadeInUpSmall');
-        anker.href = "/Adopt/Create";
+        anker.href = `/Pet/Profile?id=${id}`;
         anker.setAttribute("data-wow-delay", "0.2s");
         anker.setAttribute("data-wow-duration", ".75s");
 

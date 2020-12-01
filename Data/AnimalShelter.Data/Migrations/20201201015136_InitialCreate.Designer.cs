@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AnimalShelter.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201127133702_InitialCreate")]
+    [Migration("20201201015136_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.9")
+                .HasAnnotation("ProductVersion", "3.1.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -363,6 +363,9 @@ namespace AnimalShelter.Data.Migrations
                     b.Property<string>("Extension")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Height")
+                        .HasColumnType("int");
+
                     b.Property<int?>("HomePetId")
                         .HasColumnType("int");
 
@@ -395,6 +398,9 @@ namespace AnimalShelter.Data.Migrations
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Width")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

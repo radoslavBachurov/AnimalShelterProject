@@ -20,6 +20,10 @@
 
         public bool IsCoverPicture { get; set; }
 
+        public int Width { get; set; }
+
+        public int Height { get; set; }
+
         [ForeignKey(nameof(User))]
         public string UserId { get; set; }
 

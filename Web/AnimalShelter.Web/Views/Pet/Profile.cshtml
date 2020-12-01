@@ -1,4 +1,10 @@
-﻿@{
+﻿@using AnimalShelter.Common
+@using AnimalShelter.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@model AnimalShelter.Web.ViewModels.Pet.PetProfileViewModel
+@{
     this.ViewData["Title"] = "Pet Profile";
 }
 <!-- Breadcrumbs & Page title-->
@@ -11,26 +17,188 @@
     </ul>
 </div>
 
-<!-- Contacts-->
-<section class="section-md bg-white text-center">
+<!-- News & Events-->
+<section class="section-md section-md-alternate bg-white text-center">
     <div class="shell">
+        <h3>Top 4 Dog Breeds you Can Easily Take To Work</h3>
+        <ul class="post-meta">
+            <li>
+                <span class="icon icon-xs icon-tan-hide material-icons-access_time"></span>
+                <time datetime="">@Model.CreatedOn</time>
+            </li>
+            <li><span class="icon icon-xs icon-tan-hide mdi mdi-thumb-up"></span><span>@Model.Likes</span></li>
+            <li><span class="icon icon-xs icon-tan-hide mdi mdi-comment-outline"></span><span>6</span></li>
+        </ul>
         <div class="range range-sm-center">
             <div class="cell-sm-9 cell-md-12">
-                <!-- Box profile-->
-                <article class="box-profile">
-                    <div class="box-profile-left">
-                        <img class="box-profile-image" src="images/lavender-570x389.jpg" alt="" width="570" height="389" />
+                <article class="post-single">
+                    <div class="post-single-left">
+                        <img class="mr-3 img-responsive" src="@Model.CoverPicturePath" alt="" width="570" height="389" />
+                        <section class="section-md bg-gray-light text-center" style="padding:15px;">
+                            <div class="shell">
+                                <div class="range">
+                                    <div class="cell-xs-12 wow fadeIn" data-wow-duration=".8s" data-wow-offset="150">
+                                        <!-- Owl Carousel-->
+                                        <div class="owl-carousel-centered">
+                                            <div data-photo-swipe-gallery="gallery" class="owl-carousel" style="padding:10px;" data-items="1" data-sm-items="3" data-stage-padding="0" data-loop="true" data-margin="10" data-lg-margin="30" data-mouse-drag="false" data-center="true" data-numbering="#owl-numbering-1" data-nav="true">
+                                                @foreach (var picture in Model.Pictures)
+                                                {
+                                                    <a class="mr-3 img-responsive" href=@picture.Path data-photo-swipe-item="" data-size=@picture.DataSize>
+                                                        <figure>
+                                                            <img class="mr-3 img-responsive" src=@picture.Path alt="" width="346" height="249" />
+                                                        </figure>
+                                                    </a>
+                                                }
+                                            </div>
+                                            <div class="owl-numbering owl-numbering-default" style="margin-top: 0px;" id="owl-numbering-1">
+                                                <div class="numbering-current"></div>
+                                                <div class="numbering-separator"></div>
+                                                <div class="numbering-count"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
                     </div>
-                    <div class="box-profile-body">
-                        <p class="box-profile-name">Lavender</p>
-                        <p class="box-profile-description">Spayed Female</p>
-                        <div class="box-profile-text">
-                            <p>This beautiful cat had health issues her family couldn’t take care of, so she came to us, and we quickly found her a place in our shelter. She is a very lovable 4 yr old female domestic shorthair cat and she weighs 10 pounds. Lavender is all about affection and looking for that special person to spend the rest of her life with. She is wonderful indoors and she enjoys dry cat food.</p>
-                            <p class="box-profile-title">Information for Adopters</p>
-                            <p>All cats and kittens have been vet-checked, spayed/neutered, and are up-to-date on vaccinations. Adoption fee includes carrier, scratching pad, starter pack of food and litter, and toy. We prefer kittens be adopted in pairs. We offer free advice anytime about your adopted cat. If, for any reason, it doesn't work out, we will take the cat back, anytime in the future. Potential adopters must be interviewed in person, at the shelter, and live within 150 miles of Animal Shelter.</p>
-                        </div>
+                    <div class="post-single-body">
+                        <p class="post-single-title">Description</p>
+                        <p>@Model.Description</p>
+
                     </div>
                 </article>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="shell">
+    <hr>
+</div>
+<!-- Comments-->
+<section class="section-sm bg-white text-left">
+    <div class="shell">
+        <div class="range spacing-55">
+            <div class="cell-md-7 cell-lg-8">
+                <div class="blog-main">
+                    <div class="blog-main-item">
+                        <h4>Comments</h4>
+                        <div class="comment-group">
+                            <!-- Comment-->
+                            <article class="comment">
+                                <div class="comment-avatar">
+                                    <img src="images/theresa-lane-80x80.jpg" alt="" width="80" height="80" />
+                                </div>
+                                <div class="comment-body">
+                                    <div class="comment-header">
+                                        <p class="comment-title">Theresa Lane</p><span class="comment-time">2 days ago</span>
+                                    </div>
+                                    <div class="comment-text">
+                                        <p>Thank you for your article, I think it can be very useful to volunteers of Animal Shelter.</p>
+                                    </div>
+                                    <div class="comment-footer"><a class="comment-link-reply" href="#">Reply</a></div>
+                                </div>
+                            </article>
+                            <div class="comment-group">
+                                <!-- Comment-->
+                                <article class="comment">
+                                    <div class="comment-avatar">
+                                        <img src="images/ronald-austin-80x80.jpg" alt="" width="80" height="80" />
+                                    </div>
+                                    <div class="comment-body">
+                                        <div class="comment-header">
+                                            <p class="comment-title">Ronald Austin</p><span class="comment-time">2 days ago</span>
+                                        </div>
+                                        <div class="comment-text">
+                                            <p>Thank you!</p>
+                                        </div>
+                                        <div class="comment-footer"><a class="comment-link-reply" href="#">Reply</a></div>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="blog-main-item">
+                        <h4>Send a Comment</h4>
+                        <!-- RD Mailform-->
+                        <form class="rd-mailform form-wide" data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php">
+                            <div class="range range-sm-bottom spacing-30">
+                                <div class="cell-sm-6">
+                                    <div class="form-group">
+                                        <input class="form-control" id="comment-first-name" type="text" name="name" data-constraints="@@Required">
+                                        <label class="form-label" for="comment-first-name">First Name</label>
+                                    </div>
+                                </div>
+                                <div class="cell-sm-6">
+                                    <div class="form-group">
+                                        <input class="form-control" id="comment-surname" type="text" name="surname" data-constraints="@@Required">
+                                        <label class="form-label" for="comment-surname">Surname</label>
+                                    </div>
+                                </div>
+                                <div class="cell-xs-12">
+                                    <div class="form-group">
+                                        <textarea class="form-control" id="comment-message" name="message" data-constraints="@@Required"></textarea>
+                                        <label class="form-label" for="comment-message">Message</label>
+                                    </div>
+                                </div>
+                                <div class="cell-sm-6">
+                                    <div class="form-group">
+                                        <input class="form-control" id="comment-email" type="email" name="email" data-constraints="@@Email @@Required">
+                                        <label class="form-label" for="comment-email">E-mail</label>
+                                    </div>
+                                </div>
+                                <div class="cell-sm-6">
+                                    <button class="btn btn-primary btn-effect-ujarak btn-block" type="submit">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="cell-md-5 cell-lg-4">
+                <div class="range range-xs-center spacing-30">
+                    <div class="cell-xs-10 cell-sm-6 cell-md-12">
+                        <ul class="list-md">
+                            <li>
+                                <article class="post-preview">
+                                    <div class="unit unit-spacing-xs unit-horizontal unit-middle">
+                                        <div class="unit-left">
+                                            <img class="post-preview-image" src="images/news-1-103x60.jpg" alt="" width="103" height="60" />
+                                        </div>
+                                        <div class="unit-body">
+                                            <p class="post-preview-title"><a href="#">Wellness Care Plans for Your Pets and Their Benefitsli</a></p>
+                                        </div>
+                                    </div>
+                                </article>
+                            </li>
+                            <li>
+                                <article class="post-preview">
+                                    <div class="unit unit-spacing-xs unit-horizontal unit-middle">
+                                        <div class="unit-left">
+                                            <img class="post-preview-image" src="images/news-2-103x60.jpg" alt="" width="103" height="60" />
+                                        </div>
+                                        <div class="unit-body">
+                                            <p class="post-preview-title"><a href="#">Top 5 Most Affectionate Cats for You and Your Family</a></p>
+                                        </div>
+                                    </div>
+                                </article>
+                            </li>
+                            <li>
+                                <article class="post-preview">
+                                    <div class="unit unit-spacing-xs unit-horizontal unit-middle">
+                                        <div class="unit-left">
+                                            <img class="post-preview-image" src="images/news-3-103x60.jpg" alt="" width="103" height="60" />
+                                        </div>
+                                        <div class="unit-body">
+                                            <p class="post-preview-title"><a href="#">How Cats Can Improve Your Human Relationships</a></p>
+                                        </div>
+                                    </div>
+                                </article>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="cell-xs-10 cell-sm-6 cell-md-12"><a class="banner" href="#"><img src="images/banner 370x518.jpg" alt="" width="370" height="518" /></a></div>
+                </div>
             </div>
         </div>
     </div>

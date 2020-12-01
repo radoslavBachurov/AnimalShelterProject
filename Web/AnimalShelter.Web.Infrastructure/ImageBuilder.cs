@@ -10,7 +10,13 @@
 
     public class ImageBuilder
     {
-        public async Task<string> SaveImage(IFormFile image, string directory, string pictureId)
+        private int Height { get; set; }
+
+        private int Width { get; set; }
+
+        private string Extention { get; set; }
+
+        public async Task SaveImage(IFormFile image, string directory, string pictureId)
         {
             using (var stream = image.OpenReadStream())
 
@@ -20,7 +26,9 @@
             {
                 await image.CopyToAsync(fs);
 
-                return format.Name.ToLower();
+                this.Height = pic.Height;
+                this.Width = pic.Width;
+                this.Extention = format.Name.ToLower();
             }
         }
 
@@ -33,9 +41,11 @@
             {
                 var picture = new Picture() { Path = webRootPath, UserId = userId };
 
-                string extension = await this.SaveImage(image, directory, picture.Id);
+                await this.SaveImage(image, directory, picture.Id);
 
-                picture.Extension = extension;
+                picture.Extension = this.Extention;
+                picture.Width = this.Width;
+                picture.Height = this.Height;
 
                 picture.Path += picture.Id + "." + picture.Extension;
 
@@ -50,5 +60,7 @@
 
             return pictures;
         }
+
+
     }
 }

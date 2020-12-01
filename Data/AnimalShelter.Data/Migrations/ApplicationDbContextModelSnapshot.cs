@@ -15,7 +15,7 @@ namespace AnimalShelter.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.9")
+                .HasAnnotation("ProductVersion", "3.1.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -361,6 +361,9 @@ namespace AnimalShelter.Data.Migrations
                     b.Property<string>("Extension")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Height")
+                        .HasColumnType("int");
+
                     b.Property<int?>("HomePetId")
                         .HasColumnType("int");
 
@@ -393,6 +396,9 @@ namespace AnimalShelter.Data.Migrations
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Width")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
