@@ -15,5 +15,7 @@ namespace AnimalShelter.Services.Data
         int GetAdoptCatCount();
 
         int GetAdoptOtherCount();
+
+        int GetAllAnimalCount();
     }
 }

@@ -1,9 +1,12 @@
 ﻿namespace AnimalShelter.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Globalization;
     using System.IO;
     using System.Linq;
+    using System.Linq.Expressions;
+    using System.Reflection;
     using System.Threading.Tasks;
 
     using AnimalShelter.Data.Common.Repositories;
@@ -41,6 +44,8 @@
                 Name = input.Name,
             };
 
+            //var newAdoptPost = input.To<PetAdoptionPost>();
+
             var pictures = await this.imageBuilder.CreatePictures(input.Images, webRootPath, user.Id, directory);
             pictures.ForEach(x => { newAdoptPost.PostPictures.Add(x); });
 
@@ -48,52 +53,46 @@
             await this.adoptionPostsRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetAll<T>(int pageNumber, int itemsPerPage)
+        public IEnumerable<T> GetAll<T>(int pageNumber, int itemsPerPage, string orderByProperty, string orderAscDesc)
         {
             var pets = this.adoptionPostsRepository.AllAsNoTracking()
-                .Where(x => x.IsAdopted == false && x.IsApproved == true)
-                .OrderByDescending(x => x.Id)
-                .Skip((pageNumber - 1) * itemsPerPage).Take(itemsPerPage)
+                .Where(x => x.IsAdopted == false && x.IsApproved == true);
+
+            var orderedByParameter = pets.OrderBy(orderByProperty, orderAscDesc);
+
+            return orderedByParameter
+                .Skip((pageNumber - 1) * itemsPerPage)
+                .Take(itemsPerPage)
                 .To<T>()
                 .ToList();
-
-            return pets;
         }
 
-        public IEnumerable<T> GetAllDogs<T>(int pageNumber, int itemsPerPage)
+        public IEnumerable<T> GetAllAnimalsByType<T>(int pageNumber, int itemsPerPage, string typeAnimal, string orderByProperty, string orderAscDesc)
         {
+            TypePet type = TypePet.Dog;
+
+            switch (typeAnimal)
+            {
+                case "cats":
+                    type = TypePet.Cat;
+                    break;
+                case "other":
+                    type = TypePet.Other;
+                    break;
+                default:
+                    break;
+            }
+
             var pets = this.adoptionPostsRepository.AllAsNoTracking()
-                .Where(x => x.Type == TypePet.Dog && x.IsAdopted == false && x.IsApproved == true)
-                .OrderByDescending(x => x.Id)
-                .Skip((pageNumber - 1) * itemsPerPage).Take(itemsPerPage)
+                           .Where(x => x.Type == type && x.IsAdopted == false && x.IsApproved == true);
+
+            var orderedByParameter = pets.OrderBy(orderByProperty, orderAscDesc);
+
+            return orderedByParameter
+                .Skip((pageNumber - 1) * itemsPerPage)
+                .Take(itemsPerPage)
                 .To<T>()
                 .ToList();
-
-            return pets;
-        }
-
-        public IEnumerable<T> GetAllCats<T>(int pageNumber, int itemsPerPage)
-        {
-            var pets = this.adoptionPostsRepository.AllAsNoTracking()
-                .Where(x => x.Type == TypePet.Cat && x.IsAdopted == false && x.IsApproved == true)
-                .OrderByDescending(x => x.Id)
-                .Skip((pageNumber - 1) * itemsPerPage).Take(itemsPerPage)
-                .To<T>()
-                .ToList();
-
-            return pets;
-        }
-
-        public IEnumerable<T> GetAllOther<T>(int pageNumber, int itemsPerPage)
-        {
-            var pets = this.adoptionPostsRepository.AllAsNoTracking()
-                .Where(x => x.Type == TypePet.Other && x.IsAdopted == false && x.IsApproved == true)
-                .OrderByDescending(x => x.Id)
-                .Skip((pageNumber - 1) * itemsPerPage).Take(itemsPerPage)
-                .To<T>()
-                .ToList();
-
-            return pets;
         }
     }
 }

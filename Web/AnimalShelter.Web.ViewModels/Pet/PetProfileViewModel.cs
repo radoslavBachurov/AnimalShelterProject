@@ -1,14 +1,13 @@
-﻿using AnimalShelter.Data.Models;
-using AnimalShelter.Services.Mapping;
-using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-
-namespace AnimalShelter.Web.ViewModels.Pet
+﻿namespace AnimalShelter.Web.ViewModels.Pet
 {
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+
+    using AnimalShelter.Data.Models;
+    using AnimalShelter.Services.Mapping;
+    using AutoMapper;
+
     public class PetProfileViewModel : IMapFrom<PetAdoptionPost>, IHaveCustomMappings
     {
         public int Id { get; set; }
@@ -35,11 +34,7 @@ namespace AnimalShelter.Web.ViewModels.Pet
         {
             configuration.CreateMap<PetAdoptionPost, PetProfileViewModel>()
                 .ForMember(x => x.CreatedOn, opt => opt.MapFrom(x => x.CreatedOn.Date.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)))
-                .ForMember(x => x.Pictures, opt => opt.MapFrom(x => x.PostPictures.Select(x => new PetProfilePicViewModel()
-                {
-                    Path = x.Path != null ? x.Path : x.RemoteImageUrl,
-                    DataSize = x.Width.ToString() + "x" + x.Height.ToString(),
-                })))
+                .ForMember(x => x.Pictures, opt => opt.MapFrom(x => x.PostPictures))
                 .ForMember(x => x.CoverPicturePath, opt => opt.MapFrom(x => x.PostPictures.Where(y => y.IsCoverPicture).FirstOrDefault().Path != null ?
                                                                             x.PostPictures.Where(y => y.IsCoverPicture).FirstOrDefault().Path :
                                                                            x.PostPictures.Where(y => y.IsCoverPicture).FirstOrDefault().RemoteImageUrl));

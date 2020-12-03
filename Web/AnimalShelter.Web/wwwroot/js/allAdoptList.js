@@ -1,6 +1,13 @@
-﻿
-var currentPage = 1;
+﻿var currentPage = 1;
 var currentType = 'cats';
+var currentOrderType = 'Id';
+var currOrderDescAsc = 'desc';
+
+//Add orderByEvents
+document.getElementById('dateOrder').addEventListener("click", function () { loadAnimals(currentPage, currentType, 'Id'); });
+document.getElementById('likeOrder').addEventListener("click", function () { loadAnimals(currentPage, currentType, 'Likes'); });
+document.getElementById('ascOrder').addEventListener("click", function () { changeOrderDescAsc() });
+
 
 function getDeltaPage(event, pageDelta) {
     event.preventDefault();
@@ -17,7 +24,19 @@ function getLastPage(event, lastPage) {
     loadAnimals(lastPage);
 }
 
-async function loadAnimals(page, type) {
+function changeOrderDescAsc() {
+    if (currOrderDescAsc == 'desc') {
+        currOrderDescAsc = 'asc';
+    }
+    else {
+        currOrderDescAsc = 'desc'
+    }
+
+    loadAnimals(currentPage, currentType, currentOrderType, currOrderDescAsc);
+}
+
+async function loadAnimals(page, type, orderType, orderDescAsc) {
+
     if (page) {
         currentPage = page;
     }
@@ -26,7 +45,15 @@ async function loadAnimals(page, type) {
         currentType = type;
     }
 
-    var uri = `/api/AdoptList?type=${currentType}&page=${currentPage}`;
+    if (orderType) {
+        currentOrderType = orderType;
+    }
+
+    if (orderDescAsc) {
+        currOrderDescAsc = orderDescAsc;
+    }
+
+    var uri = `/api/AdoptList?type=${currentType}&page=${currentPage}&order=${currentOrderType}&orderType=${currOrderDescAsc}`;
 
     fetch(uri, {
         method: "GET",
@@ -40,6 +67,25 @@ async function loadAnimals(page, type) {
 }
 
 function createAdoptSection(animals, data) {
+    var dateOrderButton = document.getElementById('dateOrder');
+    var likeOrderButoon = document.getElementById('likeOrder');
+
+    if (currentOrderType == 'Likes') {
+        dateOrderButton.classList.remove('active');
+        dateOrderButton.classList.remove('btn-silver-outline');
+        dateOrderButton.classList.add('btn-primary');
+
+        likeOrderButoon.classList.add('active');
+        likeOrderButoon.classList.remove('btn-primary');
+    }
+    else {
+        likeOrderButoon.classList.remove("active");
+        likeOrderButoon.classList.remove('btn-silver-outline');
+        likeOrderButoon.classList.add('btn-primary');
+
+        dateOrderButton.classList.add('active');
+        dateOrderButton.classList.remove('btn-primary');
+    }
 
     if (animals == null || animals.length == 0) {
         return;
@@ -72,6 +118,8 @@ function createAdoptSection(animals, data) {
     toAtach.classList.add("range");
     toAtach.classList.add("spacing-30");
 
+    let thumbnailColorCounter = 1;
+
     animals.forEach(el => {
         let imgSrc = el.coverPicturePath;
         let name = el.name;
@@ -80,6 +128,7 @@ function createAdoptSection(animals, data) {
         let location = el.location;
         let sex = el.sex;
         let id = el.id;
+        let likes = el.likes;
 
         //Creating Body
         let cell = document.createElement('div');
@@ -88,6 +137,14 @@ function createAdoptSection(animals, data) {
         let thumbnailHorizontal = document.createElement('div');
         thumbnailHorizontal.classList.add("thumbnail-boxed");
         thumbnailHorizontal.classList.add("thumbnail-boxed-horizontal");
+
+        if (thumbnailColorCounter % 3 == 0) {
+            thumbnailHorizontal.classList.add("thumbnail-boxed-tan-hide");
+        }
+        else if (thumbnailColorCounter % 2 == 0) {
+            thumbnailHorizontal.classList.add("thumbnail-boxed-blue-marguerite");
+        }
+        thumbnailColorCounter++;
 
         let boxLeft = document.createElement('div');
         boxLeft.classList.add("thumbnail-boxed-left");
@@ -178,6 +235,22 @@ function createAdoptSection(animals, data) {
         ThirdliElement.appendChild(ThirdSpanOne);
         ThirdliElement.appendChild(ThirdSpanTwo);
         ulData.appendChild(ThirdliElement);
+
+        //Likes
+        let FourthliElement = document.createElement('li');
+
+        let FourthSpanOne = document.createElement('span');
+        FourthSpanOne.classList.add("icon");
+        FourthSpanOne.classList.add("icon-xs");
+        FourthSpanOne.classList.add("icon-tan-hide");
+        FourthSpanOne.classList.add("material-icons-favorite");
+        let FourthSpanTwo = document.createElement('span');
+        let likesEl = document.createTextNode(likes);
+        FourthSpanTwo.appendChild(likesEl);
+
+        FourthliElement.appendChild(FourthSpanOne);
+        FourthliElement.appendChild(FourthSpanTwo);
+        ulData.appendChild(FourthliElement);
 
         thumbnailFooter.appendChild(ulData);
         thumbnailBody.appendChild(thumbnailFooter);
@@ -369,4 +442,5 @@ function createAdoptSection(animals, data) {
 
     document.getElementById('pageFirstPage').addEventListener("click", function () { getFirstPage(event); });
     document.getElementById('pageLastPage').addEventListener("click", function () { getLastPage(event, data.pagesCount); });
+
 }

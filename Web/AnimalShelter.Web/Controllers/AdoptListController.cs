@@ -17,9 +17,9 @@
             this.getCountService = getCountService;
         }
 
-        public ActionResult<PetListViewModel> AllAnimals(string type, int page = 1)
+        public ActionResult<PetListViewModel> AllAnimals(string type, int page = 1, string order = "Id", string orderType = "desc")
         {
-            const int itemsPerPage = 1;
+            const int itemsPerPage = 4;
 
             var viewModel = new PetListViewModel()
             {
@@ -27,22 +27,16 @@
                 PageNumber = page,
             };
 
-            switch (type)
+            if (type == "all")
             {
-                case "cats":
-                    viewModel.AnimalCount = this.getCountService.GetAdoptCatCount();
-                    viewModel.Animals = this.adoptService.GetAllCats<PetInListViewModel>(page, itemsPerPage);
-                    break;
-                case "dogs":
-                    viewModel.AnimalCount = this.getCountService.GetAdoptDogCount();
-                    viewModel.Animals = this.adoptService.GetAllDogs<PetInListViewModel>(page, itemsPerPage);
-                    break;
-                case "other":
-                    viewModel.AnimalCount = this.getCountService.GetAdoptOtherCount();
-                    viewModel.Animals = this.adoptService.GetAllOther<PetInListViewModel>(page, itemsPerPage);
-                    break;
-                default:
-                    break;
+                viewModel.AnimalCount = this.getCountService.GetAllAnimalCount();
+                viewModel.Animals = this.adoptService.GetAll<PetInListViewModel>(page, itemsPerPage, order, orderType);
+            }
+            else
+            {
+                //Create allanimalsCountbyType
+                viewModel.AnimalCount = this.getCountService.GetAdoptDogCount();
+                viewModel.Animals = this.adoptService.GetAllAnimalsByType<PetInListViewModel>(page, itemsPerPage, type, order, orderType);
             }
 
             return viewModel;

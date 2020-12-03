@@ -93,5 +93,14 @@ namespace AnimalShelter.Services.Data
 
             return catCount;
         }
+
+        public int GetAllAnimalCount()
+        {
+            var catCount = 0;
+            catCount = this.adoptionPostsRepository.AllAsNoTracking()
+                           .Where(x => x.IsAdopted == false && x.IsApproved == true).Count();
+
+            return catCount;
+        }
     }
 }

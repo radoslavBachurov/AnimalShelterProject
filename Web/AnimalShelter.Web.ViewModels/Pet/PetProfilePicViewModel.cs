@@ -4,7 +4,7 @@ using AutoMapper;
 
 namespace AnimalShelter.Web.ViewModels.Pet
 {
-    public class PetProfilePicViewModel : IMapFrom<Picture>, IHaveCustomMappings, IMapTo<Picture>
+    public class PetProfilePicViewModel : IMapFrom<Picture>, IHaveCustomMappings
     {
         public string Path { get; set; }
 

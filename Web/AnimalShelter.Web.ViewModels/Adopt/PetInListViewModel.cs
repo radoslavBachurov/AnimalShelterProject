@@ -26,6 +26,8 @@
 
         public string CoverPicturePath { get; set; }
 
+        public string Likes { get; set; }
+
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<PetAdoptionPost, PetInListViewModel>()
