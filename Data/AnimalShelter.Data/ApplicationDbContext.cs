@@ -40,6 +40,12 @@
 
         public DbSet<SuccessStory> SuccessStories { get; set; }
 
+        public DbSet<UserAdoptionPost> UserAdoptionPosts { get; set; }
+
+        public DbSet<UserLostFoundPost> UserLostFoundPosts { get; set; }
+
+        public DbSet<UserSuccessStoryPost> UserSuccessStoryPosts { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

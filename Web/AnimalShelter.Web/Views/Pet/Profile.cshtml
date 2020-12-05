@@ -7,6 +7,7 @@
 @{
     this.ViewData["Title"] = "Pet Profile";
 }
+
 <!-- Breadcrumbs & Page title-->
 <div class="page-title">
     <div class="page-title-text">Single Page Pets</div>
@@ -26,10 +27,17 @@
                 <span class="icon icon-xs icon-tan-hide material-icons-access_time"></span>
                 <time datetime="">@Model.CreatedOn</time>
             </li>
-            <li><span class="icon icon-xs icon-tan-hide mdi mdi-thumb-up"></span><span>@Model.Likes</span></li>
+            <li><span class="icon icon-xs icon-tan-hide mdi mdi-thumb-up"></span><span id="likesCount">@Model.Likes</span></li>
             <li><span class="icon icon-xs icon-tan-hide mdi mdi-comment-outline"></span><span>6</span></li>
         </ul>
-        <div class="btn btn-icon btn-icon-right btn-primary"><span class="icon icon-md material-icons-favorite"></span>Like</div>
+        @if (Model.IsPostLiked)
+        {
+            <div onclick="LikeController(@Model.PostId,true)" class="btn btn-icon btn-icon-right btn-primary" id="like"><span class="icon icon-md material-icons-thumb_down"></span>Dislike</div>
+        }
+        else
+        {
+            <div onclick="LikeController(@Model.PostId,false)" class="btn btn-icon btn-icon-right btn-primary" id="like"><span class="icon icon-md material-icons-favorite"></span>Like</div>
+        }
         <div class="range range-sm-center">
             <div class="cell-sm-9 cell-md-12">
                 <article class="post-single">
@@ -76,66 +84,76 @@
 <div class="shell">
     <hr>
 </div>
+
 <!-- Comments-->
 <section class="section-sm bg-white text-left">
     <div class="shell">
         <div class="range spacing-55">
+
             <div class="cell-md-7 cell-lg-8">
                 <div class="blog-main">
-                    <div class="blog-main-item">
-                        <h4>Comments</h4>
-                        <div class="comment-group">
-                            <!-- Comment-->
-                            <article class="comment">
-                                <div class="comment-avatar">
-                                    <img src="images/theresa-lane-80x80.jpg" alt="" width="80" height="80" />
-                                </div>
-                                <div class="comment-body">
-                                    <div class="comment-header">
-                                        <p class="comment-title">Theresa Lane</p><span class="comment-time">2 days ago</span>
-                                    </div>
-                                    <div class="comment-text">
-                                        <p>Thank you for your article, I think it can be very useful to volunteers of Animal Shelter.</p>
-                                    </div>
-                                    <div class="comment-footer"><a class="comment-link-reply" href="#">Reply</a></div>
-                                </div>
-                            </article>
+                    @if (this.SignInManager.IsSignedIn(this.User))
+                    {
+                        <div class="blog-main-item">
+                            <h4>Comments</h4>
                             <div class="comment-group">
+
                                 <!-- Comment-->
                                 <article class="comment">
                                     <div class="comment-avatar">
-                                        <img src="images/ronald-austin-80x80.jpg" alt="" width="80" height="80" />
+                                        <img src="images/theresa-lane-80x80.jpg" alt="" width="80" height="80" />
                                     </div>
                                     <div class="comment-body">
                                         <div class="comment-header">
-                                            <p class="comment-title">Ronald Austin</p><span class="comment-time">2 days ago</span>
+                                            <p class="comment-title">Theresa Lane</p><span class="comment-time">2 days ago</span>
                                         </div>
                                         <div class="comment-text">
-                                            <p>Thank you!</p>
+                                            <p>Thank you for your article, I think it can be very useful to volunteers of Animal Shelter.</p>
                                         </div>
                                         <div class="comment-footer"><a class="comment-link-reply" href="#">Reply</a></div>
                                     </div>
                                 </article>
+                                <div class="comment-group">
+                                    <!-- Comment-->
+                                    <article class="comment">
+                                        <div class="comment-avatar">
+                                            <img src="images/ronald-austin-80x80.jpg" alt="" width="80" height="80" />
+                                        </div>
+                                        <div class="comment-body">
+                                            <div class="comment-header">
+                                                <p class="comment-title">Ronald Austin</p><span class="comment-time">2 days ago</span>
+                                            </div>
+                                            <div class="comment-text">
+                                                <p>Thank you!</p>
+                                            </div>
+                                            <div class="comment-footer"><a class="comment-link-reply" href="#">Reply</a></div>
+                                        </div>
+                                    </article>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="blog-main-item">
-                        <h4>Send a Comment</h4>
-                        <!-- RD Mailform-->
-                        <form class="rd-mailform form-wide" data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php">
-                            <div class="range range-sm-bottom spacing-30">
-                                <div class="cell-xs-12">
-                                    <div class="form-group">
-                                        <textarea class="form-control" id="comment-message" name="message" data-constraints="@@Required"></textarea>
-                                        <label class="form-label" for="comment-message">Message</label>
+                        <div class="blog-main-item">
+                            <h4>Send a Comment</h4>
+                            <!-- RD Mailform-->
+                            <form class="rd-mailform form-wide" data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php">
+                                <div class="range range-sm-bottom spacing-30">
+                                    <div class="cell-xs-12">
+                                        <div class="form-group">
+                                            <textarea class="form-control" id="comment-message" name="message" data-constraints="@@Required"></textarea>
+                                            <label class="form-label" for="comment-message">Message</label>
+                                        </div>
+                                    </div>
+                                    <div class="cell-sm-6">
+                                        <button class="btn btn-primary btn-effect-ujarak btn-block" type="submit">Submit</button>
                                     </div>
                                 </div>
-                                <div class="cell-sm-6">
-                                    <button class="btn btn-primary btn-effect-ujarak btn-block" type="submit">Submit</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                            </form>
+                        </div>
+                    }
+                    else
+                    {
+                        <h3>Sign in to add comments</h3>
+                    }
                 </div>
             </div>
             <div class="cell-md-5 cell-lg-4">
@@ -186,3 +204,9 @@
         </div>
     </div>
 </section>
+
+<script src="~/js/petProfile.js"></script>
+
+
+
+

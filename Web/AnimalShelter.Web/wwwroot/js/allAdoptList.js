@@ -69,6 +69,23 @@ async function loadAnimals(page, type, orderType, orderDescAsc) {
 function createAdoptSection(animals, data) {
     var dateOrderButton = document.getElementById('dateOrder');
     var likeOrderButoon = document.getElementById('likeOrder');
+    var ascDescOrder = document.getElementById('ascOrder');
+    var ascDescOrderIcon = ascDescOrder.firstElementChild;
+
+    if (currOrderDescAsc == 'asc') {
+        ascDescOrder.classList.remove('active');
+        ascDescOrder.classList.remove('btn-silver-outline');
+        ascDescOrder.classList.add('btn-primary');
+        ascDescOrderIcon.classList.remove('material-icons-swap_vert');
+        ascDescOrderIcon.classList.add('material-icons-swap_vertical_circle');
+    }
+    else {
+        ascDescOrder.classList.add('active');
+        ascDescOrder.classList.add('btn-silver-outline');
+        ascDescOrder.classList.remove('btn-primary');
+        ascDescOrderIcon.classList.remove('material-icons-swap_vertical_circle');
+        ascDescOrderIcon.classList.add('material-icons-swap_vert');
+    }
 
     if (currentOrderType == 'Likes') {
         dateOrderButton.classList.remove('active');
@@ -76,6 +93,7 @@ function createAdoptSection(animals, data) {
         dateOrderButton.classList.add('btn-primary');
 
         likeOrderButoon.classList.add('active');
+        likeOrderButoon.classList.add('btn-silver-outline');
         likeOrderButoon.classList.remove('btn-primary');
     }
     else {
@@ -84,6 +102,7 @@ function createAdoptSection(animals, data) {
         likeOrderButoon.classList.add('btn-primary');
 
         dateOrderButton.classList.add('active');
+        dateOrderButton.classList.add('btn-silver-outline');
         dateOrderButton.classList.remove('btn-primary');
     }
 

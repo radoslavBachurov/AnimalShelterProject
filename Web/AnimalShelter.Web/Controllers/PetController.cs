@@ -20,10 +20,12 @@ namespace AnimalShelter.Web.Controllers
             this.userManager = userManager;
         }
 
-        public IActionResult Profile(int id,string name)
+        public async Task<IActionResult> Profile(int id)
         {
             var postId = id;
-            var viewModel = this.petService.GetPetProfile(postId);
+            var user = await this.userManager.GetUserAsync(this.User);
+            var viewModel = this.petService.GetPetProfile(postId, user);
+
             return this.View(viewModel);
         }
     }

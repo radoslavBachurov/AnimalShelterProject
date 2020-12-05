@@ -13,6 +13,7 @@ namespace AnimalShelter.Data.Models
         {
             this.PostPictures = new HashSet<Picture>();
             this.Replies = new HashSet<Reply>();
+            this.UserLikes = new HashSet<UserLostFoundPost>();
         }
 
         public string Description { get; set; }
@@ -39,5 +40,7 @@ namespace AnimalShelter.Data.Models
         public virtual ICollection<Picture> PostPictures { get; set; }
 
         public virtual ICollection<Reply> Replies { get; set; }
+
+        public virtual ICollection<UserLostFoundPost> UserLikes { get; set; }
     }
 }

@@ -4,9 +4,9 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-<li>
-    @if (this.SignInManager.IsSignedIn(this.User))
-    {
+
+@if (this.SignInManager.IsSignedIn(this.User))
+{
     <li class="nav-item">
         <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Профил</a>
     </li>
@@ -31,4 +31,3 @@ else
         <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">@Localizer["Login"]</a>
     </li>
 }
-    </li>

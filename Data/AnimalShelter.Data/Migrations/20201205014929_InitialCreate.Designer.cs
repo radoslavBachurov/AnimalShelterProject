@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AnimalShelter.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201201015136_InitialCreate")]
+    [Migration("20201205014929_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -548,6 +548,114 @@ namespace AnimalShelter.Data.Migrations
                     b.ToTable("SuccessStories");
                 });
 
+            modelBuilder.Entity("AnimalShelter.Data.Models.UserAdoptionPost", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PetAdoptionPostId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("PetAdoptionPostId");
+
+                    b.ToTable("UserAdoptionPosts");
+                });
+
+            modelBuilder.Entity("AnimalShelter.Data.Models.UserLostFoundPost", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("LostFoundPostId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("LostFoundPostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserLostFoundPosts");
+                });
+
+            modelBuilder.Entity("AnimalShelter.Data.Models.UserSuccessStoryPost", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("SuccessStoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("SuccessStoryId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserSuccessStoryPosts");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -723,6 +831,45 @@ namespace AnimalShelter.Data.Migrations
                 {
                     b.HasOne("AnimalShelter.Data.Models.ApplicationUser", "User")
                         .WithMany("SuccessStories")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("AnimalShelter.Data.Models.UserAdoptionPost", b =>
+                {
+                    b.HasOne("AnimalShelter.Data.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany("LikedAdoptionPosts")
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("AnimalShelter.Data.Models.PetAdoptionPost", "PetAdoptionPost")
+                        .WithMany("UserLikes")
+                        .HasForeignKey("PetAdoptionPostId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AnimalShelter.Data.Models.UserLostFoundPost", b =>
+                {
+                    b.HasOne("AnimalShelter.Data.Models.PetLostAndFoundPost", "LostFoundPost")
+                        .WithMany("UserLikes")
+                        .HasForeignKey("LostFoundPostId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("AnimalShelter.Data.Models.ApplicationUser", "User")
+                        .WithMany("LikedLostFoundPosts")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("AnimalShelter.Data.Models.UserSuccessStoryPost", b =>
+                {
+                    b.HasOne("AnimalShelter.Data.Models.SuccessStory", "SuccessStory")
+                        .WithMany("UserLikes")
+                        .HasForeignKey("SuccessStoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("AnimalShelter.Data.Models.ApplicationUser", "User")
+                        .WithMany("LikedSuccessStoryPosts")
                         .HasForeignKey("UserId");
                 });
 

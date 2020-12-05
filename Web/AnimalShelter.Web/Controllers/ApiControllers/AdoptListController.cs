@@ -29,14 +29,13 @@
 
             if (type == "all")
             {
-                viewModel.AnimalCount = this.getCountService.GetAllAnimalCount();
-                viewModel.Animals = this.adoptService.GetAll<PetInListViewModel>(page, itemsPerPage, order, orderType);
+                viewModel.AnimalCount = this.getCountService.GetAllAdoptAnimalsCount();
+                viewModel.Animals = this.adoptService.GetAllAnimals<PetInListViewModel>(page, itemsPerPage, order, orderType);
             }
             else
             {
-                //Create allanimalsCountbyType
-                viewModel.AnimalCount = this.getCountService.GetAdoptDogCount();
-                viewModel.Animals = this.adoptService.GetAllAnimalsByType<PetInListViewModel>(page, itemsPerPage, type, order, orderType);
+                viewModel.AnimalCount = this.getCountService.GetAllAdoptAnimalsByTypeCount(type);
+                viewModel.Animals = this.adoptService.GetAllAdoptAnimalsByType<PetInListViewModel>(page, itemsPerPage, type, order, orderType);
             }
 
             return viewModel;

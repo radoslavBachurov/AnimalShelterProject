@@ -58,7 +58,7 @@
 
             var webRoot = this.webHostEnvironment.WebRootPath;
 
-            await this.adoptService.CreateAdoptionPost(input, user, webRoot);
+            await this.adoptService.CreateAdoptionPostAsync(input, user, webRoot);
 
             return this.RedirectToAction(nameof(All));
         }

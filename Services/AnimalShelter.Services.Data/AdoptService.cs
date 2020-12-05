@@ -27,7 +27,7 @@
             this.imageBuilder = new ImageBuilder();
         }
 
-        public async Task CreateAdoptionPost(CreateAdoptPetInputModel input, ApplicationUser user, string webRoot)
+        public async Task CreateAdoptionPostAsync(CreateAdoptPetInputModel input, ApplicationUser user, string webRoot)
         {
             var webRootPath = $"/UserImages/Adopt/{user.Nickname}/";
             var directory = webRoot + webRootPath;
@@ -46,14 +46,14 @@
 
             //var newAdoptPost = input.To<PetAdoptionPost>();
 
-            var pictures = await this.imageBuilder.CreatePictures(input.Images, webRootPath, user.Id, directory);
+            var pictures = await this.imageBuilder.CreatePicturesAsync(input.Images, webRootPath, user.Id, directory);
             pictures.ForEach(x => { newAdoptPost.PostPictures.Add(x); });
 
             await this.adoptionPostsRepository.AddAsync(newAdoptPost);
             await this.adoptionPostsRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetAll<T>(int pageNumber, int itemsPerPage, string orderByProperty, string orderAscDesc)
+        public IEnumerable<T> GetAllAnimals<T>(int pageNumber, int itemsPerPage, string orderByProperty, string orderAscDesc)
         {
             var pets = this.adoptionPostsRepository.AllAsNoTracking()
                 .Where(x => x.IsAdopted == false && x.IsApproved == true);
@@ -67,7 +67,7 @@
                 .ToList();
         }
 
-        public IEnumerable<T> GetAllAnimalsByType<T>(int pageNumber, int itemsPerPage, string typeAnimal, string orderByProperty, string orderAscDesc)
+        public IEnumerable<T> GetAllAdoptAnimalsByType<T>(int pageNumber, int itemsPerPage, string typeAnimal, string orderByProperty, string orderAscDesc)
         {
             TypePet type = TypePet.Dog;
 

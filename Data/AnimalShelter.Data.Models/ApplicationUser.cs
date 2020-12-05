@@ -21,6 +21,9 @@ namespace AnimalShelter.Data.Models
             this.SuccessStories = new HashSet<SuccessStory>();
             this.HomePets = new HashSet<HomePet>();
             this.UserPictures = new HashSet<Picture>();
+            this.LikedLostFoundPosts = new HashSet<UserLostFoundPost>();
+            this.LikedAdoptionPosts = new HashSet<UserAdoptionPost>();
+            this.LikedSuccessStoryPosts = new HashSet<UserSuccessStoryPost>();
         }
 
         // Audit info
@@ -58,5 +61,11 @@ namespace AnimalShelter.Data.Models
         public virtual ICollection<HomePet> HomePets { get; set; }
 
         public virtual ICollection<Picture> UserPictures { get; set; }
+
+        public virtual ICollection<UserAdoptionPost> LikedAdoptionPosts { get; set; }
+
+        public virtual ICollection<UserLostFoundPost> LikedLostFoundPosts { get; set; }
+
+        public virtual ICollection<UserSuccessStoryPost> LikedSuccessStoryPosts { get; set; }
     }
 }

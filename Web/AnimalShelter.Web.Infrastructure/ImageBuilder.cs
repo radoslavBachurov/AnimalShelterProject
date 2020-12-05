@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Threading.Tasks;
+
     using AnimalShelter.Data.Models;
     using Microsoft.AspNetCore.Http;
     using SixLabors.ImageSharp;
@@ -16,24 +17,11 @@
 
         private string Extention { get; set; }
 
-        public async Task SaveImage(IFormFile image, string directory, string pictureId)
+        private string Directory { get; set; }
+
+        public async Task<List<Picture>> CreatePicturesAsync(IEnumerable<IFormFile> images, string webRootPath, string userId, string directory)
         {
-            using (var stream = image.OpenReadStream())
-
-            using (var pic = Image.Load(stream, out IImageFormat format))
-
-            using (FileStream fs = new FileStream(directory + pictureId + $".{format.Name.ToLower()}", FileMode.Create))
-            {
-                await image.CopyToAsync(fs);
-
-                this.Height = pic.Height;
-                this.Width = pic.Width;
-                this.Extention = format.Name.ToLower();
-            }
-        }
-
-        public async Task<List<Picture>> CreatePictures(IEnumerable<IFormFile> images, string webRootPath, string userId, string directory)
-        {
+            this.Directory = directory;
             List<Picture> pictures = new List<Picture>();
 
             int counter = 0;
@@ -41,7 +29,7 @@
             {
                 var picture = new Picture() { Path = webRootPath, UserId = userId };
 
-                await this.SaveImage(image, directory, picture.Id);
+                await this.SaveImageAsync(image, picture.Id);
 
                 picture.Extension = this.Extention;
                 picture.Width = this.Width;
@@ -61,6 +49,20 @@
             return pictures;
         }
 
+        private async Task SaveImageAsync(IFormFile image, string pictureId)
+        {
+            using (var stream = image.OpenReadStream())
 
+            using (var pic = Image.Load(stream, out IImageFormat format))
+
+            using (FileStream fs = new FileStream(this.Directory + pictureId + $".{format.Name.ToLower()}", FileMode.Create))
+            {
+                await image.CopyToAsync(fs);
+
+                this.Height = pic.Height;
+                this.Width = pic.Width;
+                this.Extention = format.Name.ToLower();
+            }
+        }
     }
 }

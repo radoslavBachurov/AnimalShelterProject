@@ -65,42 +65,34 @@ namespace AnimalShelter.Services.Data
             return data;
         }
 
-        public int GetAdoptDogCount()
+        public int GetAllAdoptAnimalsByTypeCount(string type)
         {
-            var dogCount = 0;
+            TypePet typeAnimal = TypePet.Dog;
 
-            dogCount = this.adoptionPostsRepository.AllAsNoTracking()
-                           .Where(x => x.IsAdopted == false && x.Type == TypePet.Dog && x.IsApproved == true).Count();
+            switch (type)
+            {
+                case "cats":
+                    typeAnimal = TypePet.Cat;
+                    break;
+                case "other":
+                    typeAnimal = TypePet.Other;
+                    break;
+                default:
+                    break;
+            }
 
-            return dogCount;
+            var count = this.adoptionPostsRepository.AllAsNoTracking()
+                           .Where(x => x.IsAdopted == false && x.Type == typeAnimal && x.IsApproved == true).Count();
+
+            return count;
         }
 
-        public int GetAdoptCatCount()
+        public int GetAllAdoptAnimalsCount()
         {
-            var catCount = 0;
-            catCount = this.adoptionPostsRepository.AllAsNoTracking()
-                           .Where(x => x.IsAdopted == false && x.Type == TypePet.Cat && x.IsApproved == true).Count();
-
-            return catCount;
-
-        }
-
-        public int GetAdoptOtherCount()
-        {
-            var catCount = 0;
-            catCount = this.adoptionPostsRepository.AllAsNoTracking()
-                           .Where(x => x.IsAdopted == false && x.Type == TypePet.Other && x.IsApproved == true).Count();
-
-            return catCount;
-        }
-
-        public int GetAllAnimalCount()
-        {
-            var catCount = 0;
-            catCount = this.adoptionPostsRepository.AllAsNoTracking()
+            var count = this.adoptionPostsRepository.AllAsNoTracking()
                            .Where(x => x.IsAdopted == false && x.IsApproved == true).Count();
 
-            return catCount;
+            return count;
         }
     }
 }
