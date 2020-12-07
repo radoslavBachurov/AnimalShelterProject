@@ -4,7 +4,9 @@
 
     using AnimalShelter.Data.Models;
     using AnimalShelter.Services.Data;
+    using AnimalShelter.Web.Infrastructure;
     using AnimalShelter.Web.ViewModels.Adopt;
+    using AnimalShelter.Web.ViewModels.SearchResults;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
@@ -30,11 +32,6 @@
         }
 
         public IActionResult All()
-        {
-            return this.View();
-        }
-
-        public IActionResult SearchResults()
         {
             return this.View();
         }

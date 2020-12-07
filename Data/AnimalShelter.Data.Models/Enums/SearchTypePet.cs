@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace AnimalShelter.Data.Models.Enums
+﻿namespace AnimalShelter.Data.Models.Enums
 {
-    public enum TypePet
+    using System.ComponentModel.DataAnnotations;
+
+    public enum SearchTypePet
     {
+        [Display(Name = "Всички")]
+        All = 1,
         [Display(Name = "Куче")]
         Dog = 2,
         [Display(Name = "Котка")]

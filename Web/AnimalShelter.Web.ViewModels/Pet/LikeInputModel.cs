@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AnimalShelter.Web.ViewModels.Pet
+﻿namespace AnimalShelter.Web.ViewModels.Pet
 {
     public class LikeInputModel
     {

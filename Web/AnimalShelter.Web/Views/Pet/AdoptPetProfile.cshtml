@@ -30,13 +30,17 @@
             <li><span class="icon icon-xs icon-tan-hide mdi mdi-thumb-up"></span><span id="likesCount">@Model.Likes</span></li>
             <li><span class="icon icon-xs icon-tan-hide mdi mdi-comment-outline"></span><span>6</span></li>
         </ul>
-        @if (Model.IsPostLiked)
+        @if (this.SignInManager.IsSignedIn(this.User))
         {
-            <div onclick="LikeController(@Model.PostId,true)" class="btn btn-icon btn-icon-right btn-primary" id="like"><span class="icon icon-md material-icons-thumb_down"></span>Dislike</div>
-        }
-        else
-        {
-            <div onclick="LikeController(@Model.PostId,false)" class="btn btn-icon btn-icon-right btn-primary" id="like"><span class="icon icon-md material-icons-favorite"></span>Like</div>
+            <form id="likesForm" method="POST"></form>
+            @if (Model.IsPostLiked)
+            {
+                <div onclick="LikeController(@Model.PostId,true)" class="btn btn-icon btn-icon-right btn-primary" id="like"><span class="icon icon-md material-icons-thumb_down"></span>Dislike</div>
+            }
+            else
+            {
+                <div onclick="LikeController(@Model.PostId,false)" class="btn btn-icon btn-icon-right btn-primary" id="like"><span class="icon icon-md material-icons-favorite"></span>Like</div>
+            }
         }
         <div class="range range-sm-center">
             <div class="cell-sm-9 cell-md-12">
@@ -205,7 +209,10 @@
     </div>
 </section>
 
-<script src="~/js/petProfile.js"></script>
+@section Scripts{
+    <script src="~/js/petProfile.js"></script>
+}
+
 
 
 

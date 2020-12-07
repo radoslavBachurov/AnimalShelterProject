@@ -20,13 +20,9 @@
 
         public ApplicationUser User { get; set; }
 
-        public int? PetAdoptionPostId { get; set; }
+        public int? PetPostId { get; set; }
 
-        public PetAdoptionPost PetAdoptionPost { get; set; }
-
-        public int? PetLostAndFoundPostId { get; set; }
-
-        public PetLostAndFoundPost PetLostAndFound { get; set; }
+        public PetPost PetPost { get; set; }
 
         public virtual ICollection<Picture> ReplyPictures { get; set; }
     }

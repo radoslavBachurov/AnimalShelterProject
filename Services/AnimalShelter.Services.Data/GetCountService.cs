@@ -13,21 +13,18 @@ namespace AnimalShelter.Services.Data
 {
     public class GetCountService : IGetCountService
     {
-        private readonly IDeletableEntityRepository<PetAdoptionPost> adoptionPostsRepository;
-        private readonly IDeletableEntityRepository<PetLostAndFoundPost> lostAndFoundRepository;
+        private readonly IDeletableEntityRepository<PetPost> petPostsRepository;
         private readonly IDeletableEntityRepository<Picture> pictureRepository;
         private readonly IDeletableEntityRepository<SuccessStory> successStoriesRepository;
         private readonly IDeletableEntityRepository<ApplicationUser> users;
 
         public GetCountService(
-        IDeletableEntityRepository<PetAdoptionPost> adoptionPostsRepository,
-        IDeletableEntityRepository<PetLostAndFoundPost> lostAndFoundRepository,
+        IDeletableEntityRepository<PetPost> petPostsRepository,
         IDeletableEntityRepository<Picture> pictureRepository,
         IDeletableEntityRepository<SuccessStory> successStoriesRepository,
         IDeletableEntityRepository<ApplicationUser> users)
         {
-            this.adoptionPostsRepository = adoptionPostsRepository;
-            this.lostAndFoundRepository = lostAndFoundRepository;
+            this.petPostsRepository = petPostsRepository;
             this.pictureRepository = pictureRepository;
             this.successStoriesRepository = successStoriesRepository;
             this.users = users;
@@ -37,16 +34,16 @@ namespace AnimalShelter.Services.Data
         {
             var data = new IndexViewModel()
             {
-                DogsCount = this.adoptionPostsRepository.AllAsNoTracking()
-                            .Where(x => x.IsAdopted == false && x.Type == TypePet.Dog && x.IsApproved == true).Count(),
+                DogsCount = this.petPostsRepository.AllAsNoTracking()
+                            .Where(x => x.PetStatus == PetStatus.ForAdoption && x.Type == TypePet.Dog && x.IsApproved == true).Count(),
 
-                CatCount = this.adoptionPostsRepository.AllAsNoTracking()
-                            .Where(x => x.IsAdopted == false && x.Type == TypePet.Cat && x.IsApproved == true).Count(),
+                CatCount = this.petPostsRepository.AllAsNoTracking()
+                            .Where(x => x.PetStatus == PetStatus.ForAdoption && x.Type == TypePet.Cat && x.IsApproved == true).Count(),
 
-                OtherAnimalsCount = this.adoptionPostsRepository.AllAsNoTracking()
-                            .Where(x => x.IsAdopted == false && x.Type == TypePet.Other && x.IsApproved == true).Count(),
+                OtherAnimalsCount = this.petPostsRepository.AllAsNoTracking()
+                            .Where(x => x.PetStatus == PetStatus.ForAdoption && x.Type == TypePet.Other && x.IsApproved == true).Count(),
 
-                AdoptedAnimals = this.adoptionPostsRepository.AllAsNoTracking().Where(x => x.IsAdopted == true).Count(),
+                AdoptedAnimals = this.petPostsRepository.AllAsNoTracking().Where(x => x.PetStatus == PetStatus.Adopted).Count(),
 
                 Volunteers = this.users.AllAsNoTracking().Count(),
 
@@ -65,7 +62,7 @@ namespace AnimalShelter.Services.Data
             return data;
         }
 
-        public int GetAllAdoptAnimalsByTypeCount(string type)
+        public int GetAllAnimalsForAdoptionByTypeCount(string type)
         {
             TypePet typeAnimal = TypePet.Dog;
 
@@ -81,16 +78,16 @@ namespace AnimalShelter.Services.Data
                     break;
             }
 
-            var count = this.adoptionPostsRepository.AllAsNoTracking()
-                           .Where(x => x.IsAdopted == false && x.Type == typeAnimal && x.IsApproved == true).Count();
+            var count = this.petPostsRepository.AllAsNoTracking()
+                           .Where(x => x.PetStatus == PetStatus.ForAdoption && x.Type == typeAnimal && x.IsApproved == true).Count();
 
             return count;
         }
 
-        public int GetAllAdoptAnimalsCount()
+        public int GetAllAnimalsForAdoptionCount()
         {
-            var count = this.adoptionPostsRepository.AllAsNoTracking()
-                           .Where(x => x.IsAdopted == false && x.IsApproved == true).Count();
+            var count = this.petPostsRepository.AllAsNoTracking()
+                           .Where(x => x.PetStatus == PetStatus.ForAdoption && x.IsApproved == true).Count();
 
             return count;
         }

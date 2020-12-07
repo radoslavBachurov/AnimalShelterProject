@@ -1,7 +1,7 @@
 ﻿namespace AnimalShelter.Web.Controllers
 {
     using AnimalShelter.Services.Data;
-    using AnimalShelter.Web.ViewModels.Adopt;
+    using AnimalShelter.Web.ViewModels.SearchResults;
     using Microsoft.AspNetCore.Mvc;
 
     [Route("/api/[controller]")]
@@ -27,16 +27,8 @@
                 PageNumber = page,
             };
 
-            if (type == "all")
-            {
-                viewModel.AnimalCount = this.getCountService.GetAllAdoptAnimalsCount();
-                viewModel.Animals = this.adoptService.GetAllAnimals<PetInListViewModel>(page, itemsPerPage, order, orderType);
-            }
-            else
-            {
-                viewModel.AnimalCount = this.getCountService.GetAllAdoptAnimalsByTypeCount(type);
-                viewModel.Animals = this.adoptService.GetAllAdoptAnimalsByType<PetInListViewModel>(page, itemsPerPage, type, order, orderType);
-            }
+            viewModel.AnimalCount = this.getCountService.GetAllAnimalsForAdoptionByTypeCount(type);
+            viewModel.Animals = this.adoptService.GetAllAnimalsForAdoptionByType<PetInListViewModel>(page, itemsPerPage, type, order, orderType);
 
             return viewModel;
         }

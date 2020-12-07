@@ -8,7 +8,7 @@
     using AnimalShelter.Services.Mapping;
     using AutoMapper;
 
-    public class PetProfileViewModel : IMapFrom<PetAdoptionPost>, IHaveCustomMappings
+    public class PetProfileViewModel : IMapFrom<PetPost>, IHaveCustomMappings
     {
         public int PostId { get; set; }
 
@@ -38,7 +38,7 @@
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<PetAdoptionPost, PetProfileViewModel>()
+            configuration.CreateMap<PetPost, PetProfileViewModel>()
                 .ForMember(x => x.CreatedOn, opt => opt.MapFrom(x => x.CreatedOn.Date.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)))
                 .ForMember(x => x.Pictures, opt => opt.MapFrom(x => x.PostPictures))
                 .ForMember(x => x.PostId, opt => opt.MapFrom(x => x.Id))

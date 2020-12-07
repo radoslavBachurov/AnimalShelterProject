@@ -30,9 +30,7 @@
 
         public DbSet<HomePet> HomePets { get; set; }
 
-        public DbSet<PetAdoptionPost> PetAdoptionPosts { get; set; }
-
-        public DbSet<PetLostAndFoundPost> PetLostAndFoundPosts { get; set; }
+        public DbSet<PetPost> PetPosts { get; set; }
 
         public DbSet<Picture> Pictures { get; set; }
 
@@ -40,9 +38,7 @@
 
         public DbSet<SuccessStory> SuccessStories { get; set; }
 
-        public DbSet<UserAdoptionPost> UserAdoptionPosts { get; set; }
-
-        public DbSet<UserLostFoundPost> UserLostFoundPosts { get; set; }
+        public DbSet<UserPetPost> UserPetPosts { get; set; }
 
         public DbSet<UserSuccessStoryPost> UserSuccessStoryPosts { get; set; }
 

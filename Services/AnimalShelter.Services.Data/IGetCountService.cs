@@ -10,8 +10,8 @@ namespace AnimalShelter.Services.Data
     {
         IndexViewModel GetIndexCounts();
 
-        int GetAllAdoptAnimalsByTypeCount(string type);
+        int GetAllAnimalsForAdoptionByTypeCount(string type);
 
-        int GetAllAdoptAnimalsCount();
+        int GetAllAnimalsForAdoptionCount();
     }
 }

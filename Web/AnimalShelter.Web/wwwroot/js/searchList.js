@@ -1,27 +1,30 @@
 ﻿var currentPage = 1;
-var currentType = 'cats';
+var currentType = 'Всички';
+var currLocation = 'Всички';
+var currCategory = 'Всички';
+var currSex = 'Всички';
 var currentOrderType = 'Id';
 var currOrderDescAsc = 'desc';
 
 //Add orderByEvents
-document.getElementById('dateOrder').addEventListener("click", function () { loadAnimals(currentPage, currentType, 'Id'); });
-document.getElementById('likeOrder').addEventListener("click", function () { loadAnimals(currentPage, currentType, 'Likes'); });
+document.getElementById('dateOrder').addEventListener("click", function () { searchAnimals(currentPage, 'Id'); });
+document.getElementById('likeOrder').addEventListener("click", function () { searchAnimals(currentPage, 'Likes'); });
 document.getElementById('ascOrder').addEventListener("click", function () { changeOrderDescAsc() });
 
 
 function getDeltaPage(event, pageDelta) {
     event.preventDefault();
-    loadAnimals(currentPage + pageDelta);
+    searchAnimals(currentPage + pageDelta);
 }
 
 function getFirstPage(event) {
     event.preventDefault();
-    loadAnimals(1);
+    searchAnimals(1);
 }
 
 function getLastPage(event, lastPage) {
     event.preventDefault();
-    loadAnimals(lastPage);
+    searchAnimals(lastPage);
 }
 
 function changeOrderDescAsc() {
@@ -32,10 +35,27 @@ function changeOrderDescAsc() {
         currOrderDescAsc = 'desc'
     }
 
-    loadAnimals(currentPage, currentType, currentOrderType, currOrderDescAsc);
+    searchAnimals(currentPage, currentOrderType, currOrderDescAsc);
 }
 
-async function loadAnimals(page, type, orderType, orderDescAsc) {
+async function searchAnimals(page, orderType, orderDescAsc) {
+
+    var location = document.getElementById('select2-Location-container').title;
+    var category = document.getElementById('select2-PetStatus-container').title;
+    var sex = document.getElementById('select2-Sex-container').title;
+    var type = document.getElementById('select2-Type-container').title;
+
+    if (location) {
+        currLocation = location;
+    }
+
+    if (category) {
+        currCategory = category;
+    }
+
+    if (sex) {
+        currSex = sex;
+    }
 
     if (page) {
         currentPage = page;
@@ -53,7 +73,7 @@ async function loadAnimals(page, type, orderType, orderDescAsc) {
         currOrderDescAsc = orderDescAsc;
     }
 
-    var uri = `/api/AdoptList?type=${currentType}&page=${currentPage}&order=${currentOrderType}&orderType=${currOrderDescAsc}`;
+    var uri = `/api/SearchList?type=${currentType}&sex=${currSex}&location=${currLocation}&category=${currCategory}&page=${currentPage}&order=${currentOrderType}&orderType=${currOrderDescAsc}`;
 
     fetch(uri, {
         method: "GET",
@@ -67,6 +87,7 @@ async function loadAnimals(page, type, orderType, orderDescAsc) {
 }
 
 function createAdoptSection(animals, data) {
+
     var dateOrderButton = document.getElementById('dateOrder');
     var likeOrderButoon = document.getElementById('likeOrder');
     var ascDescOrder = document.getElementById('ascOrder');
@@ -110,28 +131,8 @@ function createAdoptSection(animals, data) {
         return;
     }
 
-    let type;
-    switch (animals[0].type) {
-        case 'Dog':
-            type = 'adopt-dogs'
-            break;
-        case 'Cat':
-            type = 'adopt-cats'
-            break;
-        case 'Other':
-            type = 'adopt-other'
-            break;
-        default:
-    }
-
-    let catSection = document.getElementById('adopt-cats');
-    catSection.innerHTML = '';
-    let dogSection = document.getElementById('adopt-dogs');
-    dogSection.innerHTML = '';
-    let otherSection = document.getElementById('adopt-other');
-    otherSection.innerHTML = '';
-
-    let mainSection = document.getElementById(type);
+    let mainSection = document.getElementById('list');
+    mainSection.innerHTML = '';
 
     let toAtach = document.createElement('div');
     toAtach.classList.add("range");
@@ -375,7 +376,7 @@ function createAdoptSection(animals, data) {
         pageList.appendChild(liPreviousOne);
     }
 
-    //Current Page
+   // Current Page
     let liCurrentpage = document.createElement('li');
     liCurrentpage.classList.add("disabled");
     let liCurrentpageAnker = document.createElement('a');
@@ -444,7 +445,7 @@ function createAdoptSection(animals, data) {
     liNext.appendChild(ankerNext);
     pageList.appendChild(liNext);
 
-    ////
+    //
 
     mainSection.appendChild(pageList);
 

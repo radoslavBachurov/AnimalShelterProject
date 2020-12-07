@@ -11,8 +11,8 @@ namespace AnimalShelter.Services.Data
     {
         Task CreateAdoptionPostAsync(CreateAdoptPetInputModel input, ApplicationUser user, string webRoot);
 
-        IEnumerable<T> GetAllAnimals<T>(int pageNumber, int itemsPerPage, string orderByProperty, string orderAscDesc);
+        IEnumerable<T> GetAllAnimalsForAdoption<T>(int pageNumber, int itemsPerPage, string orderByProperty, string orderAscDesc);
 
-        IEnumerable<T> GetAllAdoptAnimalsByType<T>(int pageNumber, int itemsPerPage,string typeAnimal, string orderByProperty, string orderAscDesc);
+        IEnumerable<T> GetAllAnimalsForAdoptionByType<T>(int pageNumber, int itemsPerPage,string typeAnimal, string orderByProperty, string orderAscDesc);
     }
 }

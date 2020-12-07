@@ -1,6 +1,6 @@
-﻿var likeStatus = false;
+﻿function LikeController(postId, postIsLiked) {
 
-function LikeController(postId, postIsLiked) {
+    var token = $("#likesForm input[name=__RequestVerificationToken]").val();
 
     var inputModel = { PostId: postId, IsLiked: postIsLiked };
 
@@ -10,7 +10,12 @@ function LikeController(postId, postIsLiked) {
         data: JSON.stringify(inputModel),
         contentType: "application/json;charset=utf-8",
         dataType: "json",
+        headers: { 'X-CSRF-TOKEN': token },
         success: function (data) {
+
+            if (data.likes === -1) {
+                data.likes = 0;
+            }
 
             var likeElement = document.getElementById("like");
             var likeIcon = likeElement.firstElementChild;
@@ -35,7 +40,6 @@ function LikeController(postId, postIsLiked) {
                 likeElement.appendChild(likeIcon)
                 likeElement.innerHTML += "Like";
             }
-
         }
     })
 }

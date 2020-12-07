@@ -1,12 +1,8 @@
 ﻿namespace AnimalShelter.Services.Data
 {
-    using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.IO;
     using System.Linq;
-    using System.Linq.Expressions;
-    using System.Reflection;
     using System.Threading.Tasks;
 
     using AnimalShelter.Data.Common.Repositories;
@@ -18,12 +14,12 @@
 
     public class AdoptService : IAdoptService
     {
-        private readonly IDeletableEntityRepository<PetAdoptionPost> adoptionPostsRepository;
+        private readonly IDeletableEntityRepository<PetPost> petPostsRepository;
         private ImageBuilder imageBuilder;
 
-        public AdoptService(IDeletableEntityRepository<PetAdoptionPost> adoptionPostsRepository)
+        public AdoptService(IDeletableEntityRepository<PetPost> petPostsRepository)
         {
-            this.adoptionPostsRepository = adoptionPostsRepository;
+            this.petPostsRepository = petPostsRepository;
             this.imageBuilder = new ImageBuilder();
         }
 
@@ -34,29 +30,21 @@
 
             Directory.CreateDirectory(directory);
 
-            var newAdoptPost = new PetAdoptionPost()
-            {
-                Description = input.Description,
-                Location = input.Location,
-                Sex = input.Sex,
-                Type = input.Type,
-                UserId = user.Id,
-                Name = input.Name,
-            };
-
-            //var newAdoptPost = input.To<PetAdoptionPost>();
+            var newAdoptPost = AutoMapperConfig.MapperInstance.Map<PetPost>(input);
+            newAdoptPost.UserId = user.Id;
+            newAdoptPost.PetStatus = PetStatus.ForAdoption;
 
             var pictures = await this.imageBuilder.CreatePicturesAsync(input.Images, webRootPath, user.Id, directory);
             pictures.ForEach(x => { newAdoptPost.PostPictures.Add(x); });
 
-            await this.adoptionPostsRepository.AddAsync(newAdoptPost);
-            await this.adoptionPostsRepository.SaveChangesAsync();
+            await this.petPostsRepository.AddAsync(newAdoptPost);
+            await this.petPostsRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetAllAnimals<T>(int pageNumber, int itemsPerPage, string orderByProperty, string orderAscDesc)
+        public IEnumerable<T> GetAllAnimalsForAdoption<T>(int pageNumber, int itemsPerPage, string orderByProperty, string orderAscDesc)
         {
-            var pets = this.adoptionPostsRepository.AllAsNoTracking()
-                .Where(x => x.IsAdopted == false && x.IsApproved == true);
+            var pets = this.petPostsRepository.AllAsNoTracking()
+                .Where(x => x.IsApproved == true);
 
             var orderedByParameter = pets.OrderBy(orderByProperty, orderAscDesc);
 
@@ -67,7 +55,7 @@
                 .ToList();
         }
 
-        public IEnumerable<T> GetAllAdoptAnimalsByType<T>(int pageNumber, int itemsPerPage, string typeAnimal, string orderByProperty, string orderAscDesc)
+        public IEnumerable<T> GetAllAnimalsForAdoptionByType<T>(int pageNumber, int itemsPerPage, string typeAnimal, string orderByProperty, string orderAscDesc)
         {
             TypePet type = TypePet.Dog;
 
@@ -83,8 +71,8 @@
                     break;
             }
 
-            var pets = this.adoptionPostsRepository.AllAsNoTracking()
-                           .Where(x => x.Type == type && x.IsAdopted == false && x.IsApproved == true);
+            var pets = this.petPostsRepository.AllAsNoTracking()
+                           .Where(x => x.Type == type && x.PetStatus == PetStatus.ForAdoption && x.IsApproved == true);
 
             var orderedByParameter = pets.OrderBy(orderByProperty, orderAscDesc);
 

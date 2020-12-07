@@ -16,13 +16,11 @@ namespace AnimalShelter.Data.Models
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
-            this.PetAdoptionPosts = new HashSet<PetAdoptionPost>();
-            this.PetLostAndFoundPosts = new HashSet<PetLostAndFoundPost>();
+            this.PetPosts = new HashSet<PetPost>();
             this.SuccessStories = new HashSet<SuccessStory>();
             this.HomePets = new HashSet<HomePet>();
             this.UserPictures = new HashSet<Picture>();
-            this.LikedLostFoundPosts = new HashSet<UserLostFoundPost>();
-            this.LikedAdoptionPosts = new HashSet<UserAdoptionPost>();
+            this.LikedPosts = new HashSet<UserPetPost>();
             this.LikedSuccessStoryPosts = new HashSet<UserSuccessStoryPost>();
         }
 
@@ -52,9 +50,7 @@ namespace AnimalShelter.Data.Models
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 
-        public virtual ICollection<PetAdoptionPost> PetAdoptionPosts { get; set; }
-
-        public virtual ICollection<PetLostAndFoundPost> PetLostAndFoundPosts { get; set; }
+        public virtual ICollection<PetPost> PetPosts { get; set; }
 
         public virtual ICollection<SuccessStory> SuccessStories { get; set; }
 
@@ -62,9 +58,7 @@ namespace AnimalShelter.Data.Models
 
         public virtual ICollection<Picture> UserPictures { get; set; }
 
-        public virtual ICollection<UserAdoptionPost> LikedAdoptionPosts { get; set; }
-
-        public virtual ICollection<UserLostFoundPost> LikedLostFoundPosts { get; set; }
+        public virtual ICollection<UserPetPost> LikedPosts { get; set; }
 
         public virtual ICollection<UserSuccessStoryPost> LikedSuccessStoryPosts { get; set; }
     }

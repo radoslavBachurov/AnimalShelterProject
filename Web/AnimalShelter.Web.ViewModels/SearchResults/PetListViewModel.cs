@@ -1,4 +1,4 @@
-﻿namespace AnimalShelter.Web.ViewModels.Adopt
+﻿namespace AnimalShelter.Web.ViewModels.SearchResults
 {
     using System;
     using System.Collections.Generic;

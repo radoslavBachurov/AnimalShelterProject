@@ -1,10 +1,7 @@
-﻿using AnimalShelter.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AnimalShelter.Web.ViewModels.Home
+﻿namespace AnimalShelter.Web.ViewModels.Home
 {
+    using AnimalShelter.Data.Models;
+
     public class HappyEndingsIndexViewModel
     {
         public string Description { get; set; }

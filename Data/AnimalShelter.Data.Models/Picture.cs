@@ -33,13 +33,9 @@
 
         public HomePet HomePet { get; set; }
 
-        public int? PetAdoptionPostId { get; set; }
+        public int? PetPostId { get; set; }
 
-        public PetAdoptionPost PetAdoptionPost { get; set; }
-
-        public int? PetLostAndFoundPostId { get; set; }
-
-        public PetLostAndFoundPost PetLostAndFoundPost { get; set; }
+        public PetPost PetPost { get; set; }
 
         public int? SuccessStoryId { get; set; }
 

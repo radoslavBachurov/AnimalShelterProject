@@ -1,26 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AnimalShelter.Data.Models;
-using AnimalShelter.Services.Data;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-
-namespace AnimalShelter.Web.Controllers
+﻿namespace AnimalShelter.Web.Controllers
 {
+    using System.Threading.Tasks;
+
+    using AnimalShelter.Data.Models;
+    using AnimalShelter.Services.Data;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+
     public class PetController : BaseController
     {
-        private readonly IPetService petService;
+        private readonly IPetProfileService petService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public PetController(IPetService petService, UserManager<ApplicationUser> userManager)
+        public PetController(IPetProfileService petService, UserManager<ApplicationUser> userManager)
         {
             this.petService = petService;
             this.userManager = userManager;
         }
 
-        public async Task<IActionResult> Profile(int id)
+        public async Task<IActionResult> AdoptPetProfile(int id)
         {
             var postId = id;
             var user = await this.userManager.GetUserAsync(this.User);

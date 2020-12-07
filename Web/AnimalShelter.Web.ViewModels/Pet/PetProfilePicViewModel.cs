@@ -1,9 +1,9 @@
-﻿using AnimalShelter.Data.Models;
-using AnimalShelter.Services.Mapping;
-using AutoMapper;
-
-namespace AnimalShelter.Web.ViewModels.Pet
+﻿namespace AnimalShelter.Web.ViewModels.Pet
 {
+    using AnimalShelter.Data.Models;
+    using AnimalShelter.Services.Mapping;
+    using AutoMapper;
+
     public class PetProfilePicViewModel : IMapFrom<Picture>, IHaveCustomMappings
     {
         public string Path { get; set; }

@@ -1,9 +1,13 @@
-﻿namespace AnimalShelter.Data.Models.Enums
-{
-    using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
 
-    public enum City
+namespace AnimalShelter.Data.Models.Enums
+{
+    public enum SearchCity
     {
+        Всички = 1,
         [Display(Name = "София-град")] СофияГрад = 2,
         Бургас = 3,
         Варна = 4,
@@ -32,6 +36,5 @@
         Шумен = 27,
         Ямбол = 28,
         Габрово = 29,
-
     }
 }

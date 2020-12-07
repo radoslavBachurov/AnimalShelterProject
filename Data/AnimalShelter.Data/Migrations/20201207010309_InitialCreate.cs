@@ -231,7 +231,7 @@ namespace AnimalShelter.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PetAdoptionPosts",
+                name: "PetPosts",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -247,45 +247,14 @@ namespace AnimalShelter.Data.Migrations
                     Location = table.Column<int>(nullable: false),
                     Sex = table.Column<int>(nullable: false),
                     Type = table.Column<int>(nullable: false),
-                    IsAdopted = table.Column<bool>(nullable: false),
-                    IsApproved = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PetAdoptionPosts", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PetAdoptionPosts_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PetLostAndFoundPosts",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    ModifiedOn = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true),
-                    Location = table.Column<int>(nullable: false),
-                    Sex = table.Column<int>(nullable: false),
-                    Type = table.Column<int>(nullable: false),
                     PetStatus = table.Column<int>(nullable: false),
-                    Likes = table.Column<int>(nullable: false),
-                    IsFound = table.Column<bool>(nullable: false),
                     IsApproved = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PetLostAndFoundPosts", x => x.Id);
+                    table.PrimaryKey("PK_PetPosts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PetLostAndFoundPosts_AspNetUsers_UserId",
+                        name: "FK_PetPosts_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -321,7 +290,7 @@ namespace AnimalShelter.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserAdoptionPosts",
+                name: "UserPetPosts",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -331,51 +300,21 @@ namespace AnimalShelter.Data.Migrations
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     ApplicationUserId = table.Column<string>(nullable: true),
-                    PetAdoptionPostId = table.Column<int>(nullable: false)
+                    PetPostId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserAdoptionPosts", x => x.Id);
+                    table.PrimaryKey("PK_UserPetPosts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserAdoptionPosts_AspNetUsers_ApplicationUserId",
+                        name: "FK_UserPetPosts_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_UserAdoptionPosts_PetAdoptionPosts_PetAdoptionPostId",
-                        column: x => x.PetAdoptionPostId,
-                        principalTable: "PetAdoptionPosts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserLostFoundPosts",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    ModifiedOn = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
-                    UserId = table.Column<string>(nullable: true),
-                    LostFoundPostId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserLostFoundPosts", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_UserLostFoundPosts_PetLostAndFoundPosts_LostFoundPostId",
-                        column: x => x.LostFoundPostId,
-                        principalTable: "PetLostAndFoundPosts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_UserLostFoundPosts_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
+                        name: "FK_UserPetPosts_PetPosts_PetPostId",
+                        column: x => x.PetPostId,
+                        principalTable: "PetPosts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -392,23 +331,16 @@ namespace AnimalShelter.Data.Migrations
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Text = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: true),
-                    PetAdoptionPostId = table.Column<int>(nullable: true),
-                    PetLostAndFoundPostId = table.Column<int>(nullable: true),
+                    PetPostId = table.Column<int>(nullable: true),
                     SuccessStoryId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Replies", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Replies_PetAdoptionPosts_PetAdoptionPostId",
-                        column: x => x.PetAdoptionPostId,
-                        principalTable: "PetAdoptionPosts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Replies_PetLostAndFoundPosts_PetLostAndFoundPostId",
-                        column: x => x.PetLostAndFoundPostId,
-                        principalTable: "PetLostAndFoundPosts",
+                        name: "FK_Replies_PetPosts_PetPostId",
+                        column: x => x.PetPostId,
+                        principalTable: "PetPosts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -472,8 +404,7 @@ namespace AnimalShelter.Data.Migrations
                     Height = table.Column<int>(nullable: false),
                     UserId = table.Column<string>(nullable: true),
                     HomePetId = table.Column<int>(nullable: true),
-                    PetAdoptionPostId = table.Column<int>(nullable: true),
-                    PetLostAndFoundPostId = table.Column<int>(nullable: true),
+                    PetPostId = table.Column<int>(nullable: true),
                     SuccessStoryId = table.Column<int>(nullable: true),
                     ReplyId = table.Column<int>(nullable: true)
                 },
@@ -487,15 +418,9 @@ namespace AnimalShelter.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Pictures_PetAdoptionPosts_PetAdoptionPostId",
-                        column: x => x.PetAdoptionPostId,
-                        principalTable: "PetAdoptionPosts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Pictures_PetLostAndFoundPosts_PetLostAndFoundPostId",
-                        column: x => x.PetLostAndFoundPostId,
-                        principalTable: "PetLostAndFoundPosts",
+                        name: "FK_Pictures_PetPosts_PetPostId",
+                        column: x => x.PetPostId,
+                        principalTable: "PetPosts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -583,23 +508,13 @@ namespace AnimalShelter.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PetAdoptionPosts_IsDeleted",
-                table: "PetAdoptionPosts",
+                name: "IX_PetPosts_IsDeleted",
+                table: "PetPosts",
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PetAdoptionPosts_UserId",
-                table: "PetAdoptionPosts",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PetLostAndFoundPosts_IsDeleted",
-                table: "PetLostAndFoundPosts",
-                column: "IsDeleted");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PetLostAndFoundPosts_UserId",
-                table: "PetLostAndFoundPosts",
+                name: "IX_PetPosts_UserId",
+                table: "PetPosts",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -613,14 +528,9 @@ namespace AnimalShelter.Data.Migrations
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pictures_PetAdoptionPostId",
+                name: "IX_Pictures_PetPostId",
                 table: "Pictures",
-                column: "PetAdoptionPostId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Pictures_PetLostAndFoundPostId",
-                table: "Pictures",
-                column: "PetLostAndFoundPostId");
+                column: "PetPostId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Pictures_ReplyId",
@@ -643,14 +553,9 @@ namespace AnimalShelter.Data.Migrations
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Replies_PetAdoptionPostId",
+                name: "IX_Replies_PetPostId",
                 table: "Replies",
-                column: "PetAdoptionPostId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Replies_PetLostAndFoundPostId",
-                table: "Replies",
-                column: "PetLostAndFoundPostId");
+                column: "PetPostId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Replies_SuccessStoryId",
@@ -678,34 +583,19 @@ namespace AnimalShelter.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserAdoptionPosts_ApplicationUserId",
-                table: "UserAdoptionPosts",
+                name: "IX_UserPetPosts_ApplicationUserId",
+                table: "UserPetPosts",
                 column: "ApplicationUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserAdoptionPosts_IsDeleted",
-                table: "UserAdoptionPosts",
+                name: "IX_UserPetPosts_IsDeleted",
+                table: "UserPetPosts",
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserAdoptionPosts_PetAdoptionPostId",
-                table: "UserAdoptionPosts",
-                column: "PetAdoptionPostId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserLostFoundPosts_IsDeleted",
-                table: "UserLostFoundPosts",
-                column: "IsDeleted");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserLostFoundPosts_LostFoundPostId",
-                table: "UserLostFoundPosts",
-                column: "LostFoundPostId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserLostFoundPosts_UserId",
-                table: "UserLostFoundPosts",
-                column: "UserId");
+                name: "IX_UserPetPosts_PetPostId",
+                table: "UserPetPosts",
+                column: "PetPostId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserSuccessStoryPosts_IsDeleted",
@@ -750,10 +640,7 @@ namespace AnimalShelter.Data.Migrations
                 name: "Settings");
 
             migrationBuilder.DropTable(
-                name: "UserAdoptionPosts");
-
-            migrationBuilder.DropTable(
-                name: "UserLostFoundPosts");
+                name: "UserPetPosts");
 
             migrationBuilder.DropTable(
                 name: "UserSuccessStoryPosts");
@@ -768,10 +655,7 @@ namespace AnimalShelter.Data.Migrations
                 name: "Replies");
 
             migrationBuilder.DropTable(
-                name: "PetAdoptionPosts");
-
-            migrationBuilder.DropTable(
-                name: "PetLostAndFoundPosts");
+                name: "PetPosts");
 
             migrationBuilder.DropTable(
                 name: "SuccessStories");

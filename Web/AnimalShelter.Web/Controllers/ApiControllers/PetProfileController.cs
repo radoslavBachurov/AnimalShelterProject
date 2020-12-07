@@ -13,10 +13,10 @@ namespace AnimalShelter.Web.Controllers.ApiControllers
     [ApiController]
     public class PetProfileController : ControllerBase
     {
-        private readonly IPetService petService;
+        private readonly IPetProfileService petService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public PetProfileController(IPetService petService, UserManager<ApplicationUser> userManager)
+        public PetProfileController(IPetProfileService petService, UserManager<ApplicationUser> userManager)
         {
             this.petService = petService;
             this.userManager = userManager;

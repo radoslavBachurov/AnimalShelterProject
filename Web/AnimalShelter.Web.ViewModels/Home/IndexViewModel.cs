@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AnimalShelter.Web.ViewModels.Home
+﻿namespace AnimalShelter.Web.ViewModels.Home
 {
+    using System.Collections.Generic;
+
     public class IndexViewModel
     {
         public IndexViewModel()

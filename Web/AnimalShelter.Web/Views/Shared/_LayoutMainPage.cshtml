@@ -43,10 +43,10 @@
                                 <li><a class="icon icon-xxs icon-circle icon-gray-outline icon-effect-1 fa fa-facebook" href="https://www.facebook.com/4lapi" target="_blank" rel="noreferrer noopener"></a></li>
                                 <li><a class="icon icon-xxs icon-circle icon-gray-outline icon-effect-1 fa fa-youtube-play" href="https://www.youtube.com/user/VierPfotenBG" target="_blank" rel="noreferrer noopener"></a></li>
                             </ul>
-                            <div class="object-inline">
+                            @*<div class="object-inline">
                                 <a class="link link-md link-white" href="?culture=bg-BG">BG</a>
                                 <a class="link link-md link-white" href="?culture=en-US">EN</a>
-                            </div>
+                            </div>*@
                         </div>
                     </div>
                     <partial name="_CookieConsentPartial" />
@@ -91,10 +91,10 @@
                                     <a asp-area="" asp-controller="Home" asp-action="Index">@Localizer["LostFound"]</a>
                                     <ul class="rd-navbar-dropdown tabs-nav">
                                         <li>
-                                            <a asp-area="" asp-controller="Home" asp-action="Index">Изгубени</a>
+                                            <a asp-area="" asp-controller="Home" asp-action="Index">Изгубени домашни животни</a>
                                         </li>
                                         <li>
-                                            <a asp-area="" asp-controller="Home" asp-action="Index">Намерени</a>
+                                            <a asp-area="" asp-controller="Home" asp-action="Index">Намерени домашни животни</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -275,9 +275,9 @@
     <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
     <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
-    @await this.RenderSectionAsync("Scripts", required: false)
     <script src="~/js/core.min.js"></script>
     <script src="~/js/script.js"></script>
+    @await this.RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
 

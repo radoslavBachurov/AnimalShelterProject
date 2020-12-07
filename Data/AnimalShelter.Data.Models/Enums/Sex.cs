@@ -1,8 +1,12 @@
-﻿namespace AnimalShelter.Data.Models.Enums
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AnimalShelter.Data.Models.Enums
 {
     public enum Sex
     {
-        Male = 1,
-        Female = 2
+        [Display(Name = "Мъжко")]
+        Male = 2,
+        [Display(Name = "Женско")]
+        Female = 3,
     }
 }

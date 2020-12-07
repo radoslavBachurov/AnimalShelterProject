@@ -9,10 +9,10 @@
     using AnimalShelter.Web.Infrastructure.ValidationAttributes;
     using Microsoft.AspNetCore.Http;
 
-    public class CreateAdoptPetInputModel : IMapTo<PetAdoptionPost>
+    public class CreateAdoptPetInputModel : IMapTo<PetPost>
     {
         [Required]
-        [Display(Name = "Description")]
+        [Display(Name = "Описание (Точно местоположение,телефон,състояние и др...)")]
         [DataType(DataType.MultilineText)]
         [MinLength(10)]
         [MaxLength(3000)]
@@ -21,6 +21,7 @@
         [Required]
         [MinLength(2)]
         [MaxLength(12)]
+        [Display(Name = "Име")]
         public string Name { get; set; }
 
         [Required]
@@ -35,6 +36,5 @@
         [Required]
         [ImageValidationAttribute(15 * 1024 * 1024)]
         public IEnumerable<IFormFile> Images { get; set; }
-
     }
 }

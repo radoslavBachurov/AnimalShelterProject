@@ -7,13 +7,13 @@
     using AnimalShelter.Data.Common.Models;
     using AnimalShelter.Data.Models.Enums;
 
-    public class PetAdoptionPost : BaseDeletableModel<int>
+    public class PetPost : BaseDeletableModel<int>
     {
-        public PetAdoptionPost()
+        public PetPost()
         {
             this.PostPictures = new HashSet<Picture>();
             this.Replies = new HashSet<Reply>();
-            this.UserLikes = new HashSet<UserAdoptionPost>();
+            this.UserLikes = new HashSet<UserPetPost>();
         }
 
         [Required]
@@ -35,7 +35,7 @@
 
         public TypePet Type { get; set; }
 
-        public bool IsAdopted { get; set; } = false;
+        public PetStatus PetStatus { get; set; }
 
         public bool IsApproved { get; set; } = true;
 
@@ -43,6 +43,6 @@
 
         public virtual ICollection<Reply> Replies { get; set; }
 
-        public virtual ICollection<UserAdoptionPost> UserLikes { get; set; }
+        public virtual ICollection<UserPetPost> UserLikes { get; set; }
     }
 }

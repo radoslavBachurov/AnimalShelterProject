@@ -43,48 +43,7 @@
 <section class="section-md-bottom bg-gray-light">
     <div class="shell">
         <div class="box-form box-form-1">
-            <!-- RD Mailform-->
-            <form class="rd-mailform form-style-classic">
-                <div class="range range-xs-center range-sm-bottom spacing-30">
-                    <div class="cell-xs-10 cell-sm-6 cell-md-4">
-                        <div class="form-group">
-                            <label class="form-label-outside" for="form-location">Град</label>
-                            <!--Select 2-->
-                            <select class="form-control select-filter" id="form-location" data-placeholder="Any location" data-minimum-results-for-search="Infinity" data-constraints="@@Required" name="location">
-                                <option value="1">Навсякъде</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="cell-xs-10 cell-sm-6 cell-md-4">
-                        <div class="form-group">
-                            <label class="form-label-outside" for="form-animal-type">Тип</label>
-                            <!--Select 2-->
-                            <select class="form-control select-filter" id="form-animal-type" data-placeholder="All" data-minimum-results-for-search="Infinity" data-constraints="@@Required" name="animal-type">
-                                <option value="1">Всички</option>
-                                <option value="2">Котка</option>
-                                <option value="3">Куче</option>
-                                <option value="4">Друго</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="cell-xs-10 cell-sm-6 cell-md-4">
-                        <div class="form-group">
-                            <label class="form-label-outside" for="form-sex">Пол</label>
-                            <!--Select 2-->
-                            <select class="form-control select-filter" id="form-sex" data-placeholder="All" data-minimum-results-for-search="Infinity" data-constraints="@@Required" name="sex">
-                                <option value="1">Всички</option>
-                                <option value="2">Женско</option>
-                                <option value="3">Мъжко</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="cell-xs-10 cell-sm-6 cell-md-4">
-                        <div class="form-group">
-                            <button class="btn btn-block btn-primary btn-effect-anis" type="submit">Намери</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
+            <partial name="_SearchForm" model="new AnimalShelter.Web.ViewModels.SearchResults.SearchResultsInputModel()"/>
         </div>
     </div>
 
@@ -94,7 +53,7 @@
             <div class="group-xl group-middle">
                 <div class="cell-xs-10 cell-sm-6 cell-md-8">
                     <div class="form-group">
-                        <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" asp-area="" asp-controller="Adopt" asp-action="Index" data-wow-delay="0.2s" data-wow-duration=".75s">Добави животно за осиновяване</a>
+                        <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" asp-area="" asp-controller="Adopt" asp-action="Create" data-wow-delay="0.2s" data-wow-duration=".75s">Добави животно за осиновяване</a>
                     </div>
                 </div>
                 <div class="cell-xs-10 cell-sm-6 cell-md-8">

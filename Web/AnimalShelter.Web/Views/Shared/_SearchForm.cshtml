@@ -1,0 +1,47 @@
+﻿@using AnimalShelter.Web.ViewModels.SearchResults
+@using AnimalShelter.Data.Models.Enums
+@model SearchResultsInputModel
+
+<form class="form-style-classic" asp-controller="Search" asp-action="SearchResults">
+    <div class="range range-xs-center range-sm-bottom spacing-30">
+        <div class="cell-xs-10 cell-sm-6 cell-md-4">
+            <div class="form-group">
+                <label class="form-label-outside" for="Location">Област</label>
+                <div class="form-group">
+                    <select class="form-control" asp-for="Location" asp-items="@Html.GetEnumSelectList<SearchCity>()"></select>
+                    <label class="form-label" asp-for="Location"></label>
+                    <span asp-validation-for="Location" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="cell-xs-10 cell-sm-6 cell-md-4">
+            <div class="form-group">
+                <label class="form-label-outside" for="Type">Тип</label>
+                <select class="form-control" asp-for="Type" asp-items="@Html.GetEnumSelectList<SearchTypePet>()"></select>
+                <label class="form-label" asp-for="Type"></label>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="cell-xs-10 cell-sm-6 cell-md-4">
+            <div class="form-group">
+                <label class="form-label-outside" for="Sex">Пол</label>
+                <select class="form-control" asp-for="Sex" asp-items="@Html.GetEnumSelectList<SearchSex>()"></select>
+                <label class="form-label" asp-for="Sex"></label>
+                <span asp-validation-for="Sex" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="cell-xs-10 cell-sm-6 cell-md-4">
+            <div class="form-group">
+                <label class="form-label-outside" for="PetStatus">Категория</label>
+                <select class="form-control" asp-for="PetStatus" asp-items="@Html.GetEnumSelectList<SearchPetStatus>()"></select>
+                <label class="form-label" asp-for="PetStatus"></label>
+                <span asp-validation-for="PetStatus" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="cell-xs-10 cell-sm-6 cell-md-4">
+            <div class="form-group">
+                <button class="btn btn-block btn-primary btn-effect-anis">Намери</button>
+            </div>
+        </div>
+    </div>
+</form>

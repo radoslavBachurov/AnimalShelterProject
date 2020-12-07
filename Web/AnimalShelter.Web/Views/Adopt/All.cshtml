@@ -3,63 +3,27 @@
 }
 <!-- Breadcrumbs & Page title-->
 <div class="page-title">
-    <div class="page-title-text"><span data-content-to="#adopt-cats">Adopt Cats</span><span data-content-to="#adopt-dogs">Adopt Dogs</span><span data-content-to="#adopt-small-pets">Adopt Small Pets</span></div>
+    <div class="page-title-text"><span data-content-to="#adopt-cats">Осинови Котка</span><span data-content-to="#adopt-dogs">Осинови Куче</span><span data-content-to="#adopt-small-pets">Осинови Друго</span></div>
     <ul class="breadcrumbs-custom">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="adopt-a-pet.html">Adopt a Pet</a></li>
-        <li class="active"><span data-content-to="#adopt-cats">Adopt Cats</span><span data-content-to="#adopt-dogs">Adopt Dogs</span><span data-content-to="#adopt-small-pets">Adopt Small Pets</span></li>
+        <li><a href="index.html">Начало</a></li>
+        <li><a href="adopt-a-pet.html">Осинови животно</a></li>
+        <li class="active"><span data-content-to="#adopt-cats">Осинови Котка</span><span data-content-to="#adopt-dogs">Осинови Куче</span><span data-content-to="#adopt-small-pets">Осинови Друго</span></li>
     </ul>
 </div>
-<!-- RD Mailform-->
-<form class="rd-mailform form-style-classic">
-    <div class="range range-xs-center range-sm-bottom spacing-30">
-        <div class="cell-xs-10 cell-sm-6 cell-md-4">
-            <div class="form-group">
-                <label class="form-label-outside" for="form-location">Град</label>
-                <!--Select 2-->
-                <select class="form-control select-filter" id="form-location" data-placeholder="Any location" data-minimum-results-for-search="Infinity" data-constraints="@@Required" name="location">
-                    <option value="1">Навсякъде</option>
-                </select>
-            </div>
-        </div>
-        <div class="cell-xs-10 cell-sm-6 cell-md-4">
-            <div class="form-group">
-                <label class="form-label-outside" for="form-animal-type">Тип</label>
-                <!--Select 2-->
-                <select class="form-control select-filter" id="form-animal-type" data-placeholder="All" data-minimum-results-for-search="Infinity" data-constraints="@@Required" name="animal-type">
-                    <option value="1">Всички</option>
-                    <option value="2">Котка</option>
-                    <option value="3">Куче</option>
-                    <option value="4">Друго</option>
-                </select>
-            </div>
-        </div>
-        <div class="cell-xs-10 cell-sm-6 cell-md-4">
-            <div class="form-group">
-                <label class="form-label-outside" for="form-sex">Пол</label>
-                <!--Select 2-->
-                <select class="form-control select-filter" id="form-sex" data-placeholder="All" data-minimum-results-for-search="Infinity" data-constraints="@@Required" name="sex">
-                    <option value="1">Всички</option>
-                    <option value="2">Женско</option>
-                    <option value="3">Мъжко</option>
-                </select>
-            </div>
-        </div>
-        <div class="cell-xs-10 cell-sm-6 cell-md-4">
-            <div class="form-group">
-                <button class="btn btn-block btn-primary btn-effect-anis" type="submit">Намери</button>
-            </div>
-        </div>
+
+<div class="shell">
+    <div class="box-form box-form-1">
+        <partial name="_SearchForm" />
     </div>
-</form>
+</div>
 
 <!-- Adopt pets-->
 <section class="section-md bg-white text-center">
     <div class="shell">
         <div class="group-xl group-middle">
-            <div class="btn btn-circle btn-silver-outline btn-shadow active" id="dateOrder">Order By Date</div>
-            <div class="btn btn-circle btn-silver-outline btn-shadow" id="likeOrder">Order By Likes</div>
-            <div class="btn btn-icon btn-icon-left btn-silver-outline btn-shadow" id="ascOrder"><span class="icon icon-md material-icons-swap_vert"></span>Asc</div>
+            <div class="btn btn-circle btn-silver-outline btn-shadow active" id="dateOrder">Подреди по дата</div>
+            <div class="btn btn-circle btn-silver-outline btn-shadow" id="likeOrder">подреди по лайкове</div>
+            <div class="btn btn-icon btn-icon-left btn-silver-outline btn-shadow" id="ascOrder"><span class="icon icon-md material-icons-swap_vert"></span>Възходящ ред</div>
         </div>
     </div>
     <div class="shell">
@@ -67,9 +31,9 @@
         <div class="tabs tabs-custom tabs-vertical tabs-corporate tabs-wide" id="tabs-1" data-url-tabs="true">
             <!-- Nav tabs-->
             <ul class="nav nav-tabs">
-                <li onclick="loadAnimals(1, 'cats')" class="active"><a href="#adopt-cats" data-toggle="tab">Adopt Cats</a></li>
-                <li onclick="loadAnimals(1, 'dogs')"><a href="#adopt-dogs" data-toggle="tab">Adopt Dogs</a></li>
-                <li onclick="loadAnimals(1, 'other')"><a href="#adopt-other" data-toggle="tab">Adopt Other</a></li>
+                <li onclick="loadAnimals(1, 'cats')" class="active"><a href="#adopt-cats" data-toggle="tab">Осинови котка</a></li>
+                <li onclick="loadAnimals(1, 'dogs')"><a href="#adopt-dogs" data-toggle="tab">Осинови куче</a></li>
+                <li onclick="loadAnimals(1, 'other')"><a href="#adopt-other" data-toggle="tab">Осинови друго</a></li>
             </ul>
             <div class="tab-content">
                 <!-- Tab 1-->
@@ -86,4 +50,6 @@
     </div>
 </section>
 
-<script src="~/js/allAdoptList.js"></script>
+@section Scripts{
+    <script src="~/js/allAdoptList.js"></script>
+}
