@@ -2,7 +2,7 @@
 @using AnimalShelter.Web.Infrastructure.Enums
 @model SearchResultsInputModel
 
-<form class="form-style-classic">
+<form class="form-style-classic" asp-controller="Search" asp-action="SearchResults">
     <div class="range range-xs-center range-sm-bottom spacing-30">
         <div class="cell-xs-10 cell-sm-6 cell-md-4">
             <div class="form-group">
@@ -40,7 +40,7 @@
         </div>
         <div class="cell-xs-10 cell-sm-6 cell-md-4">
             <div class="form-group">
-                <div class="btn btn-block btn-primary btn-effect-anis">Намери</div>
+                <button class="btn btn-block btn-primary btn-effect-anis">Намери</button>
             </div>
         </div>
     </div>

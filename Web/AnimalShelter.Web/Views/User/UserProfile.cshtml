@@ -1,0 +1,99 @@
+﻿@using AnimalShelter.Common
+@{
+    this.ViewData["Title"] = "User Profile";
+}
+@model AnimalShelter.Web.ViewModels.User.UserViewModel
+<!-- Breadcrumbs & Page title-->
+<div class="page-title">
+    <div class="page-title-text">Личен Профил на @Model.Nickname</div>
+    <ul class="breadcrumbs-custom">
+        <li><a href="index.html">Начало</a></li>
+        <li class="active">Личен Профил</li>
+    </ul>
+</div>
+<div class="group-xl group-middle">
+    <div class="cell-xs-10 cell-sm-6 cell-md-8">
+        <div class="form-group">
+            <a href="##" onClick="history.go(-1); return false;" class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" data-wow-delay="0.2s" data-wow-duration=".75s">Назад</a>
+        </div>
+    </div>
+</div>
+<section class="section-md section-md-alternate bg-white text-center">
+    <div class="shell">
+        <h3>Твоят Профил</h3>
+        <ul class="post-meta">
+            <li>
+                <span class="icon icon-xs icon-tan-hide material-icons-access_time"></span>
+                <time datetime="">@Model.CreatedOn</time>
+            </li>
+            <li><span class="icon icon-xs icon-tan-hide mdi mdi-gender-male-female"></span><span>@Model.Sex</span></li>
+            <li><span class="icon icon-xs icon-tan-hide material-icons-place"></span><span>@Model.Living</span></li>
+        </ul>
+        <div class="range range-sm-center">
+            <div class="cell-sm-9 cell-md-12">
+                <article class="post-single">
+                    <div class="post-single-left">
+                        @if (Model.CoverPicturePath != null)
+                        {
+                            <img class="mr-3 img-responsive" src="@Model.CoverPicturePath" alt="" width="570" height="389" />
+                            <section class="section-md bg-gray-light text-center" style="padding:15px;">
+                                <div class="shell">
+                                    <div class="range">
+                                        <div class="cell-xs-12 wow fadeIn" data-wow-duration=".8s" data-wow-offset="150">
+                                            <!-- Owl Carousel-->
+                                            <div class="owl-carousel-centered">
+                                                <div data-photo-swipe-gallery="gallery" class="owl-carousel" style="padding:10px;" data-items="1" data-sm-items="3" data-stage-padding="0" data-loop="true" data-margin="10" data-lg-margin="30" data-mouse-drag="false" data-center="true" data-numbering="#owl-numbering-1" data-nav="true">
+                                                    @foreach (var picture in Model.UserPictures)
+                                                    {
+                                                        <a class="mr-3 img-responsive" href=@picture.Path data-photo-swipe-item="" data-size=@picture.DataSize>
+                                                            <figure>
+                                                                <img class="mr-3 img-responsive" src=@picture.Path alt="" width="346" height="249" />
+                                                            </figure>
+                                                        </a>
+                                                    }
+                                                </div>
+                                                <div class="owl-numbering owl-numbering-default" style="margin-top: 0px;" id="owl-numbering-1">
+                                                    <div class="numbering-current"></div>
+                                                    <div class="numbering-separator"></div>
+                                                    <div class="numbering-count"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        }
+                        else
+                        {
+                            <div class="group-xl group-middle">
+                                <div class="cell-xs-10 cell-sm-6 cell-md-8">
+                                    <div class="form-group">
+                                        <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" data-wow-delay="0.2s" data-wow-duration=".75s">Добави снимки</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="post-single-body">
+                        <div class="group-xl group-middle">
+                            <div class="cell-xs-10 cell-sm-6 cell-md-8">
+                                <div class="form-group">
+                                    <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" data-wow-delay="0.2s" data-wow-duration=".75s">Попълни информация за профила</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="shell">
+    <hr>
+</div>
+
+
+
+
+

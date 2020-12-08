@@ -22,6 +22,5 @@
         public IEnumerable<PetInListViewModel> Animals { get; set; }
 
         public int AnimalCount { get; set; }
-
     }
 }

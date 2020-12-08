@@ -7,11 +7,10 @@
 @model SearchResultsInputModel
 <!-- Breadcrumbs & Page title-->
 <div class="page-title">
-    <div class="page-title-text"><span>Search Results</span></div>
+    <div class="page-title-text"><span>Търсене</span></div>
     <ul class="breadcrumbs-custom">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="adopt-a-pet.html">Adopt a Pet</a></li>
-        <li class="active"><span data-content-to="#adopt-cats">Search Results</span></li>
+        <li><a href="index.html">Начало</a></li>
+        <li class="active"><span data-content-to="#adopt-cats">Търсене</span></li>
     </ul>
 </div>
 
@@ -21,8 +20,8 @@
             <div class="range range-xs-center range-sm-bottom spacing-30">
                 <div class="cell-xs-10 cell-sm-6 cell-md-4">
                     <div class="form-group">
-                        <label class="form-label-outside" for="Location">Област</label>
                         <div class="form-group">
+                            <label class="form-label-outside" for="Location">Област</label>
                             <select class="form-control" asp-for="Location" asp-items="@Html.GetEnumSelectList<SearchCity>()"></select>
                             <label class="form-label" asp-for="Location"></label>
                         </div>
@@ -81,4 +80,3 @@
     <script src="~/js/pagesManipulation/searchList.js"></script>
     <script src="~/js/pagesManipulation/listCreator.js"></script>
 }
-   

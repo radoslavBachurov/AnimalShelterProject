@@ -6,11 +6,13 @@
 
     public static class EnumHelper<T>
     {
+        // Standart Enum Parser
         public static T ParseEnum(string value)
         {
             return (T)Enum.Parse(typeof(T), value, true);
         }
 
+        // Get Enum value from display name
         public static T GetValueFromName(string name)
         {
             var type = typeof(T);
@@ -37,6 +39,7 @@
             return default(T);
         }
 
+        // Get display Value of enum
         public static string GetDisplayValue(T value)
         {
             var fieldInfo = value.GetType().GetField(value.ToString());
