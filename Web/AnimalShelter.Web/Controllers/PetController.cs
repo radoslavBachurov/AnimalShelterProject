@@ -18,7 +18,7 @@
             this.userManager = userManager;
         }
 
-        public async Task<IActionResult> AdoptPetProfile(int id)
+        public async Task<IActionResult> PetProfile(int id)
         {
             var postId = id;
             var user = await this.userManager.GetUserAsync(this.User);

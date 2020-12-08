@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace AnimalShelter.Data.Models.Enums
+﻿namespace AnimalShelter.Web.Infrastructure.Enums
 {
-    public enum PetStatus
+    using System.ComponentModel.DataAnnotations;
+
+    public enum SearchPetStatus
     {
+        [Display(Name = "Всички")] All = 1,
         [Display(Name = "За Осиновяване")] ForAdoption = 2,
         [Display(Name = "Осиновен")] Adopted = 3,
         [Display(Name = "Загубени домашни любимци")] Lost = 4,

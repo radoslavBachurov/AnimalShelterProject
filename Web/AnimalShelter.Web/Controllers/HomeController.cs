@@ -1,10 +1,9 @@
 ﻿namespace AnimalShelter.Web.Controllers
 {
     using System.Diagnostics;
-    using System.Threading.Tasks;
+
     using AnimalShelter.Services.Data;
     using AnimalShelter.Web.ViewModels;
-    using AnimalShelter.Web.ViewModels.SearchResults;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController

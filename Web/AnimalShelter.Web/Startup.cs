@@ -86,7 +86,7 @@
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IGetCountService, GetCountService>();
-            services.AddTransient<IAdoptService, AdoptService>();
+            services.AddTransient<IPostService, PostService>();
             services.AddTransient<IPetProfileService, PetProfileService>();
             services.AddTransient<ISearchService, SearchService>();
         }

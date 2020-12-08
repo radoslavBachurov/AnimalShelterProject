@@ -6,6 +6,7 @@
     using AnimalShelter.Data.Models;
     using AnimalShelter.Data.Models.Enums;
     using AnimalShelter.Services.Mapping;
+    using AnimalShelter.Web.Infrastructure;
     using AutoMapper;
 
     public class PetInListViewModel : IMapFrom<PetPost>, IHaveCustomMappings
@@ -37,7 +38,9 @@
                 .ForMember(x => x.CoverPicturePath, opt => opt.MapFrom(x => x.PostPictures.Where(x => x.IsCoverPicture).FirstOrDefault().Path != null ?
                                                                             x.PostPictures.Where(x => x.IsCoverPicture).FirstOrDefault().Path :
                                                                             x.PostPictures.Where(x => x.IsCoverPicture).FirstOrDefault().RemoteImageUrl))
-                .ForMember(x => x.Description, opt => opt.MapFrom(x => x.Description.Substring(0, 125) + "..."));
+                .ForMember(x => x.Description, opt => opt.MapFrom(x => x.Description.Substring(0, 125) + "..."))
+                .ForMember(x => x.PetStatus, opt => opt.MapFrom(x => EnumHelper<PetStatus>.GetDisplayValue(x.PetStatus)))
+                .ForMember(x => x.Sex, opt => opt.MapFrom(x => EnumHelper<Sex>.GetDisplayValue(x.Sex)));
         }
     }
 }

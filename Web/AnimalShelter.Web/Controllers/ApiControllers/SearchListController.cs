@@ -9,15 +9,17 @@
     public class SearchListController : ControllerBase
     {
         private readonly ISearchService searchService;
+        private readonly IGetCountService getCountService;
 
-        public SearchListController(ISearchService searchService)
+        public SearchListController(ISearchService searchService, IGetCountService getCountService)
         {
             this.searchService = searchService;
+            this.getCountService = getCountService;
         }
 
         public ActionResult<PetListViewModel> GetResults(string type, string sex, string location, string category, int page, string order, string ordertype)
         {
-            const int itemsPerPage = 12;
+            const int itemsPerPage = 5;
 
             var viewModel = new PetListViewModel()
             {
@@ -25,6 +27,7 @@
                 PageNumber = page,
             };
 
+            viewModel.AnimalCount = this.getCountService.GetAllAnimalsByCriteriaCount(type, sex, location, category);
             viewModel.Animals = this.searchService.GetAllAnimalsByCriteria<PetInListViewModel>(type, sex, location, category, page, itemsPerPage, order, ordertype);
 
             return viewModel;

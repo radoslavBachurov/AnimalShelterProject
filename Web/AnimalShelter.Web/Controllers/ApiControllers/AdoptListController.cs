@@ -8,18 +8,20 @@
     [ApiController]
     public class AdoptListController : ControllerBase
     {
-        private readonly IAdoptService adoptService;
         private readonly IGetCountService getCountService;
+        private readonly ISearchService searchService;
 
-        public AdoptListController(IAdoptService adoptService, IGetCountService getCountService)
+        public AdoptListController(IGetCountService getCountService, ISearchService searchService)
         {
-            this.adoptService = adoptService;
             this.getCountService = getCountService;
+            this.searchService = searchService;
         }
 
-        public ActionResult<PetListViewModel> AllAnimals(string type, int page = 1, string order = "Id", string orderType = "desc")
+        public ActionResult<PetListViewModel> AllAnimals(string type, int page, string order, string orderType)
         {
             const int itemsPerPage = 4;
+            var defaultValue = "Всички";
+            var category = "За Осиновяване";
 
             var viewModel = new PetListViewModel()
             {
@@ -27,8 +29,8 @@
                 PageNumber = page,
             };
 
-            viewModel.AnimalCount = this.getCountService.GetAllAnimalsForAdoptionByTypeCount(type);
-            viewModel.Animals = this.adoptService.GetAllAnimalsForAdoptionByType<PetInListViewModel>(page, itemsPerPage, type, order, orderType);
+            viewModel.AnimalCount = this.getCountService.GetAllAnimalsByCriteriaCount(type, defaultValue, defaultValue, category);
+            viewModel.Animals = this.searchService.GetAllAnimalsByCriteria<PetInListViewModel>(type, defaultValue, defaultValue, category, page, itemsPerPage, order, orderType);
 
             return viewModel;
         }

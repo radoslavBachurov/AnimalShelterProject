@@ -3,10 +3,11 @@
 }
 @using AnimalShelter.Web.ViewModels.PostModels
 @using AnimalShelter.Data.Models.Enums
-@model CreateAdoptPetInputModel
+@using AnimalShelter.Web.Infrastructure.Enums
+@model CreateLostFoundPetInputModel
 <!-- Breadcrumbs & Page title-->
 <div class="page-title">
-    <div class="page-title-text">Създай пост за осиновяване</div>
+    <div class="page-title-text">Създай пост за намерен/изгубен домашен любимец</div>
     <ul class="breadcrumbs-custom">
         <li><a href="index.html">Начало</a></li>
         <li>Създай</li>
@@ -16,6 +17,8 @@
 <section class="section-md bg-white text-center">
     <div class="shell">
         <h4>Информация за животното</h4>
+        <p>Ако сте загубил домашният си любимец изберете опция "Загубени домашни любимци"</p>
+        <p>Ако сте намерил животно ,което видимо не е бездомно или е с каишка изберете опция "Намерени домашни любимци"</p>
         <div class="range range-sm-center spacing-55">
             <div class="cell-md-10 cell-lg-8">
                 <form method="post" enctype="multipart/form-data">
@@ -54,6 +57,13 @@
                                 <select class="form-control" asp-for="Location" asp-items="@Html.GetEnumSelectList<City>()"></select>
                                 <label class="form-label" asp-for="Location"></label>
                                 <span asp-validation-for="Location" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="cell-sm-6">
+                            <div class="form-group">
+                                <select class="form-control" asp-for="Status" asp-items="@Html.GetEnumSelectList<LostFoundCreateOptions>()"></select>
+                                <label class="form-label" asp-for="Status"></label>
+                                <span asp-validation-for="Status" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="cell-sm-6">

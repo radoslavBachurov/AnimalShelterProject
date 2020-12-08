@@ -1,17 +1,11 @@
-﻿using AnimalShelter.Web.ViewModels.Home;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AnimalShelter.Services.Data
+﻿namespace AnimalShelter.Services.Data
 {
+    using AnimalShelter.Web.ViewModels.Home;
+
     public interface IGetCountService
     {
         IndexViewModel GetIndexCounts();
 
-        int GetAllAnimalsForAdoptionByTypeCount(string type);
-
-        int GetAllAnimalsForAdoptionCount();
+        int GetAllAnimalsByCriteriaCount(string typeAnimal, string sex, string location, string category);
     }
 }

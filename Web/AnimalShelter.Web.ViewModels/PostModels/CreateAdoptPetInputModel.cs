@@ -1,4 +1,4 @@
-﻿namespace AnimalShelter.Web.ViewModels.Adopt
+﻿namespace AnimalShelter.Web.ViewModels.PostModels
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;

@@ -2,7 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using AnimalShelter.Data.Models.Enums;
+    using AnimalShelter.Web.Infrastructure.Enums;
 
     public class SearchResultsInputModel
     {

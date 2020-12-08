@@ -1,72 +1,6 @@
-﻿var currentPage = 1;
-var currentType = 'cats';
-var currentOrderType = 'Id';
-var currOrderDescAsc = 'desc';
+﻿function listCreator(animals, data) {
 
-//Add orderByEvents
-document.getElementById('dateOrder').addEventListener("click", function () { loadAnimals(currentPage, currentType, 'Id'); });
-document.getElementById('likeOrder').addEventListener("click", function () { loadAnimals(currentPage, currentType, 'Likes'); });
-document.getElementById('ascOrder').addEventListener("click", function () { changeOrderDescAsc() });
-
-
-function getDeltaPage(event, pageDelta) {
-    event.preventDefault();
-    loadAnimals(currentPage + pageDelta);
-}
-
-function getFirstPage(event) {
-    event.preventDefault();
-    loadAnimals(1);
-}
-
-function getLastPage(event, lastPage) {
-    event.preventDefault();
-    loadAnimals(lastPage);
-}
-
-function changeOrderDescAsc() {
-    if (currOrderDescAsc == 'desc') {
-        currOrderDescAsc = 'asc';
-    }
-    else {
-        currOrderDescAsc = 'desc'
-    }
-
-    loadAnimals(currentPage, currentType, currentOrderType, currOrderDescAsc);
-}
-
-async function loadAnimals(page, type, orderType, orderDescAsc) {
-
-    if (page) {
-        currentPage = page;
-    }
-
-    if (type) {
-        currentType = type;
-    }
-
-    if (orderType) {
-        currentOrderType = orderType;
-    }
-
-    if (orderDescAsc) {
-        currOrderDescAsc = orderDescAsc;
-    }
-
-    var uri = `/api/AdoptList?type=${currentType}&page=${currentPage}&order=${currentOrderType}&orderType=${currOrderDescAsc}`;
-
-    fetch(uri, {
-        method: "GET",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
-    })
-        .then(responce => responce.json())
-        .then(data => createAdoptSection(data.animals, data));
-}
-
-function createAdoptSection(animals, data) {
+    //Order Buttons Effects
     var dateOrderButton = document.getElementById('dateOrder');
     var likeOrderButoon = document.getElementById('likeOrder');
     var ascDescOrder = document.getElementById('ascOrder');
@@ -89,49 +23,37 @@ function createAdoptSection(animals, data) {
 
     if (currentOrderType == 'Likes') {
         dateOrderButton.classList.remove('active');
-        dateOrderButton.classList.remove('btn-silver-outline');
-        dateOrderButton.classList.add('btn-primary');
+        dateOrderButton.classList.add('btn-silver-outline');
+        dateOrderButton.classList.remove('btn-primary');
 
         likeOrderButoon.classList.add('active');
-        likeOrderButoon.classList.add('btn-silver-outline');
-        likeOrderButoon.classList.remove('btn-primary');
+        likeOrderButoon.classList.remove('btn-silver-outline');
+        likeOrderButoon.classList.add('btn-primary');
     }
     else {
         likeOrderButoon.classList.remove("active");
-        likeOrderButoon.classList.remove('btn-silver-outline');
-        likeOrderButoon.classList.add('btn-primary');
+        likeOrderButoon.classList.add('btn-silver-outline');
+        likeOrderButoon.classList.remove('btn-primary');
 
         dateOrderButton.classList.add('active');
-        dateOrderButton.classList.add('btn-silver-outline');
-        dateOrderButton.classList.remove('btn-primary');
+        dateOrderButton.classList.remove('btn-silver-outline');
+        dateOrderButton.classList.add('btn-primary');
     }
 
     if (animals == null || animals.length == 0) {
+        let mainSection = mainSectionCleaner(animals);
+        let noResultDiv = document.createElement('div');
+        let textEl = document.createElement('h2');
+        let text = document.createTextNode('НЯМА РЕЗУЛТАТИ');
+
+        textEl.appendChild(text);
+        noResultDiv.appendChild(textEl);
+        mainSection.appendChild(noResultDiv);
+
         return;
     }
 
-    let type;
-    switch (animals[0].type) {
-        case 'Dog':
-            type = 'adopt-dogs'
-            break;
-        case 'Cat':
-            type = 'adopt-cats'
-            break;
-        case 'Other':
-            type = 'adopt-other'
-            break;
-        default:
-    }
-
-    let catSection = document.getElementById('adopt-cats');
-    catSection.innerHTML = '';
-    let dogSection = document.getElementById('adopt-dogs');
-    dogSection.innerHTML = '';
-    let otherSection = document.getElementById('adopt-other');
-    otherSection.innerHTML = '';
-
-    let mainSection = document.getElementById(type);
+    let mainSection = mainSectionCleaner(animals);
 
     let toAtach = document.createElement('div');
     toAtach.classList.add("range");
@@ -215,7 +137,7 @@ function createAdoptSection(animals, data) {
         FirstSpanOne.classList.add("icon");
         FirstSpanOne.classList.add("icon-xs");
         FirstSpanOne.classList.add("icon-tan-hide");
-        FirstSpanOne.classList.add("material-icons-done");
+        FirstSpanOne.classList.add("material-icons-event_available");
         let FirstSpanTwo = document.createElement('span');
         let createdOn = document.createTextNode(created);
         FirstSpanTwo.appendChild(createdOn);
@@ -231,18 +153,11 @@ function createAdoptSection(animals, data) {
         SecondSpanOne.classList.add("icon");
         SecondSpanOne.classList.add("icon-xs");
         SecondSpanOne.classList.add("icon-tan-hide");
-        SecondSpanOne.classList.add("material-icons-event_available");
+        SecondSpanOne.classList.add("mdi");
+        SecondSpanOne.classList.add("mdi-gender-male-female");
         let SecondSpanTwo = document.createElement('span');
-        var sexChangeLanguage;
 
-        if (sex == "Male") {
-            sexChangeLanguage = 'Мъжко';
-        }
-        else {
-            sexChangeLanguage = 'Женско';
-        }
-
-        let sexEl = document.createTextNode(sexChangeLanguage);
+        let sexEl = document.createTextNode(sex);
         SecondSpanTwo.appendChild(sexEl);
 
         SecondliElement.appendChild(SecondSpanOne);
@@ -282,6 +197,24 @@ function createAdoptSection(animals, data) {
         FourthliElement.appendChild(FourthSpanTwo);
         ulData.appendChild(FourthliElement);
 
+        //Category
+        let FifthliElement = document.createElement('li');
+
+        let FifthSpanOne = document.createElement('span');
+        FifthSpanOne.classList.add("icon");
+        FifthSpanOne.classList.add("icon-xs");
+        FifthSpanOne.classList.add("icon-tan-hide");
+        FifthSpanOne.classList.add("mdi");
+        FifthSpanOne.classList.add("mdi-paw");
+        let FifthSpanTwo = document.createElement('span');
+
+        let category = document.createTextNode(status);
+        FifthSpanTwo.appendChild(category);
+
+        FifthliElement.appendChild(FifthSpanOne);
+        FifthliElement.appendChild(FifthSpanTwo);
+        ulData.appendChild(FifthliElement);
+
         thumbnailFooter.appendChild(ulData);
         thumbnailBody.appendChild(thumbnailFooter);
 
@@ -292,7 +225,7 @@ function createAdoptSection(animals, data) {
         anker.classList.add('btn-effect-anis');
         anker.classList.add('wow');
         anker.classList.add('fadeInUpSmall');
-        anker.href = `/Pet/AdoptPetProfile?id=${id}`;
+        anker.href = `/Pet/PetProfile?id=${id}`;
         anker.setAttribute("data-wow-delay", "0.2s");
         anker.setAttribute("data-wow-duration", ".75s");
 
@@ -473,4 +406,39 @@ function createAdoptSection(animals, data) {
     document.getElementById('pageFirstPage').addEventListener("click", function () { getFirstPage(event); });
     document.getElementById('pageLastPage').addEventListener("click", function () { getLastPage(event, data.pagesCount); });
 
+}
+
+function mainSectionCleaner(animals) {
+
+    let mainSection = document.getElementById('list');
+
+    if (mainSection === null) {
+
+        let type;
+        switch (animals[0].type) {
+            case 'Dog':
+                type = 'adopt-dogs'
+                break;
+            case 'Cat':
+                type = 'adopt-cats'
+                break;
+            case 'Other':
+                type = 'adopt-other'
+                break;
+            default:
+        }
+
+        let catSection = document.getElementById('adopt-cats');
+        catSection.innerHTML = '';
+        let dogSection = document.getElementById('adopt-dogs');
+        dogSection.innerHTML = '';
+        let otherSection = document.getElementById('adopt-other');
+        otherSection.innerHTML = '';
+
+        mainSection = document.getElementById(type);
+    }
+
+    mainSection.innerHTML = '';
+
+    return mainSection;
 }

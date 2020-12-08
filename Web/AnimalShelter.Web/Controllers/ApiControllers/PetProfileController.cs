@@ -1,14 +1,13 @@
-﻿using AnimalShelter.Data.Common.Repositories;
-using AnimalShelter.Data.Models;
-using AnimalShelter.Services.Data;
-using AnimalShelter.Web.ViewModels.Pet;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace AnimalShelter.Web.Controllers.ApiControllers
+﻿namespace AnimalShelter.Web.Controllers.ApiControllers
 {
+    using System.Threading.Tasks;
+
+    using AnimalShelter.Data.Models;
+    using AnimalShelter.Services.Data;
+    using AnimalShelter.Web.ViewModels.Pet;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+
     [Route("/api/[controller]")]
     [ApiController]
     public class PetProfileController : ControllerBase

@@ -1,16 +1,14 @@
-﻿using AnimalShelter.Data.Common.Repositories;
-using AnimalShelter.Data.Models;
-using AnimalShelter.Data.Models.Enums;
-using AnimalShelter.Web.ViewModels.Home;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AnimalShelter.Services.Data
+﻿namespace AnimalShelter.Services.Data
 {
+    using System.Globalization;
+    using System.Linq;
+
+    using AnimalShelter.Data.Common.Repositories;
+    using AnimalShelter.Data.Models;
+    using AnimalShelter.Data.Models.Enums;
+    using AnimalShelter.Web.Infrastructure;
+    using AnimalShelter.Web.ViewModels.Home;
+
     public class GetCountService : IGetCountService
     {
         private readonly IDeletableEntityRepository<PetPost> petPostsRepository;
@@ -62,34 +60,21 @@ namespace AnimalShelter.Services.Data
             return data;
         }
 
-        public int GetAllAnimalsForAdoptionByTypeCount(string type)
+        public int GetAllAnimalsByCriteriaCount(string typeAnimal, string sex, string location, string category)
         {
-            TypePet typeAnimal = TypePet.Dog;
+            var animalType = EnumHelper<TypePet>.GetValueFromName(typeAnimal);
+            var animalSex = EnumHelper<Sex>.GetValueFromName(sex);
+            var animalLocation = EnumHelper<City>.GetValueFromName(location);
+            var animalCategory = EnumHelper<PetStatus>.GetValueFromName(category);
 
-            switch (type)
-            {
-                case "cats":
-                    typeAnimal = TypePet.Cat;
-                    break;
-                case "other":
-                    typeAnimal = TypePet.Other;
-                    break;
-                default:
-                    break;
-            }
+            var petsCount = this.petPostsRepository.AllAsNoTracking()
+                           .Where(x => (animalCategory == 0 || x.PetStatus == animalCategory)
+                           && (animalLocation == 0 || x.Location == animalLocation)
+                           && (animalSex == 0 || x.Sex == animalSex)
+                           && (animalType == 0 || x.Type == animalType)
+                           && x.IsApproved == true).ToList().Count();
 
-            var count = this.petPostsRepository.AllAsNoTracking()
-                           .Where(x => x.PetStatus == PetStatus.ForAdoption && x.Type == typeAnimal && x.IsApproved == true).Count();
-
-            return count;
-        }
-
-        public int GetAllAnimalsForAdoptionCount()
-        {
-            var count = this.petPostsRepository.AllAsNoTracking()
-                           .Where(x => x.PetStatus == PetStatus.ForAdoption && x.IsApproved == true).Count();
-
-            return count;
+            return petsCount;
         }
     }
 }

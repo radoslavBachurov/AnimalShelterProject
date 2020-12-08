@@ -66,7 +66,7 @@
                                     <a asp-area="" asp-controller="Pet" asp-action="Profile" asp-route-id="13">За нас</a>
                                 </li>
                                 <li>
-                                    <a asp-area="" asp-controller="Adopt" asp-action="All">Осинови</a>
+                                    <a href="/Adopt/All/#adopt-cats">Осинови</a>
                                     <ul class="rd-navbar-dropdown tabs-nav">
                                         <li>
                                             <a href="/Adopt/All/#adopt-cats">@Localizer["AdoptCat"]</a>
@@ -94,6 +94,12 @@
                                         <li>
                                             <a asp-area="" asp-controller="Home" asp-action="Index">Намерени домашни животни</a>
                                         </li>
+                                        @if (this.User.Identity.IsAuthenticated)
+                                        {
+                                            <li>
+                                                <a asp-area="" asp-controller="LostFound" asp-action="Create">Създай пост за изгубен/намерен домашен любимец</a>
+                                            </li>
+                                        }
                                     </ul>
                                 </li>
                                 <li>

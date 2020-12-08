@@ -1,4 +1,4 @@
-﻿namespace AnimalShelter.Data.Models.Enums
+﻿namespace AnimalShelter.Web.Infrastructure.Enums
 {
     using System.ComponentModel.DataAnnotations;
 

@@ -5,7 +5,9 @@
     using System.Linq;
 
     using AnimalShelter.Data.Models;
+    using AnimalShelter.Data.Models.Enums;
     using AnimalShelter.Services.Mapping;
+    using AnimalShelter.Web.Infrastructure;
     using AutoMapper;
 
     public class PetProfileViewModel : IMapFrom<PetPost>, IHaveCustomMappings
@@ -23,6 +25,8 @@
         public string Location { get; set; }
 
         public string Sex { get; set; }
+
+        public string PetStatus { get; set; }
 
         public string CreatedOn { get; set; }
 
@@ -43,6 +47,8 @@
                 .ForMember(x => x.Pictures, opt => opt.MapFrom(x => x.PostPictures))
                 .ForMember(x => x.PostId, opt => opt.MapFrom(x => x.Id))
                 .ForMember(x => x.PostUserId, opt => opt.MapFrom(x => x.UserId))
+                .ForMember(x => x.PetStatus, opt => opt.MapFrom(x => EnumHelper<PetStatus>.GetDisplayValue(x.PetStatus)))
+                .ForMember(x => x.Sex, opt => opt.MapFrom(x => EnumHelper<Sex>.GetDisplayValue(x.Sex)))
                 .ForMember(x => x.CoverPicturePath, opt => opt.MapFrom(x => x.PostPictures.Where(y => y.IsCoverPicture).FirstOrDefault().Path != null ?
                                                                             x.PostPictures.Where(y => y.IsCoverPicture).FirstOrDefault().Path :
                                                                            x.PostPictures.Where(y => y.IsCoverPicture).FirstOrDefault().RemoteImageUrl));

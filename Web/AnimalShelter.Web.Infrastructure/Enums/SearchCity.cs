@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-
-namespace AnimalShelter.Data.Models.Enums
+﻿namespace AnimalShelter.Web.Infrastructure.Enums
 {
+    using System.ComponentModel.DataAnnotations;
+
     public enum SearchCity
     {
         Всички = 1,

@@ -1,4 +1,4 @@
-﻿function LikeController(postId, postIsLiked) {
+﻿function likeController(postId, postIsLiked) {
 
     var token = $("#likesForm input[name=__RequestVerificationToken]").val();
 
