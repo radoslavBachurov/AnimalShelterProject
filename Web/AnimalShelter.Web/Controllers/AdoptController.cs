@@ -56,6 +56,8 @@
 
             int postId = await this.postService.CreatePostAsync<CreateAdoptPetInputModel>(input, user, webRoot, CategoryFileFolder, input.Images);
 
+            this.TempData["Message"] = $"{input.Name} е успешно добавен/а за осиновяване и изчаква одобрение от администратор";
+
             return this.Redirect($"/Pet/PetProfile?id={postId}");
         }
     }

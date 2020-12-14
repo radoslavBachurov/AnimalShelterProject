@@ -16,11 +16,11 @@
 
         public string Nickname { get; set; }
 
-        public string Age { get; set; } = "Не е въведен";
+        public string Age { get; set; }
 
-        public string Living { get; set; } = "Не е въведен";
+        public string Living { get; set; }
 
-        public string Sex { get; set; } = "Не е въведен";
+        public string Sex { get; set; }
 
         public string CoverPicturePath { get; set; }
 
@@ -31,7 +31,9 @@
             configuration.CreateMap<ApplicationUser, UserViewModel>()
                .ForMember(x => x.CreatedOn, opt => opt.MapFrom(x => x.CreatedOn.Date.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)))
                .ForMember(x => x.UserPictures, opt => opt.MapFrom(x => x.UserPictures))
-               .ForMember(x => x.Sex, opt => opt.MapFrom(x => EnumHelper<Sex>.GetDisplayValue(x.Sex)))
+               .ForMember(x => x.Sex, opt => opt.MapFrom(x => x.Sex != 0 ? EnumHelper<Sex>.GetDisplayValue(x.Sex) : "Не е въведен"))
+               .ForMember(x => x.Age, opt => opt.MapFrom(x => x.Age != 0 ? x.Age.ToString() : "Не е въведен"))
+               .ForMember(x => x.Living, opt => opt.MapFrom(x => x.Living != null ? x.Living : "Не е въведен"))
                .ForMember(x => x.CoverPicturePath, opt => opt.MapFrom(x => x.UserPictures.Where(y => y.IsCoverPicture).FirstOrDefault().Path != null ?
                                                                            x.UserPictures.Where(y => y.IsCoverPicture).FirstOrDefault().Path :
                                                                           x.UserPictures.Where(y => y.IsCoverPicture).FirstOrDefault().RemoteImageUrl));

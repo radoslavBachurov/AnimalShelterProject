@@ -32,15 +32,19 @@
                .Where(x => x.ApplicationUserId == user.Id && x.PetPostId == postId).ToList();
             }
 
-            var petProfile = this.petPostsRepository.AllAsNoTracking()
-                          .Where(x => x.Id == postId && x.IsApproved == true)
-                          .To<PetProfileViewModel>()
-                          .FirstOrDefault();
+            var viewModel = this.petPostsRepository.AllAsNoTracking()
+                         .Where(x => x.Id == postId && x.IsApproved == true)
+                         .To<PetProfileViewModel>()
+                         .FirstOrDefault();
 
-            petProfile.CurrentUserId = user != null ? user.Id : null;
-            petProfile.IsPostLiked = userLikedThisPost.Any() ? true : false;
+            var postCreatorId = this.petPostsRepository.AllAsNoTracking()
+                          .Where(x => x.Id == postId && x.IsApproved == true).FirstOrDefault().UserId;
 
-            return petProfile;
+            var currentUserId = user?.Id;
+            viewModel.IsPostLiked = userLikedThisPost.Any();
+            viewModel.IsPostCreator = currentUserId == postCreatorId;
+
+            return viewModel;
         }
 
         public async Task<LikeOutputModel> AddRemoveLikeToPostAsync(LikeInputModel input, ApplicationUser user)

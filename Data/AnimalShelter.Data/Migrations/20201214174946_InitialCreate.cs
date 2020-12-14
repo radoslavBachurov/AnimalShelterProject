@@ -203,34 +203,6 @@ namespace AnimalShelter.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "HomePets",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    ModifiedOn = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    Type = table.Column<int>(nullable: false),
-                    Breed = table.Column<string>(nullable: true),
-                    Sex = table.Column<int>(nullable: false),
-                    DateOfBirth = table.Column<DateTime>(nullable: false),
-                    UserId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_HomePets", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_HomePets_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "PetPosts",
                 columns: table => new
                 {
@@ -412,12 +384,6 @@ namespace AnimalShelter.Data.Migrations
                 {
                     table.PrimaryKey("PK_Pictures", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Pictures_HomePets_HomePetId",
-                        column: x => x.HomePetId,
-                        principalTable: "HomePets",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_Pictures_PetPosts_PetPostId",
                         column: x => x.PetPostId,
                         principalTable: "PetPosts",
@@ -498,16 +464,6 @@ namespace AnimalShelter.Data.Migrations
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
-                name: "IX_HomePets_IsDeleted",
-                table: "HomePets",
-                column: "IsDeleted");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_HomePets_UserId",
-                table: "HomePets",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_PetPosts_IsDeleted",
                 table: "PetPosts",
                 column: "IsDeleted");
@@ -516,11 +472,6 @@ namespace AnimalShelter.Data.Migrations
                 name: "IX_PetPosts_UserId",
                 table: "PetPosts",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Pictures_HomePetId",
-                table: "Pictures",
-                column: "HomePetId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Pictures_IsDeleted",
@@ -647,9 +598,6 @@ namespace AnimalShelter.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "HomePets");
 
             migrationBuilder.DropTable(
                 name: "Replies");

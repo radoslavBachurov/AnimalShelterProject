@@ -18,8 +18,6 @@
 
         public string Name { get; set; }
 
-        public string PostUserId { get; set; }
-
         public int Likes { get; set; }
 
         public string Location { get; set; }
@@ -32,13 +30,11 @@
 
         public string CoverPicturePath { get; set; }
 
-        public string CurrentUserId { get; set; }
-
-        public bool IsPostCreator => this.CurrentUserId == this.PostUserId;
-
-        public IEnumerable<PetProfilePicViewModel> Pictures { get; set; }
+        public bool IsPostCreator { get; set; }
 
         public bool IsPostLiked { get; set; }
+
+        public IEnumerable<PetProfilePicViewModel> Pictures { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {
@@ -46,7 +42,6 @@
                 .ForMember(x => x.CreatedOn, opt => opt.MapFrom(x => x.CreatedOn.Date.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)))
                 .ForMember(x => x.Pictures, opt => opt.MapFrom(x => x.PostPictures))
                 .ForMember(x => x.PostId, opt => opt.MapFrom(x => x.Id))
-                .ForMember(x => x.PostUserId, opt => opt.MapFrom(x => x.UserId))
                 .ForMember(x => x.PetStatus, opt => opt.MapFrom(x => EnumHelper<PetStatus>.GetDisplayValue(x.PetStatus)))
                 .ForMember(x => x.Sex, opt => opt.MapFrom(x => EnumHelper<Sex>.GetDisplayValue(x.Sex)))
                 .ForMember(x => x.CoverPicturePath, opt => opt.MapFrom(x => x.PostPictures.Where(y => y.IsCoverPicture).FirstOrDefault().Path != null ?

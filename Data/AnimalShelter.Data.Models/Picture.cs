@@ -29,10 +29,6 @@
 
         public ApplicationUser User { get; set; }
 
-        public int? HomePetId { get; set; }
-
-        public HomePet HomePet { get; set; }
-
         public int? PetPostId { get; set; }
 
         public PetPost PetPost { get; set; }

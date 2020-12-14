@@ -28,8 +28,6 @@
 
         public DbSet<BankAccount> BankAccounts { get; set; }
 
-        public DbSet<HomePet> HomePets { get; set; }
-
         public DbSet<PetPost> PetPosts { get; set; }
 
         public DbSet<Picture> Pictures { get; set; }

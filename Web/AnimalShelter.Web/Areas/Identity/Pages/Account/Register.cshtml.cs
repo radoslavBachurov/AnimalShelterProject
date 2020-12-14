@@ -47,9 +47,9 @@ namespace AnimalShelter.Web.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [Display(Name = "User Name")]
-            [MinLength(4, ErrorMessage = "The UserName must be at least 4 and at max 15 characters long.")]
-            [MaxLength(15, ErrorMessage = "The UserName must be at least 4 and at max 15 characters long.")]
+            [Display(Name = "Username")]
+            [MinLength(4, ErrorMessage = "The Username must be at least 4 and at max 15 characters long.")]
+            [MaxLength(15, ErrorMessage = "The Username must be at least 4 and at max 15 characters long.")]
             public string NickName { get; set; }
 
             [Required]

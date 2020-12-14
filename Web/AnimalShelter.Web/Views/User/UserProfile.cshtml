@@ -65,16 +65,24 @@
                         }
                         else
                         {
-                            <div class="group-xl group-middle">
+                            @*<div class="group-xl group-middle">
                                 <div class="cell-xs-10 cell-sm-6 cell-md-8">
                                     <div class="form-group">
-                                        <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" data-wow-delay="0.2s" data-wow-duration=".75s">Добави снимки</a>
+                                        <form method="post" enctype="multipart/form-data">
+                                            <div class="cell-sm-6">
+                                                <div class="form-group">
+                                                    <input class="form-control" asp-for="Images" />
+                                                    <span asp-validation-for="Images" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <input class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" data-wow-delay="0.2s" data-wow-duration=".75s" id="profilePic" name="picture" type="file" size="1" onchange="uploadFile('profilePic');" />
+                                        </form>
                                     </div>
                                 </div>
-                            </div>
+                            </div>*@
                         }
                     </div>
-                    <div class="post-single-body">
+                    @*<div class="post-single-body">
                         <div class="group-xl group-middle">
                             <div class="cell-xs-10 cell-sm-6 cell-md-8">
                                 <div class="form-group">
@@ -82,7 +90,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>*@
                 </article>
             </div>
         </div>

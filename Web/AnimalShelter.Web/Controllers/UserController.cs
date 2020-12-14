@@ -4,6 +4,7 @@
 
     using AnimalShelter.Data.Models;
     using AnimalShelter.Services.Data;
+    using AnimalShelter.Web.ViewModels.User;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,15 @@
             var viewModel = this.userService.GetUserProfile(user);
 
             return this.View(viewModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> UserProfile(UserPicturesInputModel input)
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            return this.View();
         }
     }
 }

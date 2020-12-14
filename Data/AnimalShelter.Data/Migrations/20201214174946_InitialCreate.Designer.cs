@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AnimalShelter.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201207010309_InitialCreate")]
+    [Migration("20201214174946_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.9")
+                .HasAnnotation("ProductVersion", "3.1.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -191,52 +191,6 @@ namespace AnimalShelter.Data.Migrations
                     b.ToTable("BankAccounts");
                 });
 
-            modelBuilder.Entity("AnimalShelter.Data.Models.HomePet", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Breed")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Sex")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("HomePets");
-                });
-
             modelBuilder.Entity("AnimalShelter.Data.Models.PetPost", b =>
                 {
                     b.Property<int>("Id")
@@ -345,8 +299,6 @@ namespace AnimalShelter.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("HomePetId");
 
                     b.HasIndex("IsDeleted");
 
@@ -659,13 +611,6 @@ namespace AnimalShelter.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("AnimalShelter.Data.Models.HomePet", b =>
-                {
-                    b.HasOne("AnimalShelter.Data.Models.ApplicationUser", "User")
-                        .WithMany("HomePets")
-                        .HasForeignKey("UserId");
-                });
-
             modelBuilder.Entity("AnimalShelter.Data.Models.PetPost", b =>
                 {
                     b.HasOne("AnimalShelter.Data.Models.ApplicationUser", "User")
@@ -675,10 +620,6 @@ namespace AnimalShelter.Data.Migrations
 
             modelBuilder.Entity("AnimalShelter.Data.Models.Picture", b =>
                 {
-                    b.HasOne("AnimalShelter.Data.Models.HomePet", "HomePet")
-                        .WithMany("PetPictures")
-                        .HasForeignKey("HomePetId");
-
                     b.HasOne("AnimalShelter.Data.Models.PetPost", "PetPost")
                         .WithMany("PostPictures")
                         .HasForeignKey("PetPostId");

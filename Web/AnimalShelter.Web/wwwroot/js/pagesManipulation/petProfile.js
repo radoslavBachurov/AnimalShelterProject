@@ -21,7 +21,7 @@
             var likeIcon = likeElement.firstElementChild;
             likeElement.innerHTML = '';
 
-            likeElement.setAttribute("onClick", `LikeController(${postId},${data.isLiked})`);
+            likeElement.setAttribute("onClick", `likeController(${postId},${data.isLiked})`);
 
             var likeCount = document.getElementById("likesCount");
             likeCount.innerHTML = data.likes;

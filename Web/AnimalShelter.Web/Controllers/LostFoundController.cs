@@ -55,6 +55,8 @@
 
             int postId = await this.postService.CreatePostAsync<CreateLostFoundPetInputModel>(input, user, webRoot, CategoryFileFolder, input.Images);
 
+            this.TempData["Message"] = $"{input.Name} е успешно добавен/а към изгубени/намерени и изчаква одобрение от администратор";
+
             return this.Redirect($"/Pet/PetProfile?id={postId}");
         }
     }
