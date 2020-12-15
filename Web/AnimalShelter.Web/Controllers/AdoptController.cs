@@ -60,5 +60,31 @@
 
             return this.Redirect($"/Pet/PetProfile?id={postId}");
         }
+
+        [Authorize]
+        public IActionResult Edit(int id)
+        {
+            var viewModel = this.postService.GetPostById<EditAdoptPetInputModel>(id);
+
+            return this.View(viewModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditAdoptPetInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
+            var webRoot = this.webHostEnvironment.WebRootPath;
+
+            await this.postService.UpdateAdoptPostAsync(input, webRoot, CategoryFileFolder, input.Images);
+
+            this.TempData["Message"] = $"Постът за {input.Name} е успешно променен";
+
+            return this.Redirect($"/Pet/PetProfile?id={input.Id}");
+        }
     }
 }

@@ -1,0 +1,75 @@
+﻿@{
+    this.ViewData["Title"] = "Edit";
+}
+@using AnimalShelter.Web.ViewModels.PostModels
+@using AnimalShelter.Data.Models.Enums
+@model EditAdoptPetInputModel
+<!-- Breadcrumbs & Page title-->
+<div class="page-title">
+    <div class="page-title-text">Редактирай пост за осиновяване</div>
+    <ul class="breadcrumbs-custom">
+        <li><a href="index.html">Начало</a></li>
+        <li>Редактирай</li>
+    </ul>
+</div>
+<!-- Your information-->
+<section class="section-md bg-white text-center">
+    <div class="shell">
+        <h4>Информация за животното</h4>
+        <div class="range range-sm-center spacing-55">
+            <div class="cell-md-10 cell-lg-8">
+                <form method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="range range-sm-bottom spacing-20">
+                        <input type="hidden" asp-for="Id"/>
+                        <div class="cell-sm-6">
+                            <div class="form-group">
+                                <input class="form-control" asp-for="Name"></input>
+                                <label class="form-label" asp-for="Name"></label>
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="cell-sm-12">
+                            <div class="form-group">
+                                <textarea class="form-control" asp-for="Description"></textarea>
+                                <label class="form-label" asp-for="Description"></label>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="cell-xs-6">
+                            <div class="form-group">
+                                <select class="form-control" asp-for="Sex" asp-items="@Html.GetEnumSelectList<Sex>()"></select>
+                                <label class="form-label" asp-for="Sex"></label>
+                                <span asp-validation-for="Sex" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="cell-sm-6">
+                            <div class="form-group">
+                                <select class="form-control" asp-for="Type" asp-items="@Html.GetEnumSelectList<TypePet>()"></select>
+                                <label class="form-label" asp-for="Type"></label>
+                                <span asp-validation-for="Type" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="cell-sm-6">
+                            <div class="form-group">
+                                <select class="form-control" asp-for="Location" asp-items="@Html.GetEnumSelectList<City>()"></select>
+                                <label class="form-label" asp-for="Location"></label>
+                                <span asp-validation-for="Location" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="cell-sm-6">
+                            <div class="form-group">
+                                <input class="form-control" asp-for="Images" />
+                                <span asp-validation-for="Images" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-tan-hide btn-block">Редактирай</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+

@@ -33,6 +33,25 @@
 <section class="section-md section-md-alternate bg-white text-center">
     <div class="shell">
         <h3>Pet Profile</h3>
+        @if (Model.IsPostCreator || this.User.IsInRole(GlobalConstants.AdministratorRoleName) || this.User.IsInRole(GlobalConstants.ModeratorRoleName))
+        {
+            <section class="section-md bg-white text-center">
+                <div class="shell">
+                    <div class="group-xl group-middle">
+                        <div class="cell-xs-10 cell-sm-6 cell-md-8">
+                            <div class="form-group">
+                                <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" asp-area="" asp-controller="@Model.Category" asp-action="Edit" asp-route-id="@Model.PostId" data-wow-delay="0.2s" data-wow-duration=".75s">Редактирай поста</a>
+                            </div>
+                        </div>
+                        <div class="cell-xs-10 cell-sm-6 cell-md-8">
+                            <div class="form-group">
+                                <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" asp-area="" asp-controller="@Model.Category" asp-action="Index" data-wow-delay="0.2s" data-wow-duration=".75s">Маркирай като осиновен/върнат вкъщи</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
         <ul class="post-meta">
             <li>
                 <span class="icon icon-xs icon-tan-hide material-icons-access_time"></span>

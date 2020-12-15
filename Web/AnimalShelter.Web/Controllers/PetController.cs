@@ -20,9 +20,8 @@
 
         public async Task<IActionResult> PetProfile(int id)
         {
-            var postId = id;
             var user = await this.userManager.GetUserAsync(this.User);
-            var viewModel = this.petService.GetPetProfile(postId, user);
+            var viewModel = this.petService.GetPetProfile(id, user);
 
             return this.View(viewModel);
         }

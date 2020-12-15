@@ -44,6 +44,15 @@
             viewModel.IsPostLiked = userLikedThisPost.Any();
             viewModel.IsPostCreator = currentUserId == postCreatorId;
 
+            if (viewModel.PetStatus == "За Осиновяване" || viewModel.PetStatus == "Осиновен")
+            {
+                viewModel.Category = "Adopt";
+            }
+            else
+            {
+                viewModel.Category = "LostFound";
+            }
+
             return viewModel;
         }
 

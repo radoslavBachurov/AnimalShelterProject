@@ -34,6 +34,8 @@
 
         public bool IsPostLiked { get; set; }
 
+        public string Category { get; set; }
+
         public IEnumerable<PetProfilePicViewModel> Pictures { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)

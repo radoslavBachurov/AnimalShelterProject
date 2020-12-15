@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-
+    using System.Linq;
     using Microsoft.AspNetCore.Http;
     using SixLabors.ImageSharp;
     using SixLabors.ImageSharp.Formats;
@@ -34,29 +34,32 @@
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var files = (List<IFormFile>)value;
-
-            if (files.Count > 20)
+            if (value != null)
             {
-                return new ValidationResult(this.FilesTooManyMessage ?? DefaultFilesTooManyMessage);
-            }
+                var files = (List<IFormFile>)value;
 
-            foreach (var file in files)
-            {
-                if (file.Length > this.maxFileSize)
+                if (files.Count > 20)
                 {
-                    return new ValidationResult(this.FileTooBigMessage ?? DefaultFileTooBigMessage);
+                    return new ValidationResult(this.FilesTooManyMessage ?? DefaultFilesTooManyMessage);
                 }
 
-                try
+                foreach (var file in files)
                 {
-                    using (var stream = file.OpenReadStream())
+                    if (file.Length > this.maxFileSize)
+                    {
+                        return new ValidationResult(this.FileTooBigMessage ?? DefaultFileTooBigMessage);
+                    }
 
-                    using (var pic = Image.Load(stream, out IImageFormat format));
-                }
-                catch (Exception)
-                {
-                    return new ValidationResult(this.FileNotImageMessage ?? DefaultFileNotImageMessage);
+                    try
+                    {
+                        using (var stream = file.OpenReadStream())
+
+                        using (var pic = Image.Load(stream, out IImageFormat format)) ;
+                    }
+                    catch (Exception)
+                    {
+                        return new ValidationResult(this.FileNotImageMessage ?? DefaultFileNotImageMessage);
+                    }
                 }
             }
 
