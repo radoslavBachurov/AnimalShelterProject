@@ -80,11 +80,19 @@
 
             var webRoot = this.webHostEnvironment.WebRootPath;
 
-            await this.postService.UpdateAdoptPostAsync(input, webRoot, CategoryFileFolder, input.Images);
+            await this.postService.UpdatePetPostAsync<EditAdoptPetInputModel>(input, webRoot, CategoryFileFolder, input.Images, input.Id);
 
             this.TempData["Message"] = $"Постът за {input.Name} е успешно променен";
 
             return this.Redirect($"/Pet/PetProfile?id={input.Id}");
+        }
+
+        [Authorize]
+        public async Task<IActionResult> ChangeStatus(int id)
+        {
+            await this.postService.ChangeStatusAsync(id);
+
+            return this.Redirect($"/Search/SearchResults");
         }
     }
 }

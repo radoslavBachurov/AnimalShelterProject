@@ -59,5 +59,39 @@
 
             return this.Redirect($"/Pet/PetProfile?id={postId}");
         }
+
+        [Authorize]
+        public IActionResult Edit(int id)
+        {
+            var viewModel = this.postService.GetPostById<EditLostFoundPetInputModel>(id);
+
+            return this.View(viewModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditLostFoundPetInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
+            var webRoot = this.webHostEnvironment.WebRootPath;
+
+            await this.postService.UpdatePetPostAsync<EditLostFoundPetInputModel>(input, webRoot, CategoryFileFolder, input.Images, input.Id);
+
+            this.TempData["Message"] = $"Постът за {input.Name} е успешно променен";
+
+            return this.Redirect($"/Pet/PetProfile?id={input.Id}");
+        }
+
+        [Authorize]
+        public async Task<IActionResult> ChangeStatus(int id)
+        {
+            await this.postService.ChangeStatusAsync(id);
+
+            return this.Redirect("/Search/SearchResults");
+        }
     }
 }

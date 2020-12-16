@@ -5,12 +5,6 @@
 
     public class SearchController : BaseController
     {
-        public IActionResult SearchResults()
-        {
-            return this.View();
-        }
-
-        [HttpPost]
         public IActionResult SearchResults(SearchResultsInputModel input)
         {
             return this.View(input);

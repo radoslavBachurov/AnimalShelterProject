@@ -55,10 +55,26 @@
             return model;
         }
 
-        public async Task UpdateAdoptPostAsync(EditAdoptPetInputModel input, string webRoot, string categoryName, IEnumerable<IFormFile> images)
+        public async Task ChangeStatusAsync(int id)
         {
-            var baseModel = this.petPostsRepository.All().FirstOrDefault(x => x.Id == input.Id);
-            var userInfo = this.petPostsRepository.All().Where(x => x.Id == input.Id).Select(x => new { userId = x.UserId, nickName = x.User.Nickname }).FirstOrDefault();
+            var postToChange = this.petPostsRepository.All().FirstOrDefault(x => x.Id == id);
+
+            if (postToChange.PetStatus == PetStatus.ForAdoption)
+            {
+                postToChange.PetStatus = PetStatus.Adopted;
+            }
+            else
+            {
+                postToChange.PetStatus = PetStatus.LostFoundBackInHome;
+            }
+
+            await this.petPostsRepository.SaveChangesAsync();
+        }
+
+        public async Task UpdatePetPostAsync<T>(T input, string webRoot, string categoryName, IEnumerable<IFormFile> images, int id)
+        {
+            var baseModel = this.petPostsRepository.All().FirstOrDefault(x => x.Id == id);
+            var userInfo = this.petPostsRepository.All().Where(x => x.Id == id).Select(x => new { userId = x.UserId, nickName = x.User.Nickname }).FirstOrDefault();
 
             if (images != null)
             {
@@ -72,11 +88,17 @@
                 pictures.ForEach(x => { baseModel.PostPictures.Add(x); });
             }
 
-            baseModel.Name = input.Name;
-            baseModel.Description = input.Description;
-            baseModel.Location = input.Location;
-            baseModel.Sex = input.Sex;
-            baseModel.Type = input.Type;
+            var newModel = AutoMapperConfig.MapperInstance.Map<PetPost>(input);
+            baseModel.Description = newModel.Description;
+            baseModel.Location = newModel.Location;
+            baseModel.Sex = newModel.Sex;
+            baseModel.Type = newModel.Type;
+            baseModel.Name = newModel.Name;
+
+            if (newModel.PetStatus != 0)
+            {
+                baseModel.PetStatus = newModel.PetStatus;
+            }
 
             await this.petPostsRepository.SaveChangesAsync();
         }

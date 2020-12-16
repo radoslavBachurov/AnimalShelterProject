@@ -15,11 +15,11 @@
 
 <!-- Breadcrumbs & Page title-->
 <div class="page-title">
-    <div class="page-title-text">Single Page Pets</div>
+    <div class="page-title-text">Профил</div>
     <ul class="breadcrumbs-custom">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="#">Adopt a Pet</a></li>
-        <li class="active">Pet Profile</li>
+        <li><a href="index.html">Начало</a></li>
+        <li><a href="#">Намери</a></li>
+        <li class="active">Профил</li>
     </ul>
 </div>
 <div class="group-xl group-middle">
@@ -32,11 +32,18 @@
 <!-- News & Events-->
 <section class="section-md section-md-alternate bg-white text-center">
     <div class="shell">
-        <h3>Pet Profile</h3>
-        @if (Model.IsPostCreator || this.User.IsInRole(GlobalConstants.AdministratorRoleName) || this.User.IsInRole(GlobalConstants.ModeratorRoleName))
+        <h3>Профил</h3>
+        @if (Model.PetStatus == "Осиновен" || Model.PetStatus == "Намерени и загубени върнати вкъщи")
         {
-            <section class="section-md bg-white text-center">
-                <div class="shell">
+            <div class="range spacing-55 range range-sm-center">
+                <h3 style="color:forestgreen">Този пост е маркиран като Осиновен/Върнат вкъщи</h3>
+            </div>
+        }
+        else
+        {
+            @if (Model.IsPostCreator || this.User.IsInRole(GlobalConstants.AdministratorRoleName) || this.User.IsInRole(GlobalConstants.ModeratorRoleName))
+            {
+                <div class="shell range spacing-55 range range-sm-center">
                     <div class="group-xl group-middle">
                         <div class="cell-xs-10 cell-sm-6 cell-md-8">
                             <div class="form-group">
@@ -45,12 +52,12 @@
                         </div>
                         <div class="cell-xs-10 cell-sm-6 cell-md-8">
                             <div class="form-group">
-                                <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" asp-area="" asp-controller="@Model.Category" asp-action="Index" data-wow-delay="0.2s" data-wow-duration=".75s">Маркирай като осиновен/върнат вкъщи</a>
+                                <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" data-wow-delay="0.2s" data-wow-duration=".75s" data-toggle="modal" data-target="#modalEdit">Маркирай като осиновен/върнат вкъщи</a>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
+            }
         }
         <ul class="post-meta">
             <li>
@@ -108,9 +115,8 @@
                         </section>
                     </div>
                     <div class="post-single-body">
-                        <p class="post-single-title">Description</p>
+                        <p class="post-single-title">Описание</p>
                         <p>@Model.Description</p>
-
                     </div>
                 </article>
             </div>
@@ -241,6 +247,29 @@
         </div>
     </div>
 </section>
+
+<!-- Modal -->
+<div class="modal" id="modalEdit" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Потвърди заявката</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Сигурен ли сте ,че искате да маркирате поста като осиновен/върнат вкъщи?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Не</button>
+                <a class="btn btn-primary" style="margin-top:0px" asp-controller="@Model.Category" asp-action="ChangeStatus" asp-route-id="@Model.PostId">Да</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 @section Scripts{
     <script src="~/js/pagesManipulation/petProfile.js"></script>

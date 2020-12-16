@@ -23,6 +23,7 @@
         {
             var randomPosts = this.petPostsRepository.All()
               .Where(x => x.IsApproved && x.PetStatus == EnumHelper<PetStatus>.ParseEnum("ForAdoption")).To<LastPostViewComponentModel>()
+              .OrderByDescending(x => x.Id)
               .Take(6).ToList();
 
             return this.View(randomPosts);

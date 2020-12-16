@@ -13,6 +13,8 @@
 
         T GetPostById<T>(int id);
 
-        Task UpdateAdoptPostAsync(EditAdoptPetInputModel input, string webRoot, string categoryName, IEnumerable<IFormFile> images);
+        Task UpdatePetPostAsync<T>(T input, string webRoot, string categoryName, IEnumerable<IFormFile> images, int id);
+
+        Task ChangeStatusAsync(int id);
     }
 }
