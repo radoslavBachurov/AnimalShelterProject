@@ -124,7 +124,8 @@
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Home/StatusCodeError?errorCode={0}");
+                app.UseStatusCodePagesWithRedirects("/Home/StatusCodeError?errorCode={0}");
                 app.UseHsts();
             }
 

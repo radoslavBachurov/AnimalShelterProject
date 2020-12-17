@@ -16,15 +16,18 @@
         private const string CategoryFileFolder = "LostAndFound";
 
         private readonly IPostService postService;
+        private readonly IUserService userService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IWebHostEnvironment webHostEnvironment;
 
         public LostFoundController(
             IPostService postService,
+            IUserService userService,
             UserManager<ApplicationUser> userManager,
             IWebHostEnvironment webHostEnvironment)
         {
             this.postService = postService;
+            this.userService = userService;
             this.userManager = userManager;
             this.webHostEnvironment = webHostEnvironment;
         }
@@ -79,19 +82,37 @@
 
             var webRoot = this.webHostEnvironment.WebRootPath;
 
-            await this.postService.UpdatePetPostAsync<EditLostFoundPetInputModel>(input, webRoot, CategoryFileFolder, input.Images, input.Id);
+            var user = await this.userManager.GetUserAsync(this.User);
 
-            this.TempData["Message"] = $"Постът за {input.Name} е успешно променен";
+            if (await this.userService.IsUserAuthorized(input.Id, user))
+            {
+                await this.postService.UpdatePetPostAsync<EditLostFoundPetInputModel>(input, webRoot, CategoryFileFolder, input.Images, input.Id);
 
-            return this.Redirect($"/Pet/PetProfile?id={input.Id}");
+                this.TempData["Message"] = $"Постът за {input.Name} е успешно променен";
+
+                return this.Redirect($"/Pet/PetProfile?id={input.Id}");
+            }
+            else
+            {
+                return this.StatusCode(401);
+            }
         }
 
         [Authorize]
         public async Task<IActionResult> ChangeStatus(int id)
         {
-            await this.postService.ChangeStatusAsync(id);
+            var user = await this.userManager.GetUserAsync(this.User);
 
-            return this.Redirect("/Search/SearchResults");
+            if (await this.userService.IsUserAuthorized(id, user))
+            {
+                await this.postService.ChangeStatusAsync(id);
+
+                return this.Redirect($"/Search/SearchResults");
+            }
+            else
+            {
+                return this.StatusCode(401);
+            }
         }
     }
 }

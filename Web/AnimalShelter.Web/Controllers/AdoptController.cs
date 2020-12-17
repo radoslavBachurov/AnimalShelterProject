@@ -4,6 +4,7 @@
 
     using AnimalShelter.Data.Models;
     using AnimalShelter.Services.Data;
+    using AnimalShelter.Web.ViewModels;
     using AnimalShelter.Web.ViewModels.PostModels;
 
     using Microsoft.AspNetCore.Authorization;
@@ -17,15 +18,18 @@
         private const string CategoryFileFolder = "Adopt";
 
         private readonly IPostService postService;
+        private readonly IUserService userService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IWebHostEnvironment webHostEnvironment;
 
         public AdoptController(
             IPostService postService,
+            IUserService userService,
             UserManager<ApplicationUser> userManager,
             IWebHostEnvironment webHostEnvironment)
         {
             this.postService = postService;
+            this.userService = userService;
             this.userManager = userManager;
             this.webHostEnvironment = webHostEnvironment;
         }
@@ -78,21 +82,39 @@
                 return this.View(input);
             }
 
-            var webRoot = this.webHostEnvironment.WebRootPath;
+            var user = await this.userManager.GetUserAsync(this.User);
 
-            await this.postService.UpdatePetPostAsync<EditAdoptPetInputModel>(input, webRoot, CategoryFileFolder, input.Images, input.Id);
+            if (await this.userService.IsUserAuthorized(input.Id, user))
+            {
+                var webRoot = this.webHostEnvironment.WebRootPath;
 
-            this.TempData["Message"] = $"Постът за {input.Name} е успешно променен";
+                await this.postService.UpdatePetPostAsync<EditAdoptPetInputModel>(input, webRoot, CategoryFileFolder, input.Images, input.Id);
 
-            return this.Redirect($"/Pet/PetProfile?id={input.Id}");
+                this.TempData["Message"] = $"Постът за {input.Name} е успешно променен";
+
+                return this.Redirect($"/Pet/PetProfile?id={input.Id}");
+            }
+            else
+            {
+                return this.StatusCode(401);
+            }
         }
 
         [Authorize]
         public async Task<IActionResult> ChangeStatus(int id)
         {
-            await this.postService.ChangeStatusAsync(id);
+            var user = await this.userManager.GetUserAsync(this.User);
 
-            return this.Redirect($"/Search/SearchResults");
+            if (await this.userService.IsUserAuthorized(id, user))
+            {
+                await this.postService.ChangeStatusAsync(id);
+
+                return this.Redirect($"/Search/SearchResults");
+            }
+            else
+            {
+                return this.StatusCode(401);
+            }
         }
     }
 }
