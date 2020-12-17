@@ -1,1 +1,56 @@
-﻿
+﻿@{
+    this.ViewData["Title"] = "Lost and Found Pets";
+}
+<!-- Breadcrumbs & Page title-->
+<div class="page-title">
+    <div class="page-title-text"><span data-content-to="#found">Намерени</span><span data-content-to="#lost">Изгубени</span></div>
+    <ul class="breadcrumbs-custom">
+        <li><a href="index.html">Начало</a></li>
+        <li><a href="adopt-a-pet.html">Изгубени или намерени домашни любимци</a></li>
+        <li class="active"><span data-content-to="#found">Намерени</span><span data-content-to="#lost">Изгубени</span></li>
+    </ul>
+</div>
+
+<div class="shell">
+    <div class="box-form box-form-1">
+        <partial name="_SearchForm" />
+    </div>
+</div>
+
+<!-- Adopt pets-->
+<section class="section-md bg-white text-center">
+    <div class="shell">
+        <div class="group-xl group-middle">
+            <div class="btn btn-circle btn-silver-outline btn-shadow active" id="dateOrder">Подреди по дата</div>
+            <div class="btn btn-circle btn-silver-outline btn-shadow" id="likeOrder">подреди по лайкове</div>
+            <div class="btn btn-icon btn-icon-left btn-silver-outline btn-shadow" id="ascOrder"><span class="icon icon-md material-icons-swap_vert"></span>Възходящ ред</div>
+        </div>
+    </div>
+    <div class="shell">
+        <!-- Bootstrap tabs-->
+        <div class="tabs tabs-custom tabs-vertical tabs-corporate tabs-wide" id="tabs-1" data-url-tabs="true">
+            <!-- Nav tabs-->
+            <ul class="nav nav-tabs">
+                <li onclick="loadAnimals(1, 'Изгубени домашни любимци')"><a href="#lost" data-toggle="tab">Изгубени</a></li>
+                <li onclick="loadAnimals(1, 'Намерени домашни любимци')"><a href="#found" data-toggle="tab">Намерени</a></li>
+                <li onclick="loadAnimals(1, 'Намерени и изгубени върнати вкъщи')"><a href="#backInHome" data-toggle="tab">Върнати вкъщи</a></li>
+            </ul>
+            <div class="tab-content">
+                <!-- Tab 1-->
+                <div class="tab-pane fade" id="lost">
+                </div>
+                <!-- Tab 2-->
+                <div class="tab-pane fade" id="found">
+                </div>
+                <!-- Tab 3-->
+                <div class="tab-pane fade" id="backInHome">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    <script src="~/js/pagesManipulation/lostFoundList.js"></script>
+    <script src="~/js/pagesManipulation/listCreator.js"></script>
+}

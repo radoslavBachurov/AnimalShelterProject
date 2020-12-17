@@ -88,13 +88,13 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a asp-area="" asp-controller="Home" asp-action="Index">@Localizer["LostFound"]</a>
+                                    <a href="/LostFound/All/#lost">@Localizer["LostFound"]</a>
                                     <ul class="rd-navbar-dropdown tabs-nav">
                                         <li>
-                                            <a asp-area="" asp-controller="Home" asp-action="Index">Изгубени домашни животни</a>
+                                            <a href="/LostFound/All/#lost">Изгубени домашни животни</a>
                                         </li>
                                         <li>
-                                            <a asp-area="" asp-controller="Home" asp-action="Index">Намерени домашни животни</a>
+                                            <a href="/LostFound/All/#found">Намерени домашни животни</a>
                                         </li>
                                         @if (this.User.Identity.IsAuthenticated)
                                         {

@@ -6,8 +6,8 @@ namespace AnimalShelter.Data.Models.Enums
     {
         [Display(Name = "За Осиновяване")] ForAdoption = 2,
         [Display(Name = "Осиновен")] Adopted = 3,
-        [Display(Name = "Загубени домашни любимци")] Lost = 4,
+        [Display(Name = "Изгубени домашни любимци")] Lost = 4,
         [Display(Name = "Намерени домашни любимци")] Found = 5,
-        [Display(Name = "Намерени и загубени върнати вкъщи")] LostFoundBackInHome = 6,
+        [Display(Name = "Намерени и изгубени върнати вкъщи")] LostFoundBackInHome = 6,
     }
 }

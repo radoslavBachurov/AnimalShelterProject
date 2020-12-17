@@ -414,31 +414,71 @@ function mainSectionCleaner(animals) {
 
     if (mainSection === null) {
 
-        let type;
-        switch (animals[0].type) {
-            case 'Dog':
-                type = 'adopt-dogs'
-                break;
-            case 'Cat':
-                type = 'adopt-cats'
-                break;
-            case 'Other':
-                type = 'adopt-other'
-                break;
-            default:
+        mainSection = document.getElementById('found')
+
+        if (mainSection === null) {
+            mainSection = AdoptSectionsClean(animals);
         }
-
-        let catSection = document.getElementById('adopt-cats');
-        catSection.innerHTML = '';
-        let dogSection = document.getElementById('adopt-dogs');
-        dogSection.innerHTML = '';
-        let otherSection = document.getElementById('adopt-other');
-        otherSection.innerHTML = '';
-
-        mainSection = document.getElementById(type);
+        else {
+            mainSection = LostFoundSectionsClean(animals);
+        }
     }
 
     mainSection.innerHTML = '';
+
+    return mainSection;
+}
+
+function AdoptSectionsClean(animals) {
+    let type;
+    switch (animals[0].type) {
+        case 'Dog':
+            type = 'adopt-dogs'
+            break;
+        case 'Cat':
+            type = 'adopt-cats'
+            break;
+        case 'Other':
+            type = 'adopt-other'
+            break;
+        default:
+    }
+
+    let catSection = document.getElementById('adopt-cats');
+    catSection.innerHTML = '';
+    let dogSection = document.getElementById('adopt-dogs');
+    dogSection.innerHTML = '';
+    let otherSection = document.getElementById('adopt-other');
+    otherSection.innerHTML = '';
+
+    let mainSection = document.getElementById(type);
+
+    return mainSection;
+}
+
+function LostFoundSectionsClean(animals) {
+    let type;
+    switch (animals[0].petStatus) {
+        case 'Изгубени домашни любимци':
+            type = 'lost'
+            break;
+        case 'Намерени домашни любимци':
+            type = 'found'
+            break;
+        case 'Намерени и изгубени върнати вкъщи':
+            type = 'backInHome'
+            break;
+        default:
+    }
+
+    let lostSection = document.getElementById('lost');
+    lostSection.innerHTML = '';
+    let foundSection = document.getElementById('found');
+    foundSection.innerHTML = '';
+    let backInHomeSection = document.getElementById('backInHome');
+    backInHomeSection.innerHTML = '';
+
+    let mainSection = document.getElementById(type);
 
     return mainSection;
 }
