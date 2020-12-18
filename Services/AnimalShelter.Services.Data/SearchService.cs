@@ -9,6 +9,8 @@
     using AnimalShelter.Data.Models.Enums;
     using AnimalShelter.Services.Mapping;
     using AnimalShelter.Web.Infrastructure;
+    using AnimalShelter.Web.Infrastructure.Enums;
+    using AnimalShelter.Web.ViewModels.SearchResults;
 
     public class SearchService : ISearchService
     {
@@ -40,6 +42,19 @@
                 .Take(itemsPerPage)
                 .To<T>()
                 .ToList();
+        }
+
+        public SearchResultsInputModel GetUrlInfo(string typeAnimal, string sex, string location, string category)
+        {
+            var urlInfo = new SearchResultsInputModel()
+            {
+                Type = EnumHelper<SearchTypePet>.GetValueFromName(typeAnimal),
+                Sex = EnumHelper<SearchSex>.GetValueFromName(sex),
+                Location = EnumHelper<SearchCity>.GetValueFromName(location),
+                PetStatus = EnumHelper<SearchPetStatus>.GetValueFromName(category),
+            };
+
+            return urlInfo;
         }
     }
 }

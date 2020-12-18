@@ -78,7 +78,7 @@ async function searchAnimals(page, orderType, orderDescAsc) {
     }
 
     var uri = `/api/SearchList?type=${currentType}&sex=${currSex}&location=${currLocation}&category=${currCategory}&page=${currentPage}&order=${currentOrderType}&orderType=${currOrderDescAsc}`;
-
+    
     fetch(uri, {
         method: "GET",
         headers: {
@@ -87,5 +87,15 @@ async function searchAnimals(page, orderType, orderDescAsc) {
         }
     })
         .then(responce => responce.json())
-        .then(data => listCreator(data.animals, data));
+        .then(data => {
+            let newType = data.urlInfo.type;
+            let newlocation = data.urlInfo.location;
+            let newSex = data.urlInfo.sex;
+            let newPetStatus = data.urlInfo.petStatus;
+
+            let newUrl = `/Search/SearchResults?Location=${newlocation}&Type=${newType}&Sex=${newSex}&PetStatus=${newPetStatus}`;
+            window.history.pushState(data.urlInfo, '', newUrl);
+
+            listCreator(data.animals, data);
+        })
 }

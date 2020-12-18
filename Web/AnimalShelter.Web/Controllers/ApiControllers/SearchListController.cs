@@ -29,7 +29,7 @@
 
             viewModel.AnimalCount = this.getCountService.GetAllAnimalsByCriteriaCount(type, sex, location, category);
             viewModel.Animals = this.searchService.GetAllAnimalsByCriteria<PetInListViewModel>(type, sex, location, category, page, itemsPerPage, order, ordertype);
-
+            viewModel.UrlInfo = this.searchService.GetUrlInfo(type, sex, location, category);
             return viewModel;
         }
     }

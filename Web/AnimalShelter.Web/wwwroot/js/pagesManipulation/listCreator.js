@@ -1,5 +1,4 @@
 ﻿function listCreator(animals, data) {
-
     //Order Buttons Effects
     var dateOrderButton = document.getElementById('dateOrder');
     var likeOrderButoon = document.getElementById('likeOrder');
