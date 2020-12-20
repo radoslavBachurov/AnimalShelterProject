@@ -1,0 +1,66 @@
+﻿@model AnimalShelter.Web.ViewModels.Contact.SendUsEmailFormInputModel
+@{
+    this.ViewData["Title"] = "Contact Us";
+}
+
+@if (TempData.ContainsKey("Message"))
+{
+    <div class="alert alert-success">@this.TempData["Message"]</div>
+}
+
+<!-- Breadcrumbs & Page title-->
+<div class="page-title">
+    <div class="page-title-text">Свържи се с нас</div>
+    <ul class="breadcrumbs-custom">
+        <li><a href="index.html">Начало</a></li>
+        <li class="active">Свържи се с нас</li>
+    </ul>
+</div>
+<!--ContactForm-->
+<section class="section-md section-md-alternate bg-white text-center">
+    <div class="shell">
+        <!-- Contact Us-->
+        <section class="section-md last-section bg-white text-center">
+            <div class="shell">
+                <div class="range range-sm-center">
+                    <div class="cell-sm-10 cell-md-10 cell-lg-6">
+                        <h4>Изпрати ни съобщение</h4>
+                        <p>Ще получите отговор на пощата с , която сте се регистрирали</p>
+                        <!-- RD Mailform-->
+                        <form method="post">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <div class="range range-sm-bottom spacing-20">
+                                <div class="cell-sm-12">
+                                    <div class="form-group">
+                                        <input class="form-control" asp-for="About">
+                                        <label class="form-label" asp-for="About"></label>
+                                        <span asp-validation-for="About" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="cell-xs-12">
+                                    <div class="form-group">
+                                        <textarea class="form-control" asp-for="Message"></textarea>
+                                        <label class="form-label" asp-for="Message"></label>
+                                        <span asp-validation-for="Message" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="cell-sm-6">
+                                    <button class="btn btn-tan-hide btn-block" type="submit">Изпрати e-mail</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+
+<div class="shell">
+    <hr>
+</div>
+
+
+
+
+

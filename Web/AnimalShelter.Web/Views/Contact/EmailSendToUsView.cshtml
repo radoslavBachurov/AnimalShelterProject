@@ -1,0 +1,14 @@
+﻿@model AnimalShelter.Web.Infrastructure.EmailSender.EmailViewModels.EmailSendToUsModel
+
+<div>From: @Model.FromAddress</div>
+<div>To: @Model.ToAddress</div>
+<div>SenderEmail: @Model.SenderEmail</div>
+<div>SenderUsername: @Model.SenderUsername</div>
+<div>SenderAge: @Model.SenderAge</div>
+<div>SenderLiving: @Model.SenderLiving</div>
+<div>SenderSex: @Model.SenderSex</div>
+<div>Photo: <img src="@Model.SenderPhoto" /> </div>
+<div>Subject : @Model.Subject</div>
+<div> Date: : @Model.SingleDate</div>
+<div style="text-align: left;">Description:</div>
+<div style="width: 500px;">@Model.Message</div>

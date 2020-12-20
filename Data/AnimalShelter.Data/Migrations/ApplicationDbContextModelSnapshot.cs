@@ -263,9 +263,6 @@ namespace AnimalShelter.Data.Migrations
                     b.Property<int>("Height")
                         .HasColumnType("int");
 
-                    b.Property<int?>("HomePetId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsCoverPicture")
                         .HasColumnType("bit");
 

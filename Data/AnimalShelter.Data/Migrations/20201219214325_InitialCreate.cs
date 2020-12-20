@@ -375,7 +375,6 @@ namespace AnimalShelter.Data.Migrations
                     Width = table.Column<int>(nullable: false),
                     Height = table.Column<int>(nullable: false),
                     UserId = table.Column<string>(nullable: true),
-                    HomePetId = table.Column<int>(nullable: true),
                     PetPostId = table.Column<int>(nullable: true),
                     SuccessStoryId = table.Column<int>(nullable: true),
                     ReplyId = table.Column<int>(nullable: true)

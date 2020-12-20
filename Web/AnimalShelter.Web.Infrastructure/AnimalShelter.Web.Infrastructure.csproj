@@ -15,6 +15,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.2.0" />
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.2" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.205" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
@@ -23,7 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\AnimalShelter.Common\AnimalShelter.Common.csproj" />
     <ProjectReference Include="..\..\Data\AnimalShelter.Data.Models\AnimalShelter.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Services\AnimalShelter.Services.Mapping\AnimalShelter.Services.Mapping.csproj" />
   </ItemGroup>
 
 </Project>

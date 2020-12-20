@@ -3,10 +3,10 @@ using System.Text;
 using System.Threading.Tasks;
 using AnimalShelter.Data.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using AnimalShelter.Web.Infrastructure.EmailSender;
 
 namespace AnimalShelter.Web.Areas.Identity.Pages.Account
 {
@@ -43,7 +43,7 @@ namespace AnimalShelter.Web.Areas.Identity.Pages.Account
 
             Email = email;
             // Once you add a real email sender, you should remove this code that lets you confirm the account
-            DisplayConfirmAccountLink = true;
+            DisplayConfirmAccountLink = false;
             if (DisplayConfirmAccountLink)
             {
                 var userId = await _userManager.GetUserIdAsync(user);

@@ -47,12 +47,14 @@
                     <div class="group-xl group-middle">
                         <div class="cell-xs-10 cell-sm-6 cell-md-8">
                             <div class="form-group">
-                                <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" asp-area="" asp-controller="@Model.Category" asp-action="Edit" asp-route-id="@Model.PostId" data-wow-delay="0.2s" data-wow-duration=".75s">Редактирай поста</a>
+                                <div></div>
+                                <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" asp-area="" asp-controller="@Model.Category" asp-action="Edit" asp-route-id="@Model.PostId" data-wow-delay="0.2s" data-wow-duration=".75s" style="margin-top:0">Редактирай поста</a>
                             </div>
                         </div>
                         <div class="cell-xs-10 cell-sm-6 cell-md-8">
                             <div class="form-group">
-                                <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" data-wow-delay="0.2s" data-wow-duration=".75s" data-toggle="modal" data-target="#modalEdit">Маркирай като осиновен/върнат вкъщи</a>
+                                <form method="post" id="changeStatus" asp-controller="@Model.Category" asp-action="ChangeStatus" asp-route-id="@Model.PostId"></form>
+                                <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" data-wow-delay="0.2s" data-wow-duration=".75s" data-toggle="modal" data-target="#modalChangeStatus"  style="margin-top:0">Маркирай като осиновен/върнат вкъщи</a>
                             </div>
                         </div>
                     </div>
@@ -249,7 +251,7 @@
 </section>
 
 <!-- Modal -->
-<div class="modal" id="modalEdit" tabindex="-1" role="dialog">
+<div class="modal" id="modalChangeStatus" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -265,7 +267,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Не</button>
-                <a class="btn btn-primary" style="margin-top:0px" asp-controller="@Model.Category" asp-action="ChangeStatus" asp-route-id="@Model.PostId">Да</a>
+                <a class="btn btn-primary" style="margin-top:0px" onclick="changeStatus.submit()">Да</a>
             </div>
         </div>
     </div>

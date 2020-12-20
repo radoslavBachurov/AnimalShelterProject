@@ -29,7 +29,7 @@ namespace AnimalShelter.Web.Areas.Identity.Pages.Account
         {
             if (userId == null || code == null)
             {
-                return RedirectToPage("/Index");
+                return Redirect("/Home/Index");
             }
 
             var user = await _userManager.FindByIdAsync(userId);

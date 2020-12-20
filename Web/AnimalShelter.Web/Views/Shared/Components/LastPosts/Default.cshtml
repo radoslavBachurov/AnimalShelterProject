@@ -2,11 +2,11 @@
 
 <div class="cell-sm-6 cell-md-4">
     <h5 class="pre-footer-header text-uppercase">Нови животни</h5>
-    <div class="row spacing-10 flickr" data-flickr-tags="tm-61279" data-photo-swipe-gallery="gallery">
+    <div class="row spacing-10 flickr" data-photo-swipe-gallery="gallery">
         @foreach (var post in Model)
         {
             <div class="col-xs-4">
-                <div class="flickr-item" data-type="flickr-item">
+                <div>
                     <a class="thumbnail-flickr" data-image_b="href" data-photo-swipe-item href=@post.Path data-size=@post.DataSize>
                         <figure><img src=@post.Path data-image_m="src" data-title="alt" width="165" height="165" alt=""></figure>
                         <div class="thumbnail-overlay"></div>

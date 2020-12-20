@@ -99,6 +99,7 @@
         }
 
         [Authorize]
+        [HttpPost]
         public async Task<IActionResult> ChangeStatus(int id)
         {
             var user = await this.userManager.GetUserAsync(this.User);

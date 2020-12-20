@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AnimalShelter.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201214174946_InitialCreate")]
+    [Migration("20201219214325_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -263,9 +263,6 @@ namespace AnimalShelter.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Height")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("HomePetId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsCoverPicture")

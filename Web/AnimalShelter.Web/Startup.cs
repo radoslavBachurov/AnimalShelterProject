@@ -11,7 +11,7 @@
     using AnimalShelter.Data.Seeding;
     using AnimalShelter.Services.Data;
     using AnimalShelter.Services.Mapping;
-    using AnimalShelter.Services.Messaging;
+    using AnimalShelter.Web.Infrastructure.EmailSender;
     using AnimalShelter.Web.ViewModels;
 
     using Microsoft.AspNetCore.Builder;
@@ -43,11 +43,13 @@
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
-            //services.AddAuthentication().AddFacebook(facebookOptions =>
-            //    {
-            //        facebookOptions.AppId = this.configuration["Authentication:Facebook:AppId"];
-            //        facebookOptions.AppSecret = this.configuration["Authentication:Facebook:AppSecret"];
-            //    });
+            services.Configure<SmtpSettings>(this.configuration.GetSection("Smtp"));
+
+            services.AddAuthentication().AddFacebook(facebookOptions =>
+                {
+                    facebookOptions.AppId = this.configuration["Authentication:Facebook:AppId"];
+                    facebookOptions.AppSecret = this.configuration["Authentication:Facebook:AppSecret"];
+                });
 
             services.Configure<CookiePolicyOptions>(
                 options =>
@@ -83,13 +85,16 @@
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
-            services.AddTransient<IEmailSender, NullMessageSender>();
+            // for SendGrid
+            // services.AddTransient<IEmailSender>(x => new SendGridEmailSender(this.configuration["SendGrid:ApiKey"]));
+            services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IGetCountService, GetCountService>();
             services.AddTransient<IPostService, PostService>();
             services.AddTransient<IPetProfileService, PetProfileService>();
             services.AddTransient<ISearchService, SearchService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IViewRenderService, ViewRenderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

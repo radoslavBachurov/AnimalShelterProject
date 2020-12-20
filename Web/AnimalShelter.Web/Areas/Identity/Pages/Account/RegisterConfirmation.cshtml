@@ -1,22 +1,32 @@
 ﻿@page
 @model RegisterConfirmationModel
 @{
-    ViewData["Title"] = "Register confirmation";
+    ViewData["Title"] = "Потвърждение на регистрацията";
 }
 
-<h1>@ViewData["Title"]</h1>
-@{
-    if (@Model.DisplayConfirmAccountLink)
-    {
-<p>
-    This app does not currently have a real email sender registered, see <a href="https://aka.ms/aspaccountconf">these docs</a> for how to configure a real email sender.
-    Normally this would be emailed: <a id="confirm-link" href="@Model.EmailConfirmationUrl">Click here to confirm your account</a>
-</p>
-    }
-    else
-    {
-<p>
-        Please check your email to confirm your account.
-</p>
-    }
-}
+<div class="page-title">
+    <div class="page-title-text">@ViewData["Title"]</div>
+    <ul class="breadcrumbs-custom">
+        <li><a asp-area="" asp-controller="Home" asp-action="Index">Начало</a></li>
+    </ul>
+</div>
+<section class="section-md section-md-alternate bg-white text-center">
+    <div class="shell">
+        @{
+            if (@Model.DisplayConfirmAccountLink)
+            {
+                <p>
+                    This app does not currently have a real email sender registered, see <a href="https://aka.ms/aspaccountconf">these docs</a> for how to configure a real email sender.
+                    Normally this would be emailed: <a id="confirm-link" href="@Model.EmailConfirmationUrl">Click here to confirm your account</a>
+                </p>
+            }
+            else
+            {
+                <h2>
+                    Моля проверете пощата си за да потвърдите имейл адреса си
+                </h2>
+            }
+        }
+    </div>
+</section>
+

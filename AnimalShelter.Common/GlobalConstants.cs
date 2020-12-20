@@ -2,7 +2,9 @@
 {
     public static class GlobalConstants
     {
-        public const string SystemName = "AnimalShelter";
+        public const string SystemName = "Wetnose";
+
+        public const string PersonalEmail = "radoslavbachurov@gmail.com";
 
         public const string AdministratorRoleName = "Administrator";
 
