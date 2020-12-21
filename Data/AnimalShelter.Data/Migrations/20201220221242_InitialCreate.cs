@@ -374,7 +374,8 @@ namespace AnimalShelter.Data.Migrations
                     IsCoverPicture = table.Column<bool>(nullable: false),
                     Width = table.Column<int>(nullable: false),
                     Height = table.Column<int>(nullable: false),
-                    UserId = table.Column<string>(nullable: true),
+                    UserPictureId = table.Column<string>(nullable: true),
+                    PostPictureId = table.Column<string>(nullable: true),
                     PetPostId = table.Column<int>(nullable: true),
                     SuccessStoryId = table.Column<int>(nullable: true),
                     ReplyId = table.Column<int>(nullable: true)
@@ -386,6 +387,12 @@ namespace AnimalShelter.Data.Migrations
                         name: "FK_Pictures_PetPosts_PetPostId",
                         column: x => x.PetPostId,
                         principalTable: "PetPosts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Pictures_AspNetUsers_PostPictureId",
+                        column: x => x.PostPictureId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -401,8 +408,8 @@ namespace AnimalShelter.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Pictures_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Pictures_AspNetUsers_UserPictureId",
+                        column: x => x.UserPictureId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -483,6 +490,11 @@ namespace AnimalShelter.Data.Migrations
                 column: "PetPostId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Pictures_PostPictureId",
+                table: "Pictures",
+                column: "PostPictureId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Pictures_ReplyId",
                 table: "Pictures",
                 column: "ReplyId");
@@ -493,9 +505,9 @@ namespace AnimalShelter.Data.Migrations
                 column: "SuccessStoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pictures_UserId",
+                name: "IX_Pictures_UserPictureId",
                 table: "Pictures",
-                column: "UserId");
+                column: "UserPictureId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Replies_IsDeleted",

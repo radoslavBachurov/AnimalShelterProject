@@ -24,10 +24,13 @@
 
         public int Height { get; set; }
 
-        [ForeignKey(nameof(User))]
-        public string UserId { get; set; }
+        public string UserPictureId { get; set; }
 
-        public ApplicationUser User { get; set; }
+        public ApplicationUser UserPicture { get; set; }
+
+        public string PostPictureId { get; set; }
+
+        public ApplicationUser PostPicture { get; set; }
 
         public int? PetPostId { get; set; }
 

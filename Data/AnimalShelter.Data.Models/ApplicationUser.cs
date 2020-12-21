@@ -3,7 +3,7 @@ namespace AnimalShelter.Data.Models
 {
     using System;
     using System.Collections.Generic;
-
+    using System.ComponentModel.DataAnnotations.Schema;
     using AnimalShelter.Data.Common.Models;
     using AnimalShelter.Data.Models.Enums;
     using Microsoft.AspNetCore.Identity;
@@ -53,7 +53,11 @@ namespace AnimalShelter.Data.Models
 
         public virtual ICollection<SuccessStory> SuccessStories { get; set; }
 
+        [InverseProperty("UserPicture")]
         public virtual ICollection<Picture> UserPictures { get; set; }
+
+        [InverseProperty("PostPicture")]
+        public virtual ICollection<Picture> PostPictures { get; set; }
 
         public virtual ICollection<UserPetPost> LikedPosts { get; set; }
 

@@ -32,7 +32,7 @@
                 Message = message,
             };
 
-            string viewEmailPath = "~/Views/Contact/EmailView.cshtml";
+            string viewEmailPath = "~/Views/Contact/EmailMessageViews/EmailConfirmationView.cshtml";
 
             await this.SendMessage<EmailConfirmationModel>(email, subject, viewEmailModel, viewEmailPath);
         }
@@ -40,7 +40,7 @@
         // from user to website
         public async Task SendEmailToUsAsync(EmailSendToUsModel viewEmailModel)
         {
-            string viewEmailPath = "~/Views/Contact/EmailSendToUsView.cshtml";
+            string viewEmailPath = "~/Views/Contact/EmailMessageViews/EmailSendToUsView.cshtml";
             string email = GlobalConstants.PersonalEmail;
 
             viewEmailModel.FromAddress = this.smtpSettings.FromAddress;

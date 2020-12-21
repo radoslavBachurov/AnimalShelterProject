@@ -21,7 +21,7 @@
                 <form method="post" enctype="multipart/form-data">
                     <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="range range-sm-bottom spacing-20">
-                        <input type="hidden" asp-for="Id"/>
+                        <input type="hidden" asp-for="Id" />
                         <div class="cell-sm-6">
                             <div class="form-group">
                                 <input class="form-control" asp-for="Name"></input>
@@ -31,8 +31,9 @@
                         </div>
                         <div class="cell-sm-12">
                             <div class="form-group">
-                                <textarea class="form-control" asp-for="Description"></textarea>
+                                <textarea class="form-control" maxlength="5998" asp-for="Description"></textarea>
                                 <label class="form-label" asp-for="Description"></label>
+                                <span id="charsLeft"></span>
                                 <span asp-validation-for="Description" class="text-danger"></span>
                             </div>
                         </div>
@@ -73,3 +74,6 @@
     </div>
 </section>
 
+@section Scripts{
+    <script src="~/js/pagesManipulation/descriptionCharactersCounter.js"></script>
+}

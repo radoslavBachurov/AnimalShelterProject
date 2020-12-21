@@ -76,5 +76,23 @@
 
             return petsCount;
         }
+
+        public int GetCurrentPostPhotosCount(int id)
+        {
+            var picCount = this.petPostsRepository.All()
+                           .Select(x => new { PictureCount = x.PostPictures.Count(), Id = x.Id })
+                           .Where(x => x.Id == id).FirstOrDefault();
+
+            return picCount.PictureCount;
+        }
+
+        public int GetCurrentUserPhotosCount(string id)
+        {
+            var picCount = this.users.All()
+                           .Select(x => new { PictureCount = x.UserPictures.Count(), x.Id })
+                           .Where(x => x.Id == id).FirstOrDefault();
+
+            return picCount.PictureCount;
+        }
     }
 }

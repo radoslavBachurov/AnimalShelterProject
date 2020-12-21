@@ -1,28 +1,26 @@
 ﻿namespace AnimalShelter.Web.ViewModels.User
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-
+    using AnimalShelter.Common;
     using AnimalShelter.Data.Models.Enums;
+    using AnimalShelter.Web.Infrastructure.ValidationAttributes;
+    using Microsoft.AspNetCore.Http;
 
     public class UserInfoInputModel
     {
-        [Required]
-        [Display(Name = "Потребителско име")]
-        [MinLength(4, ErrorMessage = "Потребителското име трябва да е между 4 и 15 символа")]
-        [MaxLength(15, ErrorMessage = "Потребителското име трябва да е между 4 и 15 символа")]
+        [Required(ErrorMessage = "Името е задължително поле")]
+        [StringLength(20, MinimumLength = 2, ErrorMessage = "Името трябва да е от 2 до 20 символа")]
+        [Display(Name = "Username")]
         public string Nickname { get; set; }
 
-        [Required]
         [Range(1, 100, ErrorMessage = "Годините трябва да са между 1 и 100")]
         public int Age { get; set; }
 
-        [Required]
         [Display(Name = "Местожителство")]
-        [MinLength(2, ErrorMessage = "Името трябва да е между 2 и 30 символа")]
-        [MaxLength(30, ErrorMessage = "Името трябва да е между 2 и 30 символа")]
+        [StringLength(30, MinimumLength = 2, ErrorMessage = "Името трябва да е от 2 до 30 символа")]
         public string Living { get; set; }
 
-        [Required]
         public Sex Sex { get; set; }
     }
 }

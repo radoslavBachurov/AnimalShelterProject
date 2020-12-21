@@ -6,8 +6,10 @@
 
     public interface IUserService
     {
-        UserViewModel GetUserProfile(ApplicationUser user);
+        UserViewModel GetUserProfile(string userId);
 
         Task<bool> IsUserAuthorized(int postId, ApplicationUser user);
+
+        bool IsUsernameTaken(string nickname);
     }
 }

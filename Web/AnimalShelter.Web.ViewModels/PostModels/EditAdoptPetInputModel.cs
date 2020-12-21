@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-
+    using AnimalShelter.Common;
     using AnimalShelter.Data.Models;
     using AnimalShelter.Data.Models.Enums;
     using AnimalShelter.Services.Mapping;
@@ -13,15 +13,15 @@
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Описанието е задължително поле")]
+        [Display(Name = "Описание (Точно местоположение,телефон,състояние и др...Максимум 6000 символа)")]
         [DataType(DataType.MultilineText)]
-        [MinLength(10)]
-        [MaxLength(3000)]
+        [StringLength(GlobalConstants.MaxCharactersInPostDescription, MinimumLength = 10, ErrorMessage = "Описанието трябва да е от 10 до 6000 символа")]
         public string Description { get; set; }
 
-        [Required]
-        [MinLength(2)]
-        [MaxLength(12)]
+        [Required(ErrorMessage = "Името е задължително поле")]
+        [StringLength(20, MinimumLength = 2, ErrorMessage = "Името трябва да е от 2 до 20 символа")]
+        [Display(Name = "Име")]
         public string Name { get; set; }
 
         [Required]
@@ -33,7 +33,7 @@
         [Required]
         public TypePet Type { get; set; }
 
-        [ImageValidationAttribute(15 * 1024 * 1024)]
+        [ImageValidationAttribute(15 * 1024 * 1024, GlobalConstants.MaxPostPhotosUserCanUpload)]
         public IEnumerable<IFormFile> Images { get; set; }
     }
 }

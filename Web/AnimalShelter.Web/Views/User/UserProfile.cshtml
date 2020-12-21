@@ -63,34 +63,80 @@
                                 </div>
                             </section>
                         }
-                        else
-                        {
-                            @*<div class="group-xl group-middle">
-                                <div class="cell-xs-10 cell-sm-6 cell-md-8">
-                                    <div class="form-group">
-                                        <form method="post" enctype="multipart/form-data">
+                    </div>
+                    <div class="panel-group panel-group-custom panel-group-corporate" id="accordion1" role="tablist">
+                        <div class="panel panel-custom panel-corporate">
+                            <div class="panel-heading" id="accordion1Heading1" role="tab">
+                                <div class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion1" href="#accordion1Collapse1" aria-controls="accordion1Collapse1" aria-expanded="true">
+                                        Информация за потребителя
+                                        <div class="panel-arrow"></div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="panel-collapse collapse in" id="accordion1Collapse1" role="tabpanel" aria-labelledby="accordion1Heading1">
+                                <div class="panel-body">
+                                    <form method="post" id="userInfo">
+                                        <div class="range range-sm-bottom spacing-20">
                                             <div class="cell-sm-6">
                                                 <div class="form-group">
-                                                    <input class="form-control" asp-for="Images" />
-                                                    <span asp-validation-for="Images" class="text-danger"></span>
+                                                    <input class="form-control" id="Name" name="Name"></input>
+                                                    <label class="form-label">Name</label>
                                                 </div>
                                             </div>
-                                            <input class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" data-wow-delay="0.2s" data-wow-duration=".75s" id="profilePic" name="picture" type="file" size="1" onchange="uploadFile('profilePic');" />
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>*@
-                        }
-                    </div>
-                    @*<div class="post-single-body">
-                        <div class="group-xl group-middle">
-                            <div class="cell-xs-10 cell-sm-6 cell-md-8">
-                                <div class="form-group">
-                                    <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" data-wow-delay="0.2s" data-wow-duration=".75s">Попълни информация за профила</a>
+                                            <div class="cell-sm-6">
+                                                <div class="form-group">
+                                                    <input class="form-control" id="Age" name="Age"></input>
+                                                    <label class="form-label">Age</label>
+                                                </div>
+                                            </div>
+                                            <div class="cell-xs-6">
+                                                <div class="form-group">
+                                                    <input class="form-control" id="Living" name="Living"></input>
+                                                    <label class="form-label">Living</label>
+                                                </div>
+                                            </div>
+                                            <div class="cell-sm-6">
+                                                <div class="form-group">
+                                                    <input class="form-control" id="Sex" name="Sex"></input>
+                                                    <label class="form-label">Sex</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <a class="btn btn-tan-hide btn-block">Обнови</a>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                    </div>*@
+                        <div class="panel panel-custom panel-corporate">
+                            <div class="panel-heading" id="accordion1Heading2" role="tab">
+                                <div class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="#accordion1Collapse2" aria-controls="accordion1Collapse2">
+                                        Качи снимки
+                                        <div class="panel-arrow"></div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="panel-collapse collapse" id="accordion1Collapse2" role="tabpanel" aria-labelledby="accordion1Heading2">
+                                <div class="panel-body">
+                                    <form method="post" id="uploadPhotos" enctype="multipart/form-data">
+                                        <div class="range range-sm-bottom spacing-20">
+                                            <div class="cell-sm-6">
+                                                <div class="form-group">
+                                                    <input class="form-control" type="file" multiple id="Images" name="Images"></input>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <a onclick="uploadPhotos()" class="btn btn-tan-hide btn-block">Качи снимки</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </article>
             </div>
         </div>
@@ -100,6 +146,74 @@
 <div class="shell">
     <hr>
 </div>
+
+<script>
+    function uploadInfo() {
+
+        var token = $("#userInfo input[name=__RequestVerificationToken]").val();
+
+        var inputModel = { PostId: postId, IsLiked: postIsLiked };
+
+        $.ajax({
+            url: "/api/UserInfo/info",
+            type: "POST",
+            data: JSON.stringify(inputModel),
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            headers: { 'X-CSRF-TOKEN': token },
+            success: function (data) {
+
+            }
+        })
+    }
+
+    function uploadPhotos() {
+
+        var token = $("#uploadPhotos input[name=__RequestVerificationToken]").val();
+
+        var dosya = $('input[type=file]');
+        var form = $('#uploadPhotos')[0];
+        var formData = new FormData(form);
+        formData.append("file", dosya[0].files[0]);
+
+        $.ajax({
+            url: "/api/UserInfo/images",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: { 'X-CSRF-TOKEN': token },
+            success: function (data) {
+                cleanCerificationErrors();
+            },
+            error: function (jqXHR) {
+                cleanCerificationErrors();
+
+                var error = $.parseJSON(jqXHR.responseText);
+                let erMes;
+
+                if (error.Images != undefined) {
+                    erMes = error.Images;
+                }
+                else {
+                    erMes = error.errors.Images;
+                }
+
+                for (var i = 0; i < erMes.length; i++) {
+                    $('#Images').before(`<p class="text-danger field-validation-error">${erMes}</p>`)
+                }
+            }
+        })
+    }
+
+    function cleanCerificationErrors() {
+        var paras = document.getElementsByClassName('field-validation-error');
+
+        for (var i = 0; i < paras.length; i++) {
+            paras[i].parentNode.removeChild(paras[i]);
+        }
+    }
+</script>
 
 
 

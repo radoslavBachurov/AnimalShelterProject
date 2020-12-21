@@ -14,19 +14,22 @@
     public class UserService : IUserService
     {
         private readonly IDeletableEntityRepository<PetPost> petPostsRepository;
+        private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
         private readonly UserManager<ApplicationUser> userManager;
 
         public UserService(
                            IDeletableEntityRepository<PetPost> petPostsRepository,
+                           IDeletableEntityRepository<ApplicationUser> userRepository,
                            UserManager<ApplicationUser> userManager)
         {
             this.petPostsRepository = petPostsRepository;
+            this.userRepository = userRepository;
             this.userManager = userManager;
         }
 
-        public UserViewModel GetUserProfile(ApplicationUser user)
+        public UserViewModel GetUserProfile(string userId)
         {
-            var userViewModel = AutoMapperConfig.MapperInstance.Map<UserViewModel>(user);
+            var userViewModel = this.userRepository.All().Where(x => x.Id == userId).To<UserViewModel>().FirstOrDefault();
 
             return userViewModel;
         }
@@ -51,6 +54,13 @@
             }
 
             return false;
+        }
+
+        public bool IsUsernameTaken(string nickname)
+        {
+            var isUserTaken = this.userRepository.AllAsNoTracking().Where(x => x.Nickname == nickname).ToList();
+
+            return isUserTaken.Any();
         }
     }
 }

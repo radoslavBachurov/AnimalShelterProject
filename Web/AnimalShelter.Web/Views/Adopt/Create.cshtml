@@ -30,8 +30,9 @@
                         </div>
                         <div class="cell-sm-12">
                             <div class="form-group">
-                                <textarea class="form-control" asp-for="Description"></textarea>
+                                <textarea class="form-control" maxlength="5998" asp-for="Description"></textarea>
                                 <label class="form-label" asp-for="Description"></label>
+                                <span id="charsLeft"></span>
                                 <span asp-validation-for="Description" class="text-danger"></span>
                             </div>
                         </div>
@@ -71,4 +72,8 @@
         </div>
     </div>
 </section>
+
+@section Scripts{
+    <script src="~/js/pagesManipulation/descriptionCharactersCounter.js"></script>
+}
 

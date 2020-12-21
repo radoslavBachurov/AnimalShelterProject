@@ -39,7 +39,7 @@
                 newPost.PetStatus = PetStatus.ForAdoption;
             }
 
-            var pictures = await this.imageBuilder.CreatePicturesAsync(images, pathInRoot, user.Id, directory);
+            var pictures = await this.imageBuilder.CreatePicturesAsync(images, pathInRoot, user.Id, directory, categoryName);
             pictures.ForEach(x => { newPost.PostPictures.Add(x); });
 
             await this.petPostsRepository.AddAsync(newPost);
@@ -83,7 +83,7 @@
 
                 Directory.CreateDirectory(directory);
 
-                var pictures = await this.imageBuilder.CreatePicturesAsync(images, pathInRoot, userInfo.userId, directory);
+                var pictures = await this.imageBuilder.CreatePicturesAsync(images, pathInRoot, userInfo.userId, directory, categoryName);
                 pictures.ForEach(x => { x.IsCoverPicture = false; });
                 pictures.ForEach(x => { baseModel.PostPictures.Add(x); });
             }

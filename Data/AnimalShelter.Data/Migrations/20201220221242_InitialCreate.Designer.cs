@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AnimalShelter.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201219214325_InitialCreate")]
+    [Migration("20201220221242_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -280,6 +280,9 @@ namespace AnimalShelter.Data.Migrations
                     b.Property<int?>("PetPostId")
                         .HasColumnType("int");
 
+                    b.Property<string>("PostPictureId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("RemoteImageUrl")
                         .HasColumnType("nvarchar(max)");
 
@@ -289,7 +292,7 @@ namespace AnimalShelter.Data.Migrations
                     b.Property<int?>("SuccessStoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("UserPictureId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Width")
@@ -301,11 +304,13 @@ namespace AnimalShelter.Data.Migrations
 
                     b.HasIndex("PetPostId");
 
+                    b.HasIndex("PostPictureId");
+
                     b.HasIndex("ReplyId");
 
                     b.HasIndex("SuccessStoryId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserPictureId");
 
                     b.ToTable("Pictures");
                 });
@@ -621,6 +626,10 @@ namespace AnimalShelter.Data.Migrations
                         .WithMany("PostPictures")
                         .HasForeignKey("PetPostId");
 
+                    b.HasOne("AnimalShelter.Data.Models.ApplicationUser", "PostPicture")
+                        .WithMany("PostPictures")
+                        .HasForeignKey("PostPictureId");
+
                     b.HasOne("AnimalShelter.Data.Models.Reply", null)
                         .WithMany("ReplyPictures")
                         .HasForeignKey("ReplyId");
@@ -629,9 +638,9 @@ namespace AnimalShelter.Data.Migrations
                         .WithMany("PostPictures")
                         .HasForeignKey("SuccessStoryId");
 
-                    b.HasOne("AnimalShelter.Data.Models.ApplicationUser", "User")
+                    b.HasOne("AnimalShelter.Data.Models.ApplicationUser", "UserPicture")
                         .WithMany("UserPictures")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserPictureId");
                 });
 
             modelBuilder.Entity("AnimalShelter.Data.Models.Reply", b =>

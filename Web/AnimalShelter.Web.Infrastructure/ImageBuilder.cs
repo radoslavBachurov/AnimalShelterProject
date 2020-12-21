@@ -19,7 +19,7 @@
 
         private string Directory { get; set; }
 
-        public async Task<List<Picture>> CreatePicturesAsync(IEnumerable<IFormFile> images, string webRootPath, string userId, string directory)
+        public async Task<List<Picture>> CreatePicturesAsync(IEnumerable<IFormFile> images, string webRootPath, string userId, string directory, string categoryName)
         {
             this.Directory = directory;
             List<Picture> pictures = new List<Picture>();
@@ -27,7 +27,18 @@
             int counter = 0;
             foreach (var image in images)
             {
-                var picture = new Picture() { Path = webRootPath, UserId = userId };
+                var picture = new Picture();
+
+                if (categoryName == "Users")
+                {
+                    picture.Path = webRootPath;
+                    picture.UserPictureId = userId;
+                }
+                else
+                {
+                    picture.Path = webRootPath;
+                    picture.PostPictureId = userId;
+                }
 
                 await this.SaveImageAsync(image, picture.Id);
 

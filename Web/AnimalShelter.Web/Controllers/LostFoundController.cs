@@ -1,8 +1,9 @@
 ﻿namespace AnimalShelter.Web.Controllers
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
-
+    using AnimalShelter.Common;
     using AnimalShelter.Data.Models;
     using AnimalShelter.Services.Data;
     using AnimalShelter.Web.ViewModels.PostModels;
@@ -17,17 +18,20 @@
 
         private readonly IPostService postService;
         private readonly IUserService userService;
+        private readonly IGetCountService countService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IWebHostEnvironment webHostEnvironment;
 
         public LostFoundController(
             IPostService postService,
             IUserService userService,
+            IGetCountService countService,
             UserManager<ApplicationUser> userManager,
             IWebHostEnvironment webHostEnvironment)
         {
             this.postService = postService;
             this.userService = userService;
+            this.countService = countService;
             this.userManager = userManager;
             this.webHostEnvironment = webHostEnvironment;
         }
@@ -75,17 +79,27 @@
         [HttpPost]
         public async Task<IActionResult> Edit(EditLostFoundPetInputModel input)
         {
+            int countPhotos = this.countService.GetCurrentPostPhotosCount(input.Id);
+            int countPhotosToUpload = input.Images?.ToList().Count() ?? 0;
+
+            if ((countPhotos + countPhotosToUpload) > GlobalConstants.MaxPostPhotosUserCanUpload)
+            {
+                string photosLeft = GlobalConstants.MaxPostPhotosUserCanUpload - countPhotos > 0 ? $"Остават ви {GlobalConstants.MaxPostPhotosUserCanUpload - countPhotos }" : "Не можете да качите повече снимки";
+
+                this.ModelState.AddModelError("Images", $"Можете да качите максимум 20 снимки за един пост.{photosLeft}");
+            }
+
             if (!this.ModelState.IsValid)
             {
                 return this.View(input);
             }
 
-            var webRoot = this.webHostEnvironment.WebRootPath;
-
             var user = await this.userManager.GetUserAsync(this.User);
 
             if (await this.userService.IsUserAuthorized(input.Id, user))
             {
+                var webRoot = this.webHostEnvironment.WebRootPath;
+
                 await this.postService.UpdatePetPostAsync<EditLostFoundPetInputModel>(input, webRoot, CategoryFileFolder, input.Images, input.Id);
 
                 this.TempData["Message"] = $"Постът за {input.Name} е успешно променен";

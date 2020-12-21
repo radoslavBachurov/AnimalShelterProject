@@ -14,7 +14,7 @@
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IUserService userService;
 
-        public UserController(UserManager<ApplicationUser> userManager,IUserService userService)
+        public UserController(UserManager<ApplicationUser> userManager, IUserService userService)
         {
             this.userManager = userManager;
             this.userService = userService;
@@ -24,18 +24,9 @@
         public async Task<IActionResult> UserProfile()
         {
             var user = await this.userManager.GetUserAsync(this.User);
-            var viewModel = this.userService.GetUserProfile(user);
+            var viewModel = this.userService.GetUserProfile(user.Id);
 
             return this.View(viewModel);
-        }
-
-        [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> UserProfile(UserPicturesInputModel input)
-        {
-            var user = await this.userManager.GetUserAsync(this.User);
-
-            return this.View();
         }
     }
 }

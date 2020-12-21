@@ -21,9 +21,12 @@
 
         private readonly int maxFileSize;
 
-        public ImageValidationAttribute(int maxFileSize)
+        private readonly int maxNumberPhotos;
+
+        public ImageValidationAttribute(int maxFileSize, int maxNumberPhotos)
         {
             this.maxFileSize = maxFileSize;
+            this.maxNumberPhotos = maxNumberPhotos;
         }
 
         public string FileTooBigMessage { get; set; }
@@ -38,7 +41,7 @@
             {
                 var files = (List<IFormFile>)value;
 
-                if (files.Count > 20)
+                if (files.Count > this.maxNumberPhotos)
                 {
                     return new ValidationResult(this.FilesTooManyMessage ?? DefaultFilesTooManyMessage);
                 }

@@ -1,7 +1,8 @@
 ﻿namespace AnimalShelter.Web.Controllers
 {
+    using System.Linq;
     using System.Threading.Tasks;
-
+    using AnimalShelter.Common;
     using AnimalShelter.Data.Models;
     using AnimalShelter.Services.Data;
     using AnimalShelter.Web.ViewModels;
@@ -19,17 +20,20 @@
 
         private readonly IPostService postService;
         private readonly IUserService userService;
+        private readonly IGetCountService countService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IWebHostEnvironment webHostEnvironment;
 
         public AdoptController(
             IPostService postService,
             IUserService userService,
+            IGetCountService countService,
             UserManager<ApplicationUser> userManager,
             IWebHostEnvironment webHostEnvironment)
         {
             this.postService = postService;
             this.userService = userService;
+            this.countService = countService;
             this.userManager = userManager;
             this.webHostEnvironment = webHostEnvironment;
         }
@@ -77,6 +81,16 @@
         [HttpPost]
         public async Task<IActionResult> Edit(EditAdoptPetInputModel input)
         {
+            int countPhotos = this.countService.GetCurrentPostPhotosCount(input.Id);
+            int countPhotosToUpload = input.Images?.ToList().Count() ?? 0;
+
+            if ((countPhotos + countPhotosToUpload) > GlobalConstants.MaxPostPhotosUserCanUpload)
+            {
+                string photosLeft = GlobalConstants.MaxPostPhotosUserCanUpload - countPhotos > 0 ? $"Остават ви {GlobalConstants.MaxPostPhotosUserCanUpload - countPhotos }" : "Не можете да качите повече снимки";
+
+                this.ModelState.AddModelError("Images", $"Можете да качите максимум 20 снимки за един пост.{photosLeft}");
+            }
+
             if (!this.ModelState.IsValid)
             {
                 return this.View(input);

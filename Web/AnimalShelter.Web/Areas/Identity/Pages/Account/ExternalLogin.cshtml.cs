@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using AnimalShelter.Web.Infrastructure.EmailSender;
+using AnimalShelter.Services.Data;
 
 namespace AnimalShelter.Web.Areas.Identity.Pages.Account
 {
@@ -23,18 +24,21 @@ namespace AnimalShelter.Web.Areas.Identity.Pages.Account
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmailSender _emailSender;
+        private readonly IUserService userService;
         private readonly ILogger<ExternalLoginModel> _logger;
 
         public ExternalLoginModel(
             SignInManager<ApplicationUser> signInManager,
             UserManager<ApplicationUser> userManager,
             ILogger<ExternalLoginModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IUserService userService)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _logger = logger;
             _emailSender = emailSender;
+            this.userService = userService;
         }
 
         [BindProperty]
@@ -53,10 +57,9 @@ namespace AnimalShelter.Web.Areas.Identity.Pages.Account
             [EmailAddress]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Името е задължително поле")]
+            [StringLength(20, MinimumLength = 2, ErrorMessage = "Името трябва да е от 2 до 20 символа")]
             [Display(Name = "Username")]
-            [MinLength(4, ErrorMessage = "Потребителското име трябва да бъде най-малко 4 и най-много 15 символа.")]
-            [MaxLength(15, ErrorMessage = "Потребителското име трябва да бъде най-малко 4 и най-много 15 символа.")]
             public string NickName { get; set; }
         }
 
@@ -124,6 +127,11 @@ namespace AnimalShelter.Web.Areas.Identity.Pages.Account
             {
                 ErrorMessage = "Error loading external login information during confirmation.";
                 return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
+            }
+
+            if (this.userService.IsUsernameTaken(Input.NickName))
+            {
+                this.ModelState.AddModelError("NickName", "Потребителското име вече е заето");
             }
 
             if (ModelState.IsValid)
