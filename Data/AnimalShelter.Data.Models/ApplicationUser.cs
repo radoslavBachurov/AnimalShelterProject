@@ -19,6 +19,7 @@ namespace AnimalShelter.Data.Models
             this.PetPosts = new HashSet<PetPost>();
             this.SuccessStories = new HashSet<SuccessStory>();
             this.UserPictures = new HashSet<Picture>();
+            this.PostPictures = new HashSet<Picture>();
             this.LikedPosts = new HashSet<UserPetPost>();
             this.LikedSuccessStoryPosts = new HashSet<UserSuccessStoryPost>();
         }
@@ -39,7 +40,7 @@ namespace AnimalShelter.Data.Models
 
         public string Living { get; set; }
 
-        public Sex Sex { get; set; }
+        public UserSex Sex { get; set; }
 
         public DateTime DateOfBirth { get; set; }
 

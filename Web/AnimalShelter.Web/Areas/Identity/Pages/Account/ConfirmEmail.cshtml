@@ -1,19 +1,19 @@
 ﻿@page
 @model ConfirmEmailModel
 @{
-    ViewData["Title"] = "Имейл адреса е потвърден";
+    ViewData["Title"] = "Страница за потвърждение";
 }
 
 <!-- Breadcrumbs & Page title-->
 <div class="page-title">
-    <div class="page-title-text">Страница за потвърждение</div>
+    <div class="page-title-text">@ViewData["Title"]</div>
     <ul class="breadcrumbs-custom">
         <li><a asp-area="" asp-controller="Home" asp-action="Index">Начало</a></li>
     </ul>
 </div>
 <section class="section-md section-md-alternate bg-white text-center">
     <div class="shell">
-        <h2>@ViewData["Title"]</h2>
+        <h2>Имейл адреса е потвърден</h2>
         <h4>Вече можете да влезете <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" data-wow-delay="0.2s" data-wow-duration=".75s" asp-area="Identity" asp-page="/Account/Login">влез</a></h4>
     </div>
 </section>

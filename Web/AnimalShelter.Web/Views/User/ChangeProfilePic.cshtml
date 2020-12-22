@@ -1,0 +1,61 @@
+﻿@{
+    this.ViewData["Title"] = "Profile Pic";
+}
+@model IEnumerable<AnimalShelter.Web.ViewModels.User.UserProfilePicViewModel>
+<link href="~/css/profilePicSelector.css" rel="stylesheet" />
+<!-- Breadcrumbs & Page title-->
+<div class="page-title">
+    <div class="page-title-text">Избери профилна снимка</div>
+    <ul class="breadcrumbs-custom">
+        <li><a asp-controller="Home" asp-action="Index">Начало</a></li>
+        <li><a asp-controller="User" asp-action="UserProfile">Личен Профил</a></li>
+    </ul>
+</div>
+<section class="section-md section-md-alternate bg-white text-center">
+    <div class="shell">
+        <!-- Isotope Content-->
+        <div class="row isotope" data-isotope-layout="fitRows" data-isotope-group="gallery" data-photo-swipe-gallery="gallery">
+            @foreach (var pic in Model)
+            {
+                <div class="col-xs-12 col-sm-6 col-md-3 isotope-item container containerProfilePic" data-filter="Category 1">
+                    <figure>
+                        <img class="mr-3 image imageProfilePic" src=@pic.Path alt="Avatar" width="200" />
+                        <div class="middle middleProfilePic">
+                            <a id=@pic.Id class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" data-wow-delay="0.2s" data-wow-duration=".75s" style="margin-top:0" onclick="modalLoad(event)">Избери</a>
+                        </div>
+                    </figure>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Modal-->
+<div class="modal" id="modalChange" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Потвърди заявката</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Сигурен ли сте ,че искате да изберете снимката за профилна?
+                </p>
+            </div>
+            <form method="post" id="changePic"></form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Не</button>
+                <a class="btn btn-primary" style="margin-top:0px" onclick="changePic.submit()">Да</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/pagesManipulation/profilePicSelector.js"></script>
+}
+
+

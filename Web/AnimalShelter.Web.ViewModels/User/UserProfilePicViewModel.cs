@@ -6,6 +6,8 @@ namespace AnimalShelter.Web.ViewModels.User
 {
     public class UserProfilePicViewModel : IMapFrom<Picture>, IHaveCustomMappings
     {
+        public string Id { get; set; }
+
         public string Path { get; set; }
 
         public bool IsCoverPicture { get; set; }

@@ -1,13 +1,17 @@
 ﻿namespace AnimalShelter.Services.Data
 {
     using System;
+    using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
     using AnimalShelter.Common;
     using AnimalShelter.Data.Common.Repositories;
     using AnimalShelter.Data.Models;
     using AnimalShelter.Services.Mapping;
+    using AnimalShelter.Web.Infrastructure;
     using AnimalShelter.Web.ViewModels.User;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
 
 
@@ -16,6 +20,7 @@
         private readonly IDeletableEntityRepository<PetPost> petPostsRepository;
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
         private readonly UserManager<ApplicationUser> userManager;
+        private ImageBuilder imageBuilder;
 
         public UserService(
                            IDeletableEntityRepository<PetPost> petPostsRepository,
@@ -25,6 +30,7 @@
             this.petPostsRepository = petPostsRepository;
             this.userRepository = userRepository;
             this.userManager = userManager;
+            this.imageBuilder = new ImageBuilder();
         }
 
         public UserViewModel GetUserProfile(string userId)
@@ -36,7 +42,7 @@
 
         public async Task<bool> IsUserAuthorized(int postId, ApplicationUser user)
         {
-            var postUserId = this.petPostsRepository.All().Where(x => x.Id == postId).Select(x => x.UserId).FirstOrDefault();
+            var postUserId = this.petPostsRepository.AllAsNoTracking().Where(x => x.Id == postId).Select(x => x.UserId).FirstOrDefault();
 
             if (postUserId == user.Id)
             {
@@ -61,6 +67,64 @@
             var isUserTaken = this.userRepository.AllAsNoTracking().Where(x => x.Nickname == nickname).ToList();
 
             return isUserTaken.Any();
+        }
+
+        public IEnumerable<T> GetAllUserProfilePics<T>(string id)
+        {
+            var userPictures = this.userRepository.AllAsNoTracking()
+                .Where(x => x.Id == id)
+                .Select(x => x.UserPictures).FirstOrDefault().AsQueryable().To<T>().ToList();
+
+            return userPictures;
+        }
+
+        public async Task SetProfilePictureAsync(string pictureId, string userId)
+        {
+            var pictures = this.userRepository.All().Where(x => x.Id == userId)
+                .Select(x => x.UserPictures).FirstOrDefault().ToList();
+
+            for (int i = 0; i < pictures.Count; i++)
+            {
+                pictures[i].IsCoverPicture = false;
+
+                if (pictures[i].Id == pictureId)
+                {
+                    pictures[i].IsCoverPicture = true;
+                }
+            }
+
+            await this.userRepository.SaveChangesAsync();
+        }
+
+        public bool IsUsernameTakenForRegisteredUsers(string nickname, string userId)
+        {
+            var isUserTaken = this.userRepository.AllAsNoTracking().Where(x => x.Nickname == nickname && x.Id != userId).ToList();
+
+            return isUserTaken.Any();
+        }
+
+        public async Task UpdateUserInfo(UserViewModel input, ApplicationUser user, string webRoot, string categoryName, IEnumerable<IFormFile> images)
+        {
+            var baseUser = this.userRepository.All().Where(x => x.Id == user.Id).FirstOrDefault();
+
+            baseUser.Nickname = input.InputNickname;
+            baseUser.Living = input.InputLiving;
+            baseUser.Age = input.InputAge;
+            baseUser.Sex = input.InputSex;
+
+            int count = input.Images?.ToList().Count() ?? 0;
+            if (count != 0)
+            {
+                var pathInRoot = $"/UserImages/{categoryName}/{user.Nickname}/";
+                var directory = webRoot + pathInRoot;
+
+                Directory.CreateDirectory(directory);
+
+                var pictures = await this.imageBuilder.CreatePicturesAsync(images, pathInRoot, user.Id, directory, categoryName);
+                pictures.ForEach(x => { baseUser.UserPictures.Add(x); });
+            }
+
+            await this.userRepository.SaveChangesAsync();
         }
     }
 }

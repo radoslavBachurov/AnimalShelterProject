@@ -2,6 +2,7 @@
 @{
     this.ViewData["Title"] = "User Profile";
 }
+@using AnimalShelter.Data.Models.Enums
 @model AnimalShelter.Web.ViewModels.User.UserViewModel
 <!-- Breadcrumbs & Page title-->
 <div class="page-title">
@@ -69,67 +70,52 @@
                             <div class="panel-heading" id="accordion1Heading1" role="tab">
                                 <div class="panel-title">
                                     <a role="button" data-toggle="collapse" data-parent="#accordion1" href="#accordion1Collapse1" aria-controls="accordion1Collapse1" aria-expanded="true">
-                                        Информация за потребителя
+                                        Информация и снимки на потребителя
                                         <div class="panel-arrow"></div>
                                     </a>
                                 </div>
                             </div>
                             <div class="panel-collapse collapse in" id="accordion1Collapse1" role="tabpanel" aria-labelledby="accordion1Heading1">
                                 <div class="panel-body">
-                                    <form method="post" id="userInfo">
+                                    <form method="post" enctype="multipart/form-data">
+                                        <div asp-validation-summary="All" class="text-danger"></div>
                                         <div class="range range-sm-bottom spacing-20">
                                             <div class="cell-sm-6">
                                                 <div class="form-group">
-                                                    <input class="form-control" id="Name" name="Name"></input>
-                                                    <label class="form-label">Name</label>
-                                                </div>
-                                            </div>
-                                            <div class="cell-sm-6">
-                                                <div class="form-group">
-                                                    <input class="form-control" id="Age" name="Age"></input>
-                                                    <label class="form-label">Age</label>
+                                                    <input class="form-control" asp-for="InputNickname"></input>
+                                                    <label class="form-label" asp-for="InputNickname"></label>
+                                                    <span asp-validation-for="InputNickname" class="text-danger"></span>
                                                 </div>
                                             </div>
                                             <div class="cell-xs-6">
                                                 <div class="form-group">
-                                                    <input class="form-control" id="Living" name="Living"></input>
-                                                    <label class="form-label">Living</label>
+                                                    <select class="form-control" asp-for="InputSex" asp-items="@Html.GetEnumSelectList<UserSex>()"></select>
+                                                    <label class="form-label" asp-for="InputSex"></label>
+                                                    <span asp-validation-for="InputSex" class="text-danger"></span>
                                                 </div>
                                             </div>
                                             <div class="cell-sm-6">
                                                 <div class="form-group">
-                                                    <input class="form-control" id="Sex" name="Sex"></input>
-                                                    <label class="form-label">Sex</label>
+                                                    <input class="form-control" asp-for="InputAge"></input>
+                                                    <label class="form-label" asp-for="InputAge"></label>
+                                                    <span asp-validation-for="InputAge" class="text-danger"></span>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <a class="btn btn-tan-hide btn-block">Обнови</a>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-custom panel-corporate">
-                            <div class="panel-heading" id="accordion1Heading2" role="tab">
-                                <div class="panel-title">
-                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="#accordion1Collapse2" aria-controls="accordion1Collapse2">
-                                        Качи снимки
-                                        <div class="panel-arrow"></div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="panel-collapse collapse" id="accordion1Collapse2" role="tabpanel" aria-labelledby="accordion1Heading2">
-                                <div class="panel-body">
-                                    <form method="post" id="uploadPhotos" enctype="multipart/form-data">
-                                        <div class="range range-sm-bottom spacing-20">
                                             <div class="cell-sm-6">
                                                 <div class="form-group">
-                                                    <input class="form-control" type="file" multiple id="Images" name="Images"></input>
+                                                    <input class="form-control" asp-for="InputLiving"></input>
+                                                    <label class="form-label" asp-for="InputLiving"></label>
+                                                    <span asp-validation-for="InputLiving" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="cell-sm-6">
+                                                <div class="form-group">
+                                                    <input class="form-control" asp-for="Images" />
+                                                    <span asp-validation-for="Images" class="text-danger"></span>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <a onclick="uploadPhotos()" class="btn btn-tan-hide btn-block">Качи снимки</a>
+                                                <button type="submit" class="btn btn-tan-hide btn-block">Обнови</button>
                                             </div>
                                         </div>
                                     </form>
@@ -147,73 +133,6 @@
     <hr>
 </div>
 
-<script>
-    function uploadInfo() {
-
-        var token = $("#userInfo input[name=__RequestVerificationToken]").val();
-
-        var inputModel = { PostId: postId, IsLiked: postIsLiked };
-
-        $.ajax({
-            url: "/api/UserInfo/info",
-            type: "POST",
-            data: JSON.stringify(inputModel),
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            headers: { 'X-CSRF-TOKEN': token },
-            success: function (data) {
-
-            }
-        })
-    }
-
-    function uploadPhotos() {
-
-        var token = $("#uploadPhotos input[name=__RequestVerificationToken]").val();
-
-        var dosya = $('input[type=file]');
-        var form = $('#uploadPhotos')[0];
-        var formData = new FormData(form);
-        formData.append("file", dosya[0].files[0]);
-
-        $.ajax({
-            url: "/api/UserInfo/images",
-            type: "POST",
-            data: formData,
-            processData: false,
-            contentType: false,
-            headers: { 'X-CSRF-TOKEN': token },
-            success: function (data) {
-                cleanCerificationErrors();
-            },
-            error: function (jqXHR) {
-                cleanCerificationErrors();
-
-                var error = $.parseJSON(jqXHR.responseText);
-                let erMes;
-
-                if (error.Images != undefined) {
-                    erMes = error.Images;
-                }
-                else {
-                    erMes = error.errors.Images;
-                }
-
-                for (var i = 0; i < erMes.length; i++) {
-                    $('#Images').before(`<p class="text-danger field-validation-error">${erMes}</p>`)
-                }
-            }
-        })
-    }
-
-    function cleanCerificationErrors() {
-        var paras = document.getElementsByClassName('field-validation-error');
-
-        for (var i = 0; i < paras.length; i++) {
-            paras[i].parentNode.removeChild(paras[i]);
-        }
-    }
-</script>
 
 
 

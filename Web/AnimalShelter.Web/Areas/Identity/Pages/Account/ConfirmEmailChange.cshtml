@@ -4,5 +4,15 @@
     ViewData["Title"] = "Confirm email change";
 }
 
-<h1>@ViewData["Title"]</h1>
-<partial name="_StatusMessage" model="Model.StatusMessage" />
+<!-- Breadcrumbs & Page title-->
+<div class="page-title">
+    <div class="page-title-text">@ViewData["Title"]</div>
+    <ul class="breadcrumbs-custom">
+        <li><a asp-area="" asp-controller="Home" asp-action="Index">Начало</a></li>
+    </ul>
+</div>
+<section class="section-md section-md-alternate bg-white text-center">
+    <div class="shell">
+        <partial name="_StatusMessage" model="Model.StatusMessage" />
+    </div>
+</section>

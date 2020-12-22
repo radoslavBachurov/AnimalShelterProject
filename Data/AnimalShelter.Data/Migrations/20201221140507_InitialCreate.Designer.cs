@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AnimalShelter.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201220221242_InitialCreate")]
+    [Migration("20201221140507_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

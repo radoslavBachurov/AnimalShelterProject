@@ -22,6 +22,7 @@
         [Required(ErrorMessage = "Името е задължително поле")]
         [StringLength(20, MinimumLength = 2, ErrorMessage = "Името трябва да е от 2 до 20 символа")]
         [Display(Name = "Име")]
+        [RegularExpression(@"^\S*$", ErrorMessage = "Името не трябва да съдържа празни полета")]
         public string Name { get; set; }
 
         [Required]

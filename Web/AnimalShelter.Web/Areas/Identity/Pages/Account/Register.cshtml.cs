@@ -53,6 +53,7 @@ namespace AnimalShelter.Web.Areas.Identity.Pages.Account
             [Required(ErrorMessage = "Името е задължително поле")]
             [StringLength(20, MinimumLength = 2, ErrorMessage = "Името трябва да е от 2 до 20 символа")]
             [Display(Name = "Username")]
+            [RegularExpression(@"^\S*$", ErrorMessage = "Името не трябва да съдържа празни полета")]
             public string NickName { get; set; }
 
             [Required]
