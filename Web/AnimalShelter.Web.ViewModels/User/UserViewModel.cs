@@ -45,7 +45,7 @@
 
         public UserSex InputSex { get; set; }
 
-        [ImageValidationAttribute(15 * 1024 * 1024, GlobalConstants.MaxUserPhotosUserCanUpload, FilesTooManyMessage = "Sorry but you can upload maximum of 100 images")]
+        [ImageValidationAttribute(15 * 1024 * 1024, GlobalConstants.MaxUserPhotosUserCanUpload, FilesTooManyMessage = "Sorry but you can upload maximum of 500 images")]
         public IEnumerable<IFormFile> Images { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)

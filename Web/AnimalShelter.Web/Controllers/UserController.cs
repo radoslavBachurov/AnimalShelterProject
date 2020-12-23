@@ -59,6 +59,16 @@
             return this.RedirectToAction(nameof(UserProfile));
         }
 
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> DeletePic(string id)
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+            await this.userService.DeletePictureAsync(id,user.Id);
+
+            return this.RedirectToAction(nameof(ChangeProfilePic));
+        }
+
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> UserProfile(UserViewModel input)

@@ -79,20 +79,40 @@
 
         public int GetCurrentPostPhotosCount(int id)
         {
-            var picCount = this.petPostsRepository.All()
-                           .Select(x => new { PictureCount = x.PostPictures.Count(), Id = x.Id })
-                           .Where(x => x.Id == id).FirstOrDefault();
+            var picCount = this.petPostsRepository.AllAsNoTracking()
+                           .Where(x => x.Id == id)
+                           .Select(x => x.PostPictures.Count())
+                           .FirstOrDefault();
 
-            return picCount.PictureCount;
+            return picCount;
         }
 
         public int GetCurrentUserPhotosCount(string id)
         {
-            var picCount = this.users.All()
-                           .Select(x => new { PictureCount = x.UserPictures.Count(), x.Id })
-                           .Where(x => x.Id == id).FirstOrDefault();
+            var picCount = this.users.AllAsNoTracking()
+                            .Where(x => x.Id == id)
+                            .Select(x => x.UserPictures.Count())
+                            .FirstOrDefault();
 
-            return picCount.PictureCount;
+            return picCount;
+        }
+
+        public int GetAllUserAnimalsCountByCategory(string category, string userId)
+        {
+            var postsCount = 0;
+
+            if (category == "MyPosts")
+            {
+                postsCount = this.petPostsRepository.AllAsNoTracking()
+                           .Where(x => x.UserId == userId).Count();
+            }
+            else
+            {
+                postsCount = this.petPostsRepository.AllAsNoTracking()
+                         .Where(x => x.UserLikes.Any(x => x.ApplicationUserId == userId)).Count();
+            }
+
+            return postsCount;
         }
     }
 }

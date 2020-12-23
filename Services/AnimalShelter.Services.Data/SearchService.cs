@@ -56,5 +56,33 @@
 
             return urlInfo;
         }
+
+        public IEnumerable<T> GetAllUserAnimalsByCategory<T>(string category, int page, int itemsPerPage, string userId)
+        {
+            var petPosts = new List<T>();
+
+            if (category == "MyPosts")
+            {
+                petPosts = this.petPostsRepository.AllAsNoTracking()
+                            .Where(x => x.UserId == userId)
+                            .OrderByDescending(x => x.Id)
+                            .Skip((page - 1) * itemsPerPage)
+                            .Take(itemsPerPage)
+                            .To<T>()
+                            .ToList();
+            }
+            else
+            {
+                petPosts = this.petPostsRepository.AllAsNoTracking()
+                            .Where(x => x.UserLikes.Any(x => x.ApplicationUserId == userId))
+                            .OrderByDescending(x => x.Id)
+                            .Skip((page - 1) * itemsPerPage)
+                            .Take(itemsPerPage)
+                            .To<T>()
+                            .ToList();
+            }
+
+            return petPosts;
+        }
     }
 }

@@ -19,28 +19,31 @@
     {
         private readonly IDeletableEntityRepository<PetPost> petPostsRepository;
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
+        private readonly IDeletableEntityRepository<Picture> pictureRepository;
         private readonly UserManager<ApplicationUser> userManager;
         private ImageBuilder imageBuilder;
 
         public UserService(
                            IDeletableEntityRepository<PetPost> petPostsRepository,
                            IDeletableEntityRepository<ApplicationUser> userRepository,
+                           IDeletableEntityRepository<Picture> pictureRepository,
                            UserManager<ApplicationUser> userManager)
         {
             this.petPostsRepository = petPostsRepository;
             this.userRepository = userRepository;
+            this.pictureRepository = pictureRepository;
             this.userManager = userManager;
             this.imageBuilder = new ImageBuilder();
         }
 
         public UserViewModel GetUserProfile(string userId)
         {
-            var userViewModel = this.userRepository.All().Where(x => x.Id == userId).To<UserViewModel>().FirstOrDefault();
+            var userViewModel = this.userRepository.AllAsNoTracking().Where(x => x.Id == userId).To<UserViewModel>().FirstOrDefault();
 
             return userViewModel;
         }
 
-        public async Task<bool> IsUserAuthorized(int postId, ApplicationUser user)
+        public async Task<bool> IsUserPostAuthorized(int postId, ApplicationUser user)
         {
             var postUserId = this.petPostsRepository.AllAsNoTracking().Where(x => x.Id == postId).Select(x => x.UserId).FirstOrDefault();
 
@@ -60,6 +63,18 @@
             }
 
             return false;
+        }
+
+        public bool IsUserProfileOperationAuthorized(string pictureOwner, string currentUserOwner)
+        {
+            if (pictureOwner == currentUserOwner)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public bool IsUsernameTaken(string nickname)
@@ -83,17 +98,31 @@
             var pictures = this.userRepository.All().Where(x => x.Id == userId)
                 .Select(x => x.UserPictures).FirstOrDefault().ToList();
 
-            for (int i = 0; i < pictures.Count; i++)
+            if (this.IsUserProfileOperationAuthorized(pictures[0].UserPictureId, userId))
             {
-                pictures[i].IsCoverPicture = false;
-
-                if (pictures[i].Id == pictureId)
+                for (int i = 0; i < pictures.Count; i++)
                 {
-                    pictures[i].IsCoverPicture = true;
-                }
-            }
+                    pictures[i].IsCoverPicture = false;
 
-            await this.userRepository.SaveChangesAsync();
+                    if (pictures[i].Id == pictureId)
+                    {
+                        pictures[i].IsCoverPicture = true;
+                    }
+                }
+
+                await this.userRepository.SaveChangesAsync();
+            }
+        }
+
+        public async Task DeletePictureAsync(string pictureId, string userId)
+        {
+            var picture = this.pictureRepository.All().Where(x => x.Id == pictureId).FirstOrDefault();
+
+            if (this.IsUserProfileOperationAuthorized(picture.UserPictureId, userId))
+            {
+                this.pictureRepository.Delete(picture);
+                await this.pictureRepository.SaveChangesAsync();
+            }
         }
 
         public bool IsUsernameTakenForRegisteredUsers(string nickname, string userId)

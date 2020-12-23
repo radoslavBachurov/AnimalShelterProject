@@ -10,13 +10,18 @@
     {
         UserViewModel GetUserProfile(string userId);
 
-        Task<bool> IsUserAuthorized(int postId, ApplicationUser user);
+        Task<bool> IsUserPostAuthorized(int postId, ApplicationUser user);
+
+        bool IsUserProfileOperationAuthorized(string pictureOwner, string currentUserOwner);
 
         bool IsUsernameTaken(string nickname);
 
         bool IsUsernameTakenForRegisteredUsers(string nickname, string userId);
 
         Task SetProfilePictureAsync(string pictureId, string userId);
+
+
+        Task DeletePictureAsync(string pictureId,string userId);
 
         IEnumerable<T> GetAllUserProfilePics<T>(string id);
 

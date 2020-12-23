@@ -98,7 +98,7 @@
 
             var user = await this.userManager.GetUserAsync(this.User);
 
-            if (await this.userService.IsUserAuthorized(input.Id, user))
+            if (await this.userService.IsUserPostAuthorized(input.Id, user))
             {
                 var webRoot = this.webHostEnvironment.WebRootPath;
 
@@ -120,7 +120,7 @@
         {
             var user = await this.userManager.GetUserAsync(this.User);
 
-            if (await this.userService.IsUserAuthorized(id, user))
+            if (await this.userService.IsUserPostAuthorized(id, user))
             {
                 await this.postService.ChangeStatusAsync(id);
 
