@@ -2,10 +2,10 @@
 {
     using System.Linq;
     using System.Threading.Tasks;
+
     using AnimalShelter.Common;
     using AnimalShelter.Data.Models;
     using AnimalShelter.Services.Data;
-    using AnimalShelter.Web.ViewModels;
     using AnimalShelter.Web.ViewModels.PostModels;
 
     using Microsoft.AspNetCore.Authorization;

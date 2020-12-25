@@ -15,5 +15,7 @@
         public const int MaxUserPhotosUserCanUpload = 500;
 
         public const int MaxCharactersInPostDescription = 6000;
+
+        public const int MaxCharactersInStoryDescription = 2000;
     }
 }

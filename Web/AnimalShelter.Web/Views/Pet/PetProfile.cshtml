@@ -13,6 +13,16 @@
     <div class="alert alert-success">@this.TempData["Message"]</div>
 }
 
+<style>
+    #toProfile {
+        color: rgb(134, 115, 199);
+    }
+
+        #toProfile:hover {
+            color: greenyellow;
+        }
+</style>
+
 <!-- Breadcrumbs & Page title-->
 <div class="page-title">
     <div class="page-title-text">Профил</div>
@@ -46,15 +56,11 @@
                 <div class="shell range spacing-55 range range-sm-center">
                     <div class="group-xl group-middle">
                         <div class="cell-xs-10 cell-sm-6 cell-md-8">
-                            <div class="form-group">
-                                <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" asp-area="" asp-controller="@Model.Category" asp-action="Edit" asp-route-id="@Model.PostId" data-wow-delay="0.2s" data-wow-duration=".75s" style="margin-top:0">Редактирай поста</a>
-                            </div>
+                            <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" asp-area="" asp-controller="@Model.Category" asp-action="Edit" asp-route-id="@Model.PostId" data-wow-delay="0.2s" data-wow-duration=".75s" style="margin-top:0">Редактирай поста</a>
                         </div>
                         <div class="cell-xs-10 cell-sm-6 cell-md-8">
-                            <div class="form-group">
-                                <form method="post" id="changeStatus" asp-controller="@Model.Category" asp-action="ChangeStatus" asp-route-id="@Model.PostId"></form>
-                                <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" data-wow-delay="0.2s" data-wow-duration=".75s" data-toggle="modal" data-target="#modalChangeStatus"  style="margin-top:0">Маркирай като осиновен/върнат вкъщи</a>
-                            </div>
+                            <form method="post" id="changeStatus" asp-controller="@Model.Category" asp-action="ChangeStatus" asp-route-id="@Model.PostId"></form>
+                            <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" data-wow-delay="0.2s" data-wow-duration=".75s" data-toggle="modal" data-target="#modalChangeStatus" style="margin-top:0">Маркирай като осиновен/върнат вкъщи</a>
                         </div>
                     </div>
                 </div>
@@ -70,17 +76,18 @@
             <li><span class="icon icon-xs icon-tan-hide material-icons-place"></span><span>@Model.Location</span></li>
             <li><span class="icon icon-xs icon-tan-hide mdi mdi-thumb-up"></span><span id="likesCount">@Model.Likes</span></li>
             <li><span class="icon icon-xs icon-tan-hide mdi mdi-comment-outline"></span><span>6</span></li>
+            <li><span class="icon icon-xs icon-tan-hide mdi mdi-account"></span><a id="toProfile" asp-controller="User" asp-action="UserProfileGuest" asp-route-nickName=@Model.CreatorNickname>@Model.CreatorNickname</a></li>
         </ul>
         @if (this.SignInManager.IsSignedIn(this.User))
         {
             <form id="likesForm" method="POST"></form>
             @if (Model.IsPostLiked)
             {
-                <div onclick="likeController(@Model.PostId,true)" class="btn btn-icon btn-icon-right btn-primary" id="like"><span class="icon icon-md material-icons-thumb_down"></span>Dislike</div>
+                <div onclick="likeController(@Model.PostId,true,`Post`)" class="btn btn-icon btn-icon-right btn-primary" id="like"><span class="icon icon-md material-icons-thumb_down"></span>Dislike</div>
             }
             else
             {
-                <div onclick="likeController(@Model.PostId,false)" class="btn btn-icon btn-icon-right btn-primary" id="like"><span class="icon icon-md material-icons-favorite"></span>Like</div>
+                <div onclick="likeController(@Model.PostId,false,`Post`)" class="btn btn-icon btn-icon-right btn-primary" id="like"><span class="icon icon-md material-icons-favorite"></span>Like</div>
             }
         }
         <div class="range range-sm-center">
@@ -273,7 +280,7 @@
 </div>
 
 @section Scripts{
-    <script src="~/js/pagesManipulation/petProfile.js"></script>
+    <script src="~/js/pagesManipulation/likeController.js"></script>
 }
 
 

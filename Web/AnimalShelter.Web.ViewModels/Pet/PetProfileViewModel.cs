@@ -36,6 +36,8 @@
 
         public string Category { get; set; }
 
+        public string CreatorNickname { get; set; }
+
         public IEnumerable<PetProfilePicViewModel> Pictures { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
@@ -46,6 +48,7 @@
                 .ForMember(x => x.PostId, opt => opt.MapFrom(x => x.Id))
                 .ForMember(x => x.PetStatus, opt => opt.MapFrom(x => EnumHelper<PetStatus>.GetDisplayValue(x.PetStatus)))
                 .ForMember(x => x.Sex, opt => opt.MapFrom(x => EnumHelper<Sex>.GetDisplayValue(x.Sex)))
+                .ForMember(x => x.CreatorNickname, opt => opt.MapFrom(x => x.User.Nickname))
                 .ForMember(x => x.CoverPicturePath, opt => opt.MapFrom(x => x.PostPictures.Where(y => y.IsCoverPicture).FirstOrDefault().Path != null ?
                                                                             x.PostPictures.Where(y => y.IsCoverPicture).FirstOrDefault().Path :
                                                                            x.PostPictures.Where(y => y.IsCoverPicture).FirstOrDefault().RemoteImageUrl));

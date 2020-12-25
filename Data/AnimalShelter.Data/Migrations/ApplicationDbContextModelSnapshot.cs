@@ -84,6 +84,9 @@ namespace AnimalShelter.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
@@ -284,9 +287,6 @@ namespace AnimalShelter.Data.Migrations
                     b.Property<string>("RemoteImageUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ReplyId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("SuccessStoryId")
                         .HasColumnType("int");
 
@@ -303,8 +303,6 @@ namespace AnimalShelter.Data.Migrations
                     b.HasIndex("PetPostId");
 
                     b.HasIndex("PostPictureId");
-
-                    b.HasIndex("ReplyId");
 
                     b.HasIndex("SuccessStoryId");
 
@@ -335,9 +333,6 @@ namespace AnimalShelter.Data.Migrations
                     b.Property<int?>("PetPostId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SuccessStoryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
 
@@ -349,8 +344,6 @@ namespace AnimalShelter.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.HasIndex("PetPostId");
-
-                    b.HasIndex("SuccessStoryId");
 
                     b.HasIndex("UserId");
 
@@ -435,7 +428,7 @@ namespace AnimalShelter.Data.Migrations
                     b.ToTable("SuccessStories");
                 });
 
-            modelBuilder.Entity("AnimalShelter.Data.Models.UserPetPost", b =>
+            modelBuilder.Entity("AnimalShelter.Data.Models.UserPetPostLikes", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -468,15 +461,18 @@ namespace AnimalShelter.Data.Migrations
 
                     b.HasIndex("PetPostId");
 
-                    b.ToTable("UserPetPosts");
+                    b.ToTable("UserPetPostLikes");
                 });
 
-            modelBuilder.Entity("AnimalShelter.Data.Models.UserSuccessStoryPost", b =>
+            modelBuilder.Entity("AnimalShelter.Data.Models.UserSuccessStoryLikes", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -493,18 +489,15 @@ namespace AnimalShelter.Data.Migrations
                     b.Property<int>("SuccessStoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("IsDeleted");
 
                     b.HasIndex("SuccessStoryId");
 
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserSuccessStoryPosts");
+                    b.ToTable("UserSuccessStoryLikes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -628,10 +621,6 @@ namespace AnimalShelter.Data.Migrations
                         .WithMany("PostPictures")
                         .HasForeignKey("PostPictureId");
 
-                    b.HasOne("AnimalShelter.Data.Models.Reply", null)
-                        .WithMany("ReplyPictures")
-                        .HasForeignKey("ReplyId");
-
                     b.HasOne("AnimalShelter.Data.Models.SuccessStory", "SuccessStory")
                         .WithMany("PostPictures")
                         .HasForeignKey("SuccessStoryId");
@@ -647,10 +636,6 @@ namespace AnimalShelter.Data.Migrations
                         .WithMany("Replies")
                         .HasForeignKey("PetPostId");
 
-                    b.HasOne("AnimalShelter.Data.Models.SuccessStory", null)
-                        .WithMany("Replies")
-                        .HasForeignKey("SuccessStoryId");
-
                     b.HasOne("AnimalShelter.Data.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
@@ -663,7 +648,7 @@ namespace AnimalShelter.Data.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("AnimalShelter.Data.Models.UserPetPost", b =>
+            modelBuilder.Entity("AnimalShelter.Data.Models.UserPetPostLikes", b =>
                 {
                     b.HasOne("AnimalShelter.Data.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("LikedPosts")
@@ -676,17 +661,17 @@ namespace AnimalShelter.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("AnimalShelter.Data.Models.UserSuccessStoryPost", b =>
+            modelBuilder.Entity("AnimalShelter.Data.Models.UserSuccessStoryLikes", b =>
                 {
+                    b.HasOne("AnimalShelter.Data.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany("LikedSuccessStoryPosts")
+                        .HasForeignKey("ApplicationUserId");
+
                     b.HasOne("AnimalShelter.Data.Models.SuccessStory", "SuccessStory")
                         .WithMany("UserLikes")
                         .HasForeignKey("SuccessStoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("AnimalShelter.Data.Models.ApplicationUser", "User")
-                        .WithMany("LikedSuccessStoryPosts")
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

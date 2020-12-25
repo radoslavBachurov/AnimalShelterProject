@@ -10,23 +10,34 @@
 
     [Route("/api/[controller]")]
     [ApiController]
-    public class PetProfileController : ControllerBase
+    public class LikeController : ControllerBase
     {
         private readonly IPetProfileService petService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IHappyStoriesService storyService;
 
-        public PetProfileController(IPetProfileService petService, UserManager<ApplicationUser> userManager)
+        public LikeController(IPetProfileService petService, UserManager<ApplicationUser> userManager, IHappyStoriesService storyService)
         {
             this.petService = petService;
             this.userManager = userManager;
+            this.storyService = storyService;
         }
 
         [HttpPost]
         public async Task<ActionResult<LikeOutputModel>> AddLikeAsync(LikeInputModel inputModel)
         {
             var user = await this.userManager.GetUserAsync(this.User);
-            var output = await this.petService.AddRemoveLikeToPostAsync(inputModel, user);
-            return output;
+
+            if (inputModel.ToLike == "Post")
+            {
+                var output = await this.petService.AddRemoveLikeToPostAsync(inputModel, user);
+                return output;
+            }
+            else
+            {
+                var output = await this.storyService.AddRemoveLikeToPostAsync(inputModel, user);
+                return output;
+            }
         }
     }
 }

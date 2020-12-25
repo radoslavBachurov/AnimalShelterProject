@@ -10,6 +10,6 @@
 
         SearchResultsInputModel GetUrlInfo(string typeAnimal, string sex, string location, string category);
 
-        IEnumerable<T> GetAllUserAnimalsByCategory<T>(string category, int page,int itemsPerPage, string userId);
+        IEnumerable<T> GetAllUserAnimalsByCategory<T>(string category, int page,int itemsPerPage, string nickName);
     }
 }

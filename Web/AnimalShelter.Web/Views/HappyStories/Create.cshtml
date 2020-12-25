@@ -1,0 +1,66 @@
+﻿@{
+    this.ViewData["Title"] = "Create";
+}
+@using AnimalShelter.Web.ViewModels.StoriesModels
+
+@model CreateStoryInputModel
+
+<!-- Breadcrumbs & Page title-->
+<div class="page-title">
+    <div class="page-title-text">Създай твоята история</div>
+    <ul class="breadcrumbs-custom">
+        <li><a href="index.html">Начало</a></li>
+        <li>Създай</li>
+    </ul>
+</div>
+<!-- Your information-->
+<section class="section-md bg-white text-center">
+    <div class="shell">
+        <h4>Информация за историята</h4>
+        <div class="range range-sm-center spacing-55">
+            <div class="cell-md-10 cell-lg-8">
+                <form method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="range range-sm-bottom spacing-20">
+                        <div class="cell-sm-6">
+                            <div class="form-group">
+                                <input class="form-control" asp-for="PersonName"></input>
+                                <label class="form-label" asp-for="PersonName"></label>
+                                <span asp-validation-for="PersonName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="cell-sm-6">
+                            <div class="form-group">
+                                <input class="form-control" asp-for="PetName"></input>
+                                <label class="form-label" asp-for="PetName"></label>
+                                <span asp-validation-for="PetName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="cell-sm-12">
+                            <div class="form-group">
+                                <textarea class="form-control" maxlength="1998" asp-for="Description"></textarea>
+                                <label class="form-label" asp-for="Description"></label>
+                                <span id="charsLeft"></span>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="cell-sm-6">
+                            <div class="form-group">
+                                <input class="form-control" asp-for="Images" />
+                                <span asp-validation-for="Images" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-tan-hide btn-block">Създай</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    <script src="~/js/pagesManipulation/descriptionCharactersCounter.js"></script>
+}
+

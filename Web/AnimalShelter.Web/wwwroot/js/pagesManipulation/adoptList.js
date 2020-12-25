@@ -53,7 +53,7 @@ async function loadAnimals(page, type, orderType, orderDescAsc) {
         currOrderDescAsc = orderDescAsc;
     }
 
-    var uri = `/api/AdoptList?type=${currentType}&page=${currentPage}&order=${currentOrderType}&orderType=${currOrderDescAsc}`;
+    var uri = `/api/PetPostList?info=${currentType}&page=${currentPage}&order=${currentOrderType}&orderType=${currOrderDescAsc}`;
 
     fetch(uri, {
         method: "GET",
@@ -63,7 +63,7 @@ async function loadAnimals(page, type, orderType, orderDescAsc) {
         }
     })
         .then(responce => responce.json())
-        .then(data => listCreator(data.animals, data));
+        .then(data => listPostCreatorVertical(data.animals, data, currentType));
 }
 
 

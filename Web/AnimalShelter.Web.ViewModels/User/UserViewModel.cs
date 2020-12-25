@@ -30,6 +30,11 @@
         public virtual IEnumerable<UserProfilePicViewModel> UserPictures { get; set; }
 
         // For input model
+
+        [Display(Name = "Описание...(до 1000 символа)")]
+        [StringLength(1000, ErrorMessage = "Името трябва до 1000 символа")]
+        public string Description { get; set; }
+
         [Required(ErrorMessage = "Името е задължително поле")]
         [StringLength(20, MinimumLength = 2, ErrorMessage = "Името трябва да е от 2 до 20 символа")]
         [Display(Name = "Username")]

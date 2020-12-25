@@ -5,7 +5,6 @@
     using AnimalShelter.Web.ViewModels.SearchResults;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using System.Threading.Tasks;
 
     [Route("/api/[controller]")]
     [ApiController]
@@ -22,7 +21,7 @@
             this.searchService = searchService;
         }
 
-        public async Task<ActionResult<PetListViewModel>> UserAnimals(string category, int page)
+        public ActionResult<PetListViewModel> UserAnimals(string category, int page, string nick)
         {
             const int itemsPerPage = 4;
 
@@ -32,10 +31,8 @@
                 PageNumber = page,
             };
 
-            var user = await this.userManager.GetUserAsync(this.User);
-
-            viewModel.AnimalCount = this.getCountService.GetAllUserAnimalsCountByCategory(category, user.Id);
-            viewModel.Animals = this.searchService.GetAllUserAnimalsByCategory<PetInListViewModel>(category, page, itemsPerPage, user.Id);
+            viewModel.AnimalCount = this.getCountService.GetAllUserAnimalsCountByCategory(category, nick);
+            viewModel.Animals = this.searchService.GetAllUserAnimalsByCategory<PetInListViewModel>(category, page, itemsPerPage, nick);
 
             return viewModel;
         }

@@ -43,10 +43,10 @@
                                 <li><a class="icon icon-xxs icon-circle icon-gray-outline icon-effect-1 fa fa-facebook" href="https://www.facebook.com/4lapi" target="_blank" rel="noreferrer noopener"></a></li>
                                 <li><a class="icon icon-xxs icon-circle icon-gray-outline icon-effect-1 fa fa-youtube-play" href="https://www.youtube.com/user/VierPfotenBG" target="_blank" rel="noreferrer noopener"></a></li>
                             </ul>
-                            @*<div class="object-inline">
-                                    <a class="link link-md link-white" href="?culture=bg-BG">BG</a>
-                                    <a class="link link-md link-white" href="?culture=en-US">EN</a>
-                                </div>*@
+                            <div class="object-inline">
+                                <a class="link link-md link-white" href="?culture=bg-BG">BG</a>
+                                <a class="link link-md link-white" href="?culture=en-US">EN</a>
+                            </div>
                         </div>
                     </div>
                     <partial name="_CookieConsentPartial" />
@@ -65,7 +65,7 @@
                                     <a asp-area="" asp-controller="Home" asp-action="Index">@Localizer["Home"]</a>
                                 </li>
                                 <li>
-                                    <a asp-area="" asp-controller="Home" asp-action="Loginn">@Localizer["AboutUs"]</a>
+                                    <a asp-area="" asp-controller="Home" asp-action="Index">@Localizer["AboutUs"]</a>
                                 </li>
                                 <li>
                                     <a href="/Adopt/All/#adopt-cats">@Localizer["Adopt"]</a>
@@ -82,7 +82,7 @@
                                         @if (this.User.Identity.IsAuthenticated)
                                         {
                                             <li>
-                                                <a asp-area="" asp-controller="Adopt" asp-action="Create">Създай пост за осиновяване</a>
+                                                <a asp-area="" asp-controller="Adopt" asp-action="Create">@Localizer["CreateAdoptionPost"]</a>
                                             </li>
                                         }
                                     </ul>
@@ -91,30 +91,30 @@
                                     <a href="/LostFound/All/#lost">@Localizer["LostFound"]</a>
                                     <ul class="rd-navbar-dropdown tabs-nav">
                                         <li>
-                                            <a href="/LostFound/All/#lost">Изгубени домашни животни</a>
+                                            <a href="/LostFound/All/#lost">@Localizer["LostHomeAnimals"]</a>
                                         </li>
                                         <li>
-                                            <a href="/LostFound/All/#found">Намерени домашни животни</a>
+                                            <a href="/LostFound/All/#found">@Localizer["FoundHomeAnimals"]</a>
                                         </li>
                                         @if (this.User.Identity.IsAuthenticated)
                                         {
                                             <li>
-                                                <a asp-area="" asp-controller="LostFound" asp-action="Create">Създай пост за изгубен/намерен домашен любимец</a>
+                                                <a asp-area="" asp-controller="LostFound" asp-action="Create">@Localizer["CreateLostAndFoundPost"]</a>
                                             </li>
                                         }
                                     </ul>
                                 </li>
                                 <li>
-                                    <a asp-area="" asp-controller="Home" asp-action="Index">@Localizer["Pages"]</a>
+                                    <a>@Localizer["Pages"]</a>
                                     <ul class="rd-navbar-dropdown tabs-nav">
                                         <li>
-                                            <a asp-area="" asp-controller="Home" asp-action="Index">Нашите истории</a>
+                                            <a asp-area="" asp-controller="HappyStories" asp-action="All">@Localizer["OurStories"]</a>
                                         </li>
                                         <li>
-                                            <a asp-area="" asp-controller="Home" asp-action="Index">Направи дарение</a>
+                                            <a asp-area="" asp-controller="Home" asp-action="Index">@Localizer["MakeDonation"]</a>
                                         </li>
                                         <li>
-                                            <a asp-area="" asp-controller="Contact" asp-action="SendEmailToUs">Контакти</a>
+                                            <a asp-area="" asp-controller="Contact" asp-action="SendEmailToUs">@Localizer["Contacts"]</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -145,16 +145,9 @@
                     </div>
                     <vc:last-posts></vc:last-posts>
                     <div class="cell-sm-9 cell-md-4 text-sm-center text-md-left">
-                        <h5 class="pre-footer-header text-uppercase">Newsletter</h5>
-                        <p>Enter your e-mail to get the latest news of Animal Shelter.</p>
+                        <h5 class="pre-footer-header text-uppercase">Изпратете ни съобщение</h5>
                         <!-- RD Mailform-->
-                        <form class="rd-mailform form-bordered form-centered" data-form-output="form-output-global" data-form-type="subscribe" method="post" action="bat/rd-mailform.php">
-                            <div class="form-group">
-                                <input class="form-control" id="footer-subscribe-email" type="email" name="email" data-constraints="@@Email @@Required">
-                                <label class="form-label" for="footer-subscribe-email">Your e-mail address</label>
-                            </div>
-                            <button class="btn btn-primary btn-block btn-offset-small" type="submit">Subscribe</button>
-                        </form>
+                        <partial name="_ContactForm" model="new AnimalShelter.Web.ViewModels.Contact.SendUsEmailFormInputModel()" />
                     </div>
                 </div>
             </div>
@@ -164,17 +157,18 @@
                 <div class="range spacing-30">
                     <div class="cell-md-8 cell-lg-9 text-md-left">
                         <ul class="list-nav">
-                            <li class="active"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                            <li><a asp-area="" asp-controller="Home" asp-action="Index">About us</a></li>
-                            <li><a asp-area="" asp-controller="Home" asp-action="Index">Adopt a Pet</a></li>
-                            <li><a asp-area="" asp-controller="Home" asp-action="Index">Lost & Found</a></li>
-                            <li><a asp-area="" asp-controller="Home" asp-action="Index">Pet Services</a></li>
-                            <li><a asp-area="" asp-controller="Home" asp-action="Index">News & Events</a></li>
+                            <li class="active"><a asp-area="" asp-controller="Home" asp-action="Index">@Localizer["Home"]</a></li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="Index">@Localizer["AboutUs"]</a></li>
+                            <li><a href="/Adopt/All/#adopt-cats">@Localizer["Adopt"]</a></li>
+                            <li><a href="/LostFound/All/#lost">@Localizer["LostFound"]</a></li>
+                            <li><a asp-area="" asp-controller="HappyStories" asp-action="All">@Localizer["OurStories"]</a></li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="Index">@Localizer["MakeDonation"]</a></li>
+                            <li><a asp-area="" asp-controller="Contact" asp-action="SendEmailToUs">@Localizer["Contacts"]</a></li>
                         </ul>
                     </div>
                     <div class="cell-md-4 cell-lg-3 text-md-right">
                         <p class="rights">
-                            Animal Shelter&nbsp;&copy;&nbsp;<span id="copyright-year"></span>.&nbsp;<br class="veil-sm"><a class="link-underline" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Policy</a>
+                            Wetnose&nbsp;&copy;&nbsp;<span id="copyright-year"></span>.&nbsp;<br class="veil-sm"><a class="link-underline" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Policy</a>
                             <!-- {%FOOTER_LINK}-->
                         </p>
                     </div>

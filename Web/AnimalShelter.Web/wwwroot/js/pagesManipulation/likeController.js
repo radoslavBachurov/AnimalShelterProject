@@ -1,11 +1,11 @@
-﻿function likeController(postId, postIsLiked) {
+﻿function likeController(postId, postIsLiked, toLike) {
 
     var token = $("#likesForm input[name=__RequestVerificationToken]").val();
 
-    var inputModel = { PostId: postId, IsLiked: postIsLiked };
+    var inputModel = { PostId: postId, IsLiked: postIsLiked, ToLike: toLike };
 
     $.ajax({
-        url: "/api/PetProfile",
+        url: "/api/Like",
         type: "POST",
         data: JSON.stringify(inputModel),
         contentType: "application/json;charset=utf-8",

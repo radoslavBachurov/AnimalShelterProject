@@ -65,9 +65,9 @@
             return false;
         }
 
-        public bool IsUserProfileOperationAuthorized(string pictureOwner, string currentUserOwner)
+        public bool IsUserProfileOperationAuthorized(string pictureOwner, string currentUser)
         {
-            if (pictureOwner == currentUserOwner)
+            if (pictureOwner == currentUser)
             {
                 return true;
             }
@@ -140,6 +140,7 @@
             baseUser.Living = input.InputLiving;
             baseUser.Age = input.InputAge;
             baseUser.Sex = input.InputSex;
+            baseUser.Description = input.Description;
 
             int count = input.Images?.ToList().Count() ?? 0;
             if (count != 0)
@@ -154,6 +155,16 @@
             }
 
             await this.userRepository.SaveChangesAsync();
+        }
+
+        public T GetUserByNickName<T>(string nickName)
+        {
+            var viewModel = this.userRepository.AllAsNoTracking()
+                .Where(x => x.Nickname == nickName)
+                .To<T>()
+                .FirstOrDefault();
+
+            return viewModel;
         }
     }
 }

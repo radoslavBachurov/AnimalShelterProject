@@ -8,23 +8,23 @@
 @if (this.SignInManager.IsSignedIn(this.User))
 {
     <li>
-        <a>Профил</a>
+        <a>@Localizer["Profile"]</a>
         <ul class="rd-navbar-dropdown tabs-nav">
             <li>
-                <a class="nav-link text-dark" asp-area="User" asp-controller="User" asp-action="UserProfile" title="Manage">Личен Профил</a>
+                <a class="nav-link text-dark" asp-area="User" asp-controller="User" asp-action="UserProfile" title="Manage">@Localizer["MyProfile"]</a>
             </li>
             <li>
-                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Сигурност</a>
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@Localizer["Security"]</a>
             </li>
             @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
             {
                 <li>
-                    <a class="nav-link text-dark" asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin">Admin</a>
+                    <a class="nav-link text-dark" asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin">@Localizer["Admin"]</a>
                 </li>
             }
             <li>
                 <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
-                    <button type="submit" class="btn btn-sm btn-primary">Logout</button>
+                    <button type="submit" class="btn btn-sm btn-primary">@Localizer["Logout"]</button>
                 </form>
             </li>
         </ul>

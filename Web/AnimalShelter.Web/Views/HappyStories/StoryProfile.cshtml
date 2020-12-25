@@ -1,0 +1,148 @@
+﻿@using AnimalShelter.Data.Models
+@using Microsoft.AspNetCore.Identity
+@using AnimalShelter.Common
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@model AnimalShelter.Web.ViewModels.StoriesModels.StoryProfileViewModel
+@{
+    this.ViewData["Title"] = "Pet Profile";
+}
+
+@if (TempData.ContainsKey("Message"))
+{
+    <div class="alert alert-success">@this.TempData["Message"]</div>
+}
+
+<style>
+    #toProfile {
+        color: rgb(134, 115, 199);
+    }
+
+        #toProfile:hover {
+            color: greenyellow;
+        }
+</style>
+
+<!-- Breadcrumbs & Page title-->
+<div class="page-title">
+    <div class="page-title-text">Историята на @Model.PersonName и @Model.PetName</div>
+    <ul class="breadcrumbs-custom">
+        <li><a href="index.html">Начало</a></li>
+        <li><a href="#">Намери</a></li>
+        <li class="active">История</li>
+    </ul>
+</div>
+<div class="group-xl group-middle">
+    <div class="cell-xs-10 cell-sm-6 cell-md-8">
+        <div class="form-group">
+            <a href="##" onClick="history.go(-1); return false;" class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" data-wow-delay="0.2s" data-wow-duration=".75s">Назад</a>
+        </div>
+    </div>
+</div>
+<!-- News & Events-->
+<section class="section-md section-md-alternate bg-white text-center">
+    <div class="shell">
+        <h3>Историята на @Model.PersonName и @Model.PetName</h3>
+        @if (Model.IsPostCreator || this.User.IsInRole(GlobalConstants.AdministratorRoleName) || this.User.IsInRole(GlobalConstants.ModeratorRoleName))
+        {
+            <div class="shell range spacing-55 range range-sm-center">
+                <div class="group-xl group-middle">
+                    <div class="cell-xs-10 cell-sm-6 cell-md-8">
+                        <div class="form-group">
+                            <form method="post" id="deleteStory" asp-controller="HappyStories" asp-action="Delete" asp-route-id="@Model.PostId"></form>
+                            <a class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" style="margin-top:0">Изтрий историята</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <ul class="post-meta">
+            <li><span class="icon icon-xs icon-tan-hide material-icons-access_time"></span><time datetime="">@Model.CreatedOn</time></li>
+            <li><span class="icon icon-xs icon-tan-hide mdi mdi-thumb-up"></span><span id="likesCount">@Model.Likes</span></li>
+            <li><span class="icon icon-xs icon-tan-hide mdi mdi-account"></span><a id="toProfile" asp-controller="User" asp-action="UserProfileGuest" asp-route-nickName=@Model.CreatorNickname>@Model.CreatorNickname</a></li>
+        </ul>
+        @if (this.SignInManager.IsSignedIn(this.User))
+        {
+            <form id="likesForm" method="POST"></form>
+            @if (Model.IsPostLiked)
+            {
+                <div onclick="likeController(@Model.PostId,true,`Story`)" class="btn btn-icon btn-icon-right btn-primary" id="like"><span class="icon icon-md material-icons-thumb_down"></span>Dislike</div>
+            }
+            else
+            {
+                <div onclick="likeController(@Model.PostId,false,`Story`)" class="btn btn-icon btn-icon-right btn-primary" id="like"><span class="icon icon-md material-icons-favorite"></span>Like</div>
+            }
+        }
+        <div class="range range-sm-center">
+            <div class="cell-sm-9 cell-md-12">
+                <article class="post-single">
+                    <div class="post-single-left">
+                        <img class="mr-3 img-responsive" src="@Model.CoverPicturePath" alt="" width="570" height="389" />
+                        <section class="section-md bg-gray-light text-center" style="padding:15px;">
+                            <div class="shell">
+                                <div class="range">
+                                    <div class="cell-xs-12 wow fadeIn" data-wow-duration=".8s" data-wow-offset="150">
+                                        <!-- Owl Carousel-->
+                                        <div class="owl-carousel-centered">
+                                            <div data-photo-swipe-gallery="gallery" class="owl-carousel" style="padding:10px;" data-items="1" data-sm-items="3" data-stage-padding="0" data-loop="true" data-margin="10" data-lg-margin="30" data-mouse-drag="false" data-center="true" data-numbering="#owl-numbering-1" data-nav="true">
+                                                @foreach (var picture in Model.Pictures)
+                                                {
+                                                    <a class="mr-3 img-responsive" href=@picture.Path data-photo-swipe-item="" data-size=@picture.DataSize>
+                                                        <figure>
+                                                            <img class="mr-3 img-responsive" src=@picture.Path alt="" width="346" height="249" />
+                                                        </figure>
+                                                    </a>
+                                                }
+                                            </div>
+                                            <div class="owl-numbering owl-numbering-default" style="margin-top: 0px;" id="owl-numbering-1">
+                                                <div class="numbering-current"></div>
+                                                <div class="numbering-separator"></div>
+                                                <div class="numbering-count"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="post-single-body">
+                        <p class="post-single-title">Описание</p>
+                        <p>@Model.Description</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modal -->
+<div class="modal" id="modalDelete" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Потвърди заявката</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Сигурен ли сте ,че искате да изтриете историята?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Не</button>
+                <a class="btn btn-primary" style="margin-top:0px" onclick="deleteStory.submit()">Да</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/pagesManipulation/likeController.js"></script>
+}
+
+
+
+
+

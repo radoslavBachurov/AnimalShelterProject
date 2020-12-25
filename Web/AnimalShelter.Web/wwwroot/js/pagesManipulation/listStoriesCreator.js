@@ -1,49 +1,10 @@
-﻿function listCreator(animals, data) {
-    //Order Buttons Effects
-    var dateOrderButton = document.getElementById('dateOrder');
-    var likeOrderButoon = document.getElementById('likeOrder');
-    var ascDescOrder = document.getElementById('ascOrder');
-    var ascDescOrderIcon = ascDescOrder.firstElementChild;
-
-    if (currOrderDescAsc == 'asc') {
-        ascDescOrder.classList.remove('active');
-        ascDescOrder.classList.remove('btn-silver-outline');
-        ascDescOrder.classList.add('btn-primary');
-        ascDescOrderIcon.classList.remove('material-icons-swap_vert');
-        ascDescOrderIcon.classList.add('material-icons-swap_vertical_circle');
-    }
-    else {
-        ascDescOrder.classList.add('active');
-        ascDescOrder.classList.add('btn-silver-outline');
-        ascDescOrder.classList.remove('btn-primary');
-        ascDescOrderIcon.classList.remove('material-icons-swap_vertical_circle');
-        ascDescOrderIcon.classList.add('material-icons-swap_vert');
-    }
-
-    if (currentOrderType == 'Likes') {
-        dateOrderButton.classList.remove('active');
-        dateOrderButton.classList.add('btn-silver-outline');
-        dateOrderButton.classList.remove('btn-primary');
-
-        likeOrderButoon.classList.add('active');
-        likeOrderButoon.classList.remove('btn-silver-outline');
-        likeOrderButoon.classList.add('btn-primary');
-    }
-    else {
-        likeOrderButoon.classList.remove("active");
-        likeOrderButoon.classList.add('btn-silver-outline');
-        likeOrderButoon.classList.remove('btn-primary');
-
-        dateOrderButton.classList.add('active');
-        dateOrderButton.classList.remove('btn-silver-outline');
-        dateOrderButton.classList.add('btn-primary');
-    }
-
-    if (animals == null || animals.length == 0) {
-        let mainSection = mainSectionCleaner(animals);
+﻿function listStoriesCreator(stories, data) {
+    if (stories == null || stories.length == 0) {
+        let mainSection = mainSectionCleaner();
         let noResultDiv = document.createElement('div');
         let textEl = document.createElement('h2');
-        let text = document.createTextNode('НЯМА РЕЗУЛТАТИ');
+        textEl.classList.add("text-center");
+        let text = document.createTextNode('НЯМА ПОСТОВЕ ЗА ПОКАЗВАНЕ');
 
         textEl.appendChild(text);
         noResultDiv.appendChild(textEl);
@@ -52,32 +13,35 @@
         return;
     }
 
-    let mainSection = mainSectionCleaner(animals);
+    let mainSection = mainSectionCleaner();
 
-    let toAtach = document.createElement('div');
-    toAtach.classList.add("range");
-    toAtach.classList.add("spacing-30");
+    let maintoAtach = document.createElement('div');
+    maintoAtach.classList.add("range");
+    maintoAtach.classList.add("spacing-30");
 
     let thumbnailColorCounter = 1;
 
-    animals.forEach(el => {
+    stories.forEach(el => {
         let imgSrc = el.coverPicturePath;
-        let name = el.name;
+        let personName = el.personName;
+        let petName = el.petName;
         let created = el.createdOn;
         let description = el.description;
-        let location = el.location;
-        let sex = el.sex;
-        let id = el.id;
+        let id = el.postId;
         let likes = el.likes;
-        let status = el.petStatus;
 
         //Creating Body
+        let toAtach = document.createElement('div');
+        toAtach.classList.add("col-xs-12");
+        toAtach.classList.add("col-sm-6");
+        toAtach.classList.add("col-md-3");
+
         let cell = document.createElement('div');
-        cell.classList.add("cell-xs-12");
+        cell.classList.add("cell-md-6");
 
         let thumbnailHorizontal = document.createElement('div');
         thumbnailHorizontal.classList.add("thumbnail-boxed");
-        thumbnailHorizontal.classList.add("thumbnail-boxed-horizontal");
+        thumbnailHorizontal.classList.add("thumbnail-boxed-vertical");
 
         if (thumbnailColorCounter % 3 == 0) {
             thumbnailHorizontal.classList.add("thumbnail-boxed-tan-hide");
@@ -107,7 +71,7 @@
         //Name
         let paraName = document.createElement('p');
         paraName.classList.add("thumbnail-boxed-title");
-        let textName = document.createTextNode(name);
+        let textName = document.createTextNode(personName + ' и ' + petName);
         paraName.appendChild(textName);
 
         thumbnailBody.appendChild(paraName);
@@ -145,41 +109,6 @@
         FirstliElement.appendChild(FirstSpanTwo);
         ulData.appendChild(FirstliElement);
 
-        //Sex
-        let SecondliElement = document.createElement('li');
-
-        let SecondSpanOne = document.createElement('span');
-        SecondSpanOne.classList.add("icon");
-        SecondSpanOne.classList.add("icon-xs");
-        SecondSpanOne.classList.add("icon-tan-hide");
-        SecondSpanOne.classList.add("mdi");
-        SecondSpanOne.classList.add("mdi-gender-male-female");
-        let SecondSpanTwo = document.createElement('span');
-
-        let sexEl = document.createTextNode(sex);
-        SecondSpanTwo.appendChild(sexEl);
-
-        SecondliElement.appendChild(SecondSpanOne);
-        SecondliElement.appendChild(SecondSpanTwo);
-        ulData.appendChild(SecondliElement);
-
-        //Location
-        let ThirdliElement = document.createElement('li');
-
-        let ThirdSpanOne = document.createElement('span');
-        ThirdSpanOne.classList.add("icon");
-        ThirdSpanOne.classList.add("icon-xs");
-        ThirdSpanOne.classList.add("icon-tan-hide");
-        ThirdSpanOne.classList.add("material-icons-place");
-        let ThirdSpanTwo = document.createElement('span');
-        let city = document.createTextNode(location);
-        ThirdSpanTwo.appendChild(city);
-
-        ThirdliElement.appendChild(ThirdSpanOne);
-        ThirdliElement.appendChild(ThirdSpanTwo);
-        ulData.appendChild(ThirdliElement);
-
-
         //Likes
         let FourthliElement = document.createElement('li');
 
@@ -196,27 +125,6 @@
         FourthliElement.appendChild(FourthSpanTwo);
         ulData.appendChild(FourthliElement);
 
-        //Category
-        let FifthliElement = document.createElement('li');
-
-        let FifthSpanOne = document.createElement('span');
-        FifthSpanOne.classList.add("icon");
-        FifthSpanOne.classList.add("icon-xs");
-        FifthSpanOne.classList.add("icon-tan-hide");
-        FifthSpanOne.classList.add("mdi");
-        FifthSpanOne.classList.add("mdi-paw");
-        let FifthSpanTwo = document.createElement('span');
-
-        let category = document.createTextNode(status);
-        FifthSpanTwo.appendChild(category);
-
-        FifthliElement.appendChild(FifthSpanOne);
-        FifthliElement.appendChild(FifthSpanTwo);
-        ulData.appendChild(FifthliElement);
-
-        thumbnailFooter.appendChild(ulData);
-        thumbnailBody.appendChild(thumbnailFooter);
-
         //More Button
         let anker = document.createElement('a');
         anker.classList.add('btn');
@@ -224,7 +132,7 @@
         anker.classList.add('btn-effect-anis');
         anker.classList.add('wow');
         anker.classList.add('fadeInUpSmall');
-        anker.href = `/Pet/PetProfile?id=${id}`;
+        anker.href = `/HappyStories/StoryProfile?id=${id}`;
         anker.setAttribute("data-wow-delay", "0.2s");
         anker.setAttribute("data-wow-duration", ".75s");
 
@@ -236,9 +144,10 @@
         cell.appendChild(thumbnailHorizontal);
 
         toAtach.appendChild(cell);
+        maintoAtach.appendChild(toAtach);
     })
 
-    mainSection.appendChild(toAtach);
+    mainSection.appendChild(maintoAtach);
 
     //Pagination
     let pageList = document.createElement('ul');
@@ -377,7 +286,6 @@
     pageList.appendChild(liNext);
 
     ////
-
     mainSection.appendChild(pageList);
 
     document.getElementById('NextPage').addEventListener("click", function () { getDeltaPage(event, 1); });
@@ -407,77 +315,9 @@
 
 }
 
-function mainSectionCleaner(animals) {
+function mainSectionCleaner() {
+    let myStoriesSection = document.getElementById('mainSection');
+    myStoriesSection.innerHTML = '';
 
-    let mainSection = document.getElementById('list');
-
-    if (mainSection === null) {
-
-        mainSection = document.getElementById('found')
-
-        if (mainSection === null) {
-            mainSection = AdoptSectionsClean(animals);
-        }
-        else {
-            mainSection = LostFoundSectionsClean(animals);
-        }
-    }
-
-    mainSection.innerHTML = '';
-
-    return mainSection;
-}
-
-function AdoptSectionsClean(animals) {
-    let type;
-    switch (animals[0].type) {
-        case 'Dog':
-            type = 'adopt-dogs'
-            break;
-        case 'Cat':
-            type = 'adopt-cats'
-            break;
-        case 'Other':
-            type = 'adopt-other'
-            break;
-        default:
-    }
-
-    let catSection = document.getElementById('adopt-cats');
-    catSection.innerHTML = '';
-    let dogSection = document.getElementById('adopt-dogs');
-    dogSection.innerHTML = '';
-    let otherSection = document.getElementById('adopt-other');
-    otherSection.innerHTML = '';
-
-    let mainSection = document.getElementById(type);
-
-    return mainSection;
-}
-
-function LostFoundSectionsClean(animals) {
-    let type;
-    switch (animals[0].petStatus) {
-        case 'Изгубени домашни любимци':
-            type = 'lost'
-            break;
-        case 'Намерени домашни любимци':
-            type = 'found'
-            break;
-        case 'Намерени и изгубени върнати вкъщи':
-            type = 'backInHome'
-            break;
-        default:
-    }
-
-    let lostSection = document.getElementById('lost');
-    lostSection.innerHTML = '';
-    let foundSection = document.getElementById('found');
-    foundSection.innerHTML = '';
-    let backInHomeSection = document.getElementById('backInHome');
-    backInHomeSection.innerHTML = '';
-
-    let mainSection = document.getElementById(type);
-
-    return mainSection;
+    return myStoriesSection;
 }

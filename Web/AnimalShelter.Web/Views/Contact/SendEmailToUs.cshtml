@@ -1,5 +1,4 @@
-﻿@model AnimalShelter.Web.ViewModels.Contact.SendUsEmailFormInputModel
-@{
+﻿@{
     this.ViewData["Title"] = "Contact Us";
 }
 
@@ -27,28 +26,7 @@
                         <h4>Изпрати ни съобщение</h4>
                         <p>Ще получите отговор на пощата с , която сте се регистрирали</p>
                         <!-- RD Mailform-->
-                        <form method="post">
-                            <div asp-validation-summary="All" class="text-danger"></div>
-                            <div class="range range-sm-bottom spacing-20">
-                                <div class="cell-sm-12">
-                                    <div class="form-group">
-                                        <input class="form-control" asp-for="About">
-                                        <label class="form-label" asp-for="About"></label>
-                                        <span asp-validation-for="About" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="cell-xs-12">
-                                    <div class="form-group">
-                                        <textarea class="form-control" asp-for="Message"></textarea>
-                                        <label class="form-label" asp-for="Message"></label>
-                                        <span asp-validation-for="Message" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="cell-sm-6">
-                                    <button class="btn btn-tan-hide btn-block" type="submit">Изпрати e-mail</button>
-                                </div>
-                            </div>
-                        </form>
+                        <partial name="_ContactForm" model="new AnimalShelter.Web.ViewModels.Contact.SendUsEmailFormInputModel()" />
                     </div>
                 </div>
             </div>

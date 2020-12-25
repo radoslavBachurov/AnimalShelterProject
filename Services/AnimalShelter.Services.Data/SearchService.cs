@@ -21,6 +21,7 @@
             this.petPostsRepository = petPostsRepository;
         }
 
+        // For Adopt,LostFound,Search pages
         public IEnumerable<T> GetAllAnimalsByCriteria<T>(string typeAnimal, string sex, string location, string category, int pageNumber, int itemsPerPage, string orderByProperty, string orderAscDesc)
         {
             var animalType = EnumHelper<TypePet>.GetValueFromName(typeAnimal);
@@ -57,14 +58,15 @@
             return urlInfo;
         }
 
-        public IEnumerable<T> GetAllUserAnimalsByCategory<T>(string category, int page, int itemsPerPage, string userId)
+        // For UserPage
+        public IEnumerable<T> GetAllUserAnimalsByCategory<T>(string category, int page, int itemsPerPage, string nickName)
         {
             var petPosts = new List<T>();
 
             if (category == "MyPosts")
             {
                 petPosts = this.petPostsRepository.AllAsNoTracking()
-                            .Where(x => x.UserId == userId)
+                            .Where(x => x.User.Nickname == nickName)
                             .OrderByDescending(x => x.Id)
                             .Skip((page - 1) * itemsPerPage)
                             .Take(itemsPerPage)
@@ -74,7 +76,7 @@
             else
             {
                 petPosts = this.petPostsRepository.AllAsNoTracking()
-                            .Where(x => x.UserLikes.Any(x => x.ApplicationUserId == userId))
+                            .Where(x => x.UserLikes.Any(x => x.ApplicationUser.Nickname == nickName))
                             .OrderByDescending(x => x.Id)
                             .Skip((page - 1) * itemsPerPage)
                             .Take(itemsPerPage)

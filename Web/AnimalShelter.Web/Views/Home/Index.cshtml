@@ -48,159 +48,141 @@
     </div>
 
     <!-- Create Adoption Post and Create lost/found post-->
-    <section class="section-md bg-white text-center">
-        <div class="shell">
+    <div class="shell">
+        <div class="shell range spacing-55 range range-sm-center">
             <div class="group-xl group-middle">
-                <div class="cell-xs-10 cell-sm-6 cell-md-8">
-                    <div class="form-group">
-                        <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" asp-area="" asp-controller="Adopt" asp-action="Create" data-wow-delay="0.2s" data-wow-duration=".75s">Добави животно за осиновяване</a>
-                    </div>
+                <div class="cell-xs-10 cell-sm-6 cell-md-6">
+                    <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" asp-area="" asp-controller="Adopt" asp-action="Create" data-wow-delay="0.2s" data-wow-duration=".75s">Добави животно за осиновяване</a>
                 </div>
-                <div class="cell-xs-10 cell-sm-6 cell-md-8">
-                    <div class="form-group">
-                        <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" asp-area="" asp-controller="Adopt" asp-action="Index" data-wow-delay="0.2s" data-wow-duration=".75s">Добави намерен/изгубен домашен любимец</a>
-                    </div>
+                <div class="cell-xs-10 cell-sm-6 cell-md-6">
+                    <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" asp-area="" asp-controller="Adopt" asp-action="Index" data-wow-delay="0.2s" data-wow-duration=".75s">Добави намерен/изгубен домашен любимец</a>
                 </div>
             </div>
         </div>
-    </section>
-
+    </div>
+    <!-- Thumbnails-->
     <div class="shell">
-        <div class="range spacing-30">
-            <div class="cell-sm-6">
-                <!-- Thumbnail modern-->
-                <div class="thumbnail-modern">
-                    <img class="thumbnail-modern-image" src="images/home1-1-567x381.jpg" alt="" width="567" height="381" />
-                    <div class="thumbnail-modern-caption">
-                        <div class="thumbnail-modern-caption-body">
-                            <div class="thumbnail-modern-title-left">Кучета</div>
-                            <div class="thumbnail-modern-title-right">
-                                @if (Model.DogsCount > 0)
-                                {
-                                    <span>Повече от</span>
-                                    <div><span class="number">@Model.DogsCount</span><span>кучета</span></div>
-                                }
-                                else
-                                {
-                                    <span>Няма животни</span>
-                                }
+        <div class="range range-sm-center">
+            <div class="cell-sm-11 cell-md-12">
+                <div class="range spacing-30">
+                    <div class="cell-md-1"></div>
+                    <div class="cell-xs-6 cell-md-3">
+                        <!-- Thumbnail ruby--><a class="thumbnail-ruby" href="/Adopt/All/#adopt-dogs">
+                            <img class="thumbnail-ruby-image" src="images/home2-2-269x408.jpg" alt="" width="269" height="408" />
+                            <div class="thumbnail-ruby-caption">
+                                <p class="thumbnail-ruby-title"><span data-letters-l="Куч" data-letters-r="ета">Кучета</span></p>
                             </div>
-                        </div>
-                        <div class="thumbnail-modern-caption-aside"><a class="thumbnail-modern-control" href="adopt-a-pet.html#adopt-dogs">повече</a></div>
+                        </a>
                     </div>
-                </div>
-            </div>
-            <div class="cell-sm-6">
-                <!-- Thumbnail modern-->
-                <div class="thumbnail-modern">
-                    <img class="thumbnail-modern-image" src="images/home1-2-567x381.jpg" alt="" width="567" height="381" />
-                    <div class="thumbnail-modern-caption">
-                        <div class="thumbnail-modern-caption-body">
-                            <div class="thumbnail-modern-title-left">Котки</div>
-                            <div class="thumbnail-modern-title-right">
-                                @if (Model.CatCount > 0)
-                                {
-                                    <span>Повече от</span>
-                                    <div><span class="number">@Model.CatCount</span><span>котки</span></div>
-                                }
-                                else
-                                {
-                                    <span>Няма животни</span>
-                                }
+                    <div class="cell-xs-6 cell-md-3">
+                        <!-- Thumbnail ruby--><a class="thumbnail-ruby" href="/Adopt/All/#adopt-cats">
+                            <img class="thumbnail-ruby-image" src="images/home2-4-269x408.jpg" alt="" width="269" height="408" />
+                            <div class="thumbnail-ruby-caption">
+                                <p class="thumbnail-ruby-title"><span data-letters-l="Кот" data-letters-r="ки">Котки</span></p>
                             </div>
-                        </div>
-                        <div class="thumbnail-modern-caption-aside"><a class="thumbnail-modern-control" href="adopt-a-pet.html#adopt-cats">повече</a></div>
+                        </a>
                     </div>
-                </div>
-            </div>
-            <div class="cell-sm-6">
-                <!-- Thumbnail modern-->
-                <div class="thumbnail-modern">
-                    <img class="thumbnail-modern-image" src="images/home1-4-567x381.jpg" alt="" width="567" height="381" />
-                    <div class="thumbnail-modern-caption">
-                        <div class="thumbnail-modern-caption-body">
-                            <div class="thumbnail-modern-title-left">Други</div>
-                            <div class="thumbnail-modern-title-right">
-                                @if (Model.OtherAnimalsCount > 0)
-                                {
-                                    <span>Повече от</span>
-                                    <div><span class="number">@Model.OtherAnimalsCount</span><span>други</span></div>
-                                }
-                                else
-                                {
-                                    <span>Няма животни</span>
-                                }
+                    <div class="cell-xs-6 cell-md-3">
+                        <!-- Thumbnail ruby--><a class="thumbnail-ruby" href="/Adopt/All/#adopt-other">
+                            <img class="thumbnail-ruby-image" src="images/home2-5-269x408.jpg" alt="" width="269" height="408" />
+                            <div class="thumbnail-ruby-caption">
+                                <p class="thumbnail-ruby-title"><span data-letters-l="Дру" data-letters-r="ги">Други</span></p>
                             </div>
-                        </div>
-                        <div class="thumbnail-modern-caption-aside"><a class="thumbnail-modern-control" href="adopt-a-pet.html#adopt-small-pets">повече</a></div>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="shell text-center">
         @if (Model.AllAnimals > 0)
         {
             <article class="box-text">
                 <h1>повече от @Model.AllAnimals</h1>
                 <div class="group-lg group-middle">
-                    <h3 class="displacement-1">животни</h3><a class="btn btn-blue-marguerite btn-effect-anis" href="adopt-a-pet.html">виж всички</a>
+                    <h3 class="displacement-1 class=" box-cta-subtitle-top"">животни</h3><a class="btn btn-blue-marguerite btn-effect-anis" href="adopt-a-pet.html">виж всички</a>
                 </div>
             </article>
         }
     </div>
 </section>
 
-<!-- SUCCESS STORIES-->
-<section class="section-md bg-gray-light text-center">
+<!-- SUCCESS stories-->
+<section class="section-md bg-white">
     <div class="shell">
-        <div class="range spacing-30">
+        <div class="range">
             <div class="cell-xs-12">
-                <h2>история с щастлив край</h2>
-                <p class="large"><a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" href="adopt-a-pet.html" data-wow-delay="0.2s" data-wow-duration=".75s">Сподели</a>снимка и кажи какво значи твоят домашен любимец за теб</p>
-            </div>
-            <div class="cell-xs-12">
-                <div class="range range-sm-center spacing-30">
-                    @if (Model.HappyStories.Any())
-                    {
-                        foreach (var story in Model.HappyStories)
+                <div class="complex-text complex-text-mod">
+                    <p class="h1 complex-text-main text-porcelain">Нашите</p>
+                    <div class="complex-text-aside">
+                        <p class="h2 text-porcelain"><a asp-controller="HappyStories" asp-action="All">истории</a></p>
+                        <p class="h4 header-lighter text-tan-hide">за осиновени любимци</p>
+                    </div>
+                </div>
+                <!-- Bootstrap tabs-->
+                <div class="tabs-custom tabs-horizontal tabs-complex" id="tabs-2">
+                    <!-- Nav tabs-->
+                    <div class="scroll-wrap">
+                        <ul class="nav nav-tabs">
+                            @if (Model.HappyStories.Any())
+                            {
+                                for (int i = 0; i < Model.HappyStories.Count; i++)
+                                {
+                                    <li class="@(i==0 ? "active":"")">
+                                        <a href="#tabs-2-@(i + 1)" data-toggle="tab">
+                                            <blockquote class="quote-classic-preview">
+                                                <div class="quote-classic-preview-left">
+                                                    <img class="quote-classic-preview-image" src=@Model.HappyStories[i].CoverPicturePath alt="" width="280" height="320" />
+                                                </div>
+                                                <div class="quote-classic-preview-body">
+                                                    <cite>@Model.HappyStories[i].PersonName</cite>
+                                                    <p class="caption">and @Model.HappyStories[i].PetName</p>
+                                                </div>
+                                            </blockquote>
+                                        </a>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                    <!-- Tab panes-->
+                    <div class="tab-content tabs-centered">
+                        @for (int i = 0; i < Model.HappyStories.Count; i++)
                         {
-                            <div class="cell-sm-10 cell-md-6 height-fill">
+                            <div class="@(i==0 ? "tab-pane fade in active":"tab-pane fade")" id="tabs-2-@(i+1)">
                                 <!-- Quote boxed-->
-                                <blockquote class="quote-boxed">
-                                    <div class="quote-boxed-left">
-                                        <img class="quote-boxed-image" src="images/home1-6-280x320.jpg" alt="" width="280" height="320" />
+                                <blockquote class="quote-classic">
+                                    <div class="quote-classic-left">
+                                        <img class="quote-classic-image" src=@Model.HappyStories[i].CoverPicturePath alt="" width="280" height="320" />
                                     </div>
-                                    <div class="quote-boxed-body">
-                                        <cite>@story.PersonName</cite>
-                                        <p class="caption">and @story.PetName</p>
-                                        <p class="quote-text">
-                                            <q>@story.Description</q>
+                                    <div class="quote-classic-body">
+                                        <div class="quote-classic-header">
+                                            <cite>@Model.HappyStories[i].PersonName</cite>
+                                            <p class="caption">and @Model.HappyStories[i].PetName</p>
+                                            <p><a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" asp-controller="HappyStories" asp-action="StoryProfile" asp-route-id=@Model.HappyStories[i].PostId data-wow-delay="0.2s" data-wow-duration=".75s">Виж повече</a></p>
+                                        </div>
+                                        <p class="quote-classic-text">
+                                            <q>@Model.HappyStories[i].Description</q>
                                         </p>
-                                        <div class="quote-boxed-meta">
-                                            <ul class="quote-boxed-meta-list">
-                                                <li class="object-inline"><span class="icon icon-sm icon-primary-filled icon-circle mdi mdi-thumb-up-outline"></span><span>10</span></li>
-                                                <li><span>@story.CreatedOn</span></li>
+                                        <div class="quote-classic-meta">
+                                            <ul class="quote-classic-meta-list">
+                                                <li class="object-inline"><span class="icon icon-sm icon-primary-filled icon-circle mdi mdi-thumb-up-outline"></span><span>@Model.HappyStories[i].Likes</span></li>
+                                                <li><span>@Model.HappyStories[i].CreatedOn</span></li>
                                             </ul>
                                         </div>
                                     </div>
                                 </blockquote>
                             </div>
                         }
-                    }
-                    else
-                    {
-                        <div class="shell text-center">
-                            <article class="box-text">
-                                <h1>Няма истории</h1>
-                            </article>
-                        </div>
-                    }
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+
 
 <section class="bg-primary oh">
     <div class="shell">

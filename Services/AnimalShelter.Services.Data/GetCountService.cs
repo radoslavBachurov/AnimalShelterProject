@@ -6,6 +6,7 @@
     using AnimalShelter.Data.Common.Repositories;
     using AnimalShelter.Data.Models;
     using AnimalShelter.Data.Models.Enums;
+    using AnimalShelter.Services.Mapping;
     using AnimalShelter.Web.Infrastructure;
     using AnimalShelter.Web.ViewModels.Home;
 
@@ -45,16 +46,8 @@
 
                 Volunteers = this.users.AllAsNoTracking().Count(),
 
-                HappyStories = this.successStoriesRepository.AllAsNoTracking().Where(x => x.IsApproved == true)
-                                .Select(x => new HappyEndingsIndexViewModel()
-                                {
-                                    Description = x.Description,
-                                    Avatar = x.PostPictures.FirstOrDefault(x => x.IsCoverPicture),
-                                    Likes = x.Likes,
-                                    PersonName = x.PersonName,
-                                    PetName = x.PetName,
-                                    CreatedOn = x.CreatedOn.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
-                                }).ToList(),
+                HappyStories = this.successStoriesRepository.AllAsNoTracking().Where(x => x.IsApproved)
+                .To<HappyEndingsIndexViewModel>().ToList(),
             };
 
             return data;
@@ -97,22 +90,29 @@
             return picCount;
         }
 
-        public int GetAllUserAnimalsCountByCategory(string category, string userId)
+        public int GetAllUserAnimalsCountByCategory(string category, string nickName)
         {
             var postsCount = 0;
 
             if (category == "MyPosts")
             {
                 postsCount = this.petPostsRepository.AllAsNoTracking()
-                           .Where(x => x.UserId == userId).Count();
+                           .Where(x => x.User.Nickname == nickName).Count();
             }
             else
             {
                 postsCount = this.petPostsRepository.AllAsNoTracking()
-                         .Where(x => x.UserLikes.Any(x => x.ApplicationUserId == userId)).Count();
+                         .Where(x => x.UserLikes.Any(x => x.ApplicationUser.Nickname == nickName)).Count();
             }
 
             return postsCount;
+        }
+
+        public int GetAllStoriesCount()
+        {
+            int count = this.successStoriesRepository.AllAsNoTracking().Where(x => x.IsApproved).Count();
+
+            return count;
         }
     }
 }

@@ -11,8 +11,7 @@ namespace AnimalShelter.Data.Models
         public SuccessStory()
         {
             this.PostPictures = new HashSet<Picture>();
-            this.Replies = new HashSet<Reply>();
-            this.UserLikes = new HashSet<UserSuccessStoryPost>();
+            this.UserLikes = new HashSet<UserSuccessStoryLikes>();
         }
 
         public string Description { get; set; }
@@ -25,15 +24,12 @@ namespace AnimalShelter.Data.Models
 
         public bool IsApproved { get; set; } = true;
 
-        [ForeignKey(nameof(User))]
         public string UserId { get; set; }
 
         public ApplicationUser User { get; set; }
 
         public virtual ICollection<Picture> PostPictures { get; set; }
 
-        public virtual ICollection<Reply> Replies { get; set; }
-
-        public virtual ICollection<UserSuccessStoryPost> UserLikes { get; set; }
+        public virtual ICollection<UserSuccessStoryLikes> UserLikes { get; set; }
     }
 }

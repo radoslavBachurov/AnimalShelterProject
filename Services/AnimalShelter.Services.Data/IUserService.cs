@@ -20,8 +20,9 @@
 
         Task SetProfilePictureAsync(string pictureId, string userId);
 
+        Task DeletePictureAsync(string pictureId, string userId);
 
-        Task DeletePictureAsync(string pictureId,string userId);
+        T GetUserByNickName<T>(string nickName);
 
         IEnumerable<T> GetAllUserProfilePics<T>(string id);
 

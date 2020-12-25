@@ -1,5 +1,5 @@
 ﻿var currentPage = 1;
-var currentCategory = 'Всички';
+var currentCategory = 'Изгубени домашни любимци';
 var currentOrderType = 'Id';
 var currOrderDescAsc = 'desc';
 
@@ -53,7 +53,7 @@ async function loadAnimals(page, category, orderType, orderDescAsc) {
         currOrderDescAsc = orderDescAsc;
     }
 
-    var uri = `/api/LostFoundList?category=${currentCategory}&page=${currentPage}&order=${currentOrderType}&orderType=${currOrderDescAsc}`;
+    var uri = `/api/PetPostList?info=${currentCategory}&page=${currentPage}&order=${currentOrderType}&orderType=${currOrderDescAsc}`;
 
     fetch(uri, {
         method: "GET",
@@ -63,7 +63,7 @@ async function loadAnimals(page, category, orderType, orderDescAsc) {
         }
     })
         .then(responce => responce.json())
-        .then(data => listCreator(data.animals, data));
+        .then(data => listPostCreatorVertical(data.animals, data, currentCategory));
 }
 
 

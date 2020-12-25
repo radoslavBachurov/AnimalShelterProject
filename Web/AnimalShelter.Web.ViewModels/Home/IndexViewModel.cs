@@ -21,6 +21,6 @@
 
         public int Volunteers { get; set; }
 
-        public ICollection<HappyEndingsIndexViewModel> HappyStories { get; set; }
+        public List<HappyEndingsIndexViewModel> HappyStories { get; set; }
     }
 }

@@ -96,6 +96,6 @@ async function searchAnimals(page, orderType, orderDescAsc) {
             let newUrl = `/Search/SearchResults?Location=${newlocation}&Type=${newType}&Sex=${newSex}&PetStatus=${newPetStatus}`;
             window.history.pushState(data.urlInfo, '', newUrl);
 
-            listCreator(data.animals, data);
+            listPostCreatorVertical(data.animals, data);
         })
 }

@@ -1,4 +1,4 @@
-﻿namespace AnimalShelter.Web.Controllers
+﻿namespace AnimalShelter.Web.Controllers.ApiControllers
 {
     using AnimalShelter.Services.Data;
     using AnimalShelter.Web.ViewModels.SearchResults;
@@ -6,22 +6,34 @@
 
     [Route("/api/[controller]")]
     [ApiController]
-    public class AdoptListController : ControllerBase
+    public class PetPostListController : ControllerBase
     {
         private readonly IGetCountService getCountService;
         private readonly ISearchService searchService;
 
-        public AdoptListController(IGetCountService getCountService, ISearchService searchService)
+        public PetPostListController(IGetCountService getCountService, ISearchService searchService)
         {
             this.getCountService = getCountService;
             this.searchService = searchService;
         }
 
-        public ActionResult<PetListViewModel> AllAnimals(string type, int page, string order, string orderType)
+        public ActionResult<PetListViewModel> AllAnimals(string info, int page, string order, string orderType)
         {
             const int itemsPerPage = 4;
             var defaultValue = "Всички";
-            var category = "За Осиновяване";
+
+            var type = "Всички";
+            string category;
+
+            if (info == "Котка" || info == "Куче" || info == "Други")
+            {
+                type = info;
+                category = "За Осиновяване";
+            }
+            else
+            {
+                category = info;
+            }
 
             var viewModel = new PetListViewModel()
             {

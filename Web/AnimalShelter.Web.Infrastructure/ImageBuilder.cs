@@ -34,15 +34,14 @@
             foreach (var image in images)
             {
                 var picture = new Picture();
+                picture.Path = webRootPath;
 
                 if (categoryName == "Users")
                 {
-                    picture.Path = webRootPath;
                     picture.UserPictureId = userId;
                 }
                 else
                 {
-                    picture.Path = webRootPath;
                     picture.PostPictureId = userId;
                 }
 

@@ -12,11 +12,11 @@
     public class PetProfileService : IPetProfileService
     {
         private readonly IDeletableEntityRepository<PetPost> petPostsRepository;
-        private readonly IDeletableEntityRepository<UserPetPost> userPetPostsRepository;
+        private readonly IDeletableEntityRepository<UserPetPostLikes> userPetPostsRepository;
 
         public PetProfileService(
             IDeletableEntityRepository<PetPost> petPostsRepository,
-            IDeletableEntityRepository<UserPetPost> userPetPostsRepository)
+            IDeletableEntityRepository<UserPetPostLikes> userPetPostsRepository)
         {
             this.petPostsRepository = petPostsRepository;
             this.userPetPostsRepository = userPetPostsRepository;
@@ -24,7 +24,7 @@
 
         public PetProfileViewModel GetPetProfile(int postId, ApplicationUser user)
         {
-            var userLikedThisPost = new List<UserPetPost>();
+            var userLikedThisPost = new List<UserPetPostLikes>();
             if (user != null)
             {
                 userLikedThisPost = this.userPetPostsRepository.AllAsNoTracking()
@@ -77,7 +77,7 @@
                 }
                 else
                 {
-                    var userLikes = new UserPetPost() { PetPostId = post.Id, ApplicationUserId = user.Id };
+                    var userLikes = new UserPetPostLikes() { PetPostId = post.Id, ApplicationUserId = user.Id };
                     post.Likes++;
                     await this.userPetPostsRepository.AddAsync(userLikes);
                     outputModel.Likes = post.Likes;

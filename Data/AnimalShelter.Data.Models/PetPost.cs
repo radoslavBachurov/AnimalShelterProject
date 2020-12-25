@@ -13,7 +13,7 @@
         {
             this.PostPictures = new HashSet<Picture>();
             this.Replies = new HashSet<Reply>();
-            this.UserLikes = new HashSet<UserPetPost>();
+            this.UserLikes = new HashSet<UserPetPostLikes>();
         }
 
         [Required]
@@ -43,6 +43,6 @@
 
         public virtual ICollection<Reply> Replies { get; set; }
 
-        public virtual ICollection<UserPetPost> UserLikes { get; set; }
+        public virtual ICollection<UserPetPostLikes> UserLikes { get; set; }
     }
 }

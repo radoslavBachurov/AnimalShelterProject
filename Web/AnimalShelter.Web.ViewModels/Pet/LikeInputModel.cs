@@ -6,5 +6,6 @@
 
         public bool IsLiked { get; set; }
 
+        public string ToLike { get; set; }
     }
 }

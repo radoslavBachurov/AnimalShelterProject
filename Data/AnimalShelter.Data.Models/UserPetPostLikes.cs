@@ -4,7 +4,7 @@
 
     using AnimalShelter.Data.Common.Models;
 
-    public class UserPetPost : BaseDeletableModel<int>
+    public class UserPetPostLikes : BaseDeletableModel<int>
     {
         public string ApplicationUserId { get; set; }
 

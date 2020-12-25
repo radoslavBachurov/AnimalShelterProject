@@ -1,9 +1,9 @@
-﻿
-function userListCreator(animals, data) {
+﻿function listPostCreatorHorizontal(animals, data) {
     if (animals == null || animals.length == 0) {
-        let mainSection = mainSectionCleaner(animals);
+        let mainSection = mainSectionCleaner();
         let noResultDiv = document.createElement('div');
         let textEl = document.createElement('h2');
+        textEl.classList.add("text-center");
         let text = document.createTextNode('НЯМА ПОСТОВЕ ЗА ПОКАЗВАНЕ');
 
         textEl.appendChild(text);
@@ -13,7 +13,7 @@ function userListCreator(animals, data) {
         return;
     }
 
-    let mainSection = mainSectionCleaner(animals);
+    let mainSection = mainSectionCleaner();
 
     let maintoAtach = document.createElement('div');
     maintoAtach.classList.add("range");
@@ -395,7 +395,10 @@ function mainSectionCleaner() {
     let myPostsSection = document.getElementById('MyPosts');
     myPostsSection.innerHTML = '';
     let likedPostsSection = document.getElementById('LikedPosts');
-    likedPostsSection.innerHTML = '';
+
+    if (likedPostsSection != null) {
+        likedPostsSection.innerHTML = '';
+    }
 
     let mainSection = document.getElementById(currentCategory);
 

@@ -36,9 +36,9 @@
 
         public DbSet<SuccessStory> SuccessStories { get; set; }
 
-        public DbSet<UserPetPost> UserPetPosts { get; set; }
+        public DbSet<UserPetPostLikes> UserPetPostLikes { get; set; }
 
-        public DbSet<UserSuccessStoryPost> UserSuccessStoryPosts { get; set; }
+        public DbSet<UserSuccessStoryLikes> UserSuccessStoryLikes { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 

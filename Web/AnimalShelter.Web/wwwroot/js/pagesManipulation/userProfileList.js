@@ -7,9 +7,11 @@
 
 var currentPage = 1;
 var currentCategory = "MyPosts";
+var nickName = "default";
 
 window.onload = (event) => {
-    loadAnimals(currentPage, currentCategory);
+    nickName = document.getElementById("nickName").textContent;
+    loadAnimals(currentPage, currentCategory, nickName);
 };
 
 function getDeltaPage(event, pageDelta) {
@@ -37,7 +39,9 @@ async function loadAnimals(page, category) {
         currentCategory = category;
     }
 
-    var uri = `/api/UserInfo?category=${currentCategory}&page=${currentPage}`;
+    nickName = document.getElementById("nickName").textContent;
+
+    var uri = `/api/UserInfo?category=${currentCategory}&page=${currentPage}&nick=${nickName}`;
 
     fetch(uri, {
         method: "GET",
@@ -47,5 +51,5 @@ async function loadAnimals(page, category) {
         }
     })
         .then(responce => responce.json())
-        .then(data => userListCreator(data.animals, data));
+        .then(data => listPostCreatorHorizontal(data.animals, data));
 }

@@ -12,6 +12,8 @@
 
         int GetCurrentUserPhotosCount(string id);
 
-        int GetAllUserAnimalsCountByCategory(string category, string userId);
+        int GetAllUserAnimalsCountByCategory(string category, string nickName);
+
+        int GetAllStoriesCount();
     }
 }

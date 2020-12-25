@@ -2,6 +2,7 @@
 {
     using System.Linq;
     using System.Threading.Tasks;
+
     using AnimalShelter.Common;
     using AnimalShelter.Data.Models;
     using AnimalShelter.Services.Data;
@@ -41,6 +42,14 @@
         }
 
         [Authorize]
+        public IActionResult UserProfileGuest(string nickName)
+        {
+            var viewModel = this.userService.GetUserByNickName<UserGuestViewModel>(nickName);
+
+            return this.View(viewModel);
+        }
+
+        [Authorize]
         public async Task<IActionResult> ChangeProfilePic()
         {
             var user = await this.userManager.GetUserAsync(this.User);
@@ -64,7 +73,7 @@
         public async Task<IActionResult> DeletePic(string id)
         {
             var user = await this.userManager.GetUserAsync(this.User);
-            await this.userService.DeletePictureAsync(id,user.Id);
+            await this.userService.DeletePictureAsync(id, user.Id);
 
             return this.RedirectToAction(nameof(ChangeProfilePic));
         }

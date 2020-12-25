@@ -1,0 +1,110 @@
+﻿@{
+    this.ViewData["Title"] = "User Profile";
+}
+@model AnimalShelter.Web.ViewModels.User.UserGuestViewModel
+<!-- Breadcrumbs & Page title-->
+<div class="page-title">
+    <div class="page-title-text">Профил на <span id="nickName">@Model.Nickname</span></div>
+    <ul class="breadcrumbs-custom">
+        <li><a href="index.html">Начало</a></li>
+        <li class="active">Профил</li>
+    </ul>
+</div>
+<div class="group-xl group-middle">
+    <div class="cell-xs-10 cell-sm-6 cell-md-8">
+        <div class="form-group">
+            <a href="##" onClick="history.go(-1); return false;" class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" data-wow-delay="0.2s" data-wow-duration=".75s">Назад</a>
+        </div>
+    </div>
+</div>
+<section class="section-md section-md-alternate bg-white text-center">
+    <div class="shell">
+        <h3>Профил</h3>
+        <ul class="post-meta">
+            <li>
+                <span class="icon icon-xs icon-tan-hide material-icons-access_time"></span>
+                <time datetime="">@Model.CreatedOn</time>
+            </li>
+            <li><span class="icon icon-xs icon-tan-hide mdi mdi-gender-male-female"></span><span>@Model.Sex</span></li>
+            <li><span class="icon icon-xs icon-tan-hide material-icons-place"></span><span>@Model.Living</span></li>
+            <li><span class="icon icon-xs icon-tan-hide material-icons-hourglass_empty"></span><span>@Model.Age</span></li>
+        </ul>
+        <div class="range range-sm-center">
+            <div class="cell-sm-9 cell-md-12">
+                <article class="post-single">
+                    <div class="post-single-left">
+                        @if (Model.UserPictures.Any())
+                        {
+                            @if (Model.CoverPicturePath != null)
+                            {
+                                <img class="mr-3 img-responsive" src="@Model.CoverPicturePath" alt="" width="570" height="389" />
+                            }
+                            <section class="section-md bg-gray-light text-center" style="padding:15px;">
+                                <div class="shell">
+                                    <div class="range">
+                                        <div class="cell-xs-12 wow fadeIn" data-wow-duration=".8s" data-wow-offset="150">
+                                            <!-- Owl Carousel-->
+                                            <div class="owl-carousel-centered">
+                                                <div data-photo-swipe-gallery="gallery" class="owl-carousel" style="padding:10px;" data-items="1" data-sm-items="3" data-stage-padding="0" data-loop="true" data-margin="10" data-lg-margin="30" data-mouse-drag="false" data-center="true" data-numbering="#owl-numbering-1" data-nav="true">
+                                                    @foreach (var picture in Model.UserPictures)
+                                                    {
+                                                        <a class="mr-3 img-responsive" href=@picture.Path data-photo-swipe-item="" data-size=@picture.DataSize>
+                                                            <figure>
+                                                                <img class="mr-3 img-responsive" src=@picture.Path alt="" width="346" height="249" />
+                                                            </figure>
+                                                        </a>
+                                                    }
+                                                </div>
+                                                <div class="owl-numbering owl-numbering-default" style="margin-top: 0px;" id="owl-numbering-1">
+                                                    <div class="numbering-current"></div>
+                                                    <div class="numbering-separator"></div>
+                                                    <div class="numbering-count"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        }
+                    </div>
+                    <div class="post-single-body">
+                        <p class="post-single-title">Описание</p>
+                        <p>@Model.Description</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="shell">
+    <hr>
+</div>
+
+<section class="section-md bg-white text-center">
+    <div class="cell-sm-10">
+        <div class="tabs-custom tabs-horizontal tabs-corporate" id="tabs-1">
+            <!-- Nav tabs-->
+            <ul class="nav nav-tabs">
+                <li onclick="loadAnimals(1, 'MyPosts')" class="active"><a href="#MyPosts" data-toggle="tab">Постове на потребителя</a></li>
+            </ul>
+            <!-- Tab panes-->
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="MyPosts">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section Scripts{
+    <script src="~/js/pagesManipulation/userProfileList.js"></script>
+    <script src="~/js/pagesManipulation/listPostCreatorHorizontal.js"></script>
+}
+
+
+
+
+
+

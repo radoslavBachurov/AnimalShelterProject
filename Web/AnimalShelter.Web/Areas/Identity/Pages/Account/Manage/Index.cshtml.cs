@@ -35,10 +35,6 @@ namespace AnimalShelter.Web.Areas.Identity.Pages.Account.Manage
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
 
-            [Required]
-            [Display(Name = "Username")]
-            [MinLength(4, ErrorMessage = "The UserName must be at least 4 and at max 15 characters long.")]
-            [MaxLength(15, ErrorMessage = "The UserName must be at least 4 and at max 15 characters long.")]
             public string Username { get; set; }
         }
 

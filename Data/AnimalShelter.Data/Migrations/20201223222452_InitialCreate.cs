@@ -51,6 +51,7 @@ namespace AnimalShelter.Data.Migrations
                     Nickname = table.Column<string>(nullable: true),
                     Age = table.Column<int>(nullable: false),
                     Living = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
                     Sex = table.Column<int>(nullable: false),
                     DateOfBirth = table.Column<DateTime>(nullable: false)
                 },
@@ -262,7 +263,38 @@ namespace AnimalShelter.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserPetPosts",
+                name: "Replies",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    Text = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: true),
+                    PetPostId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Replies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Replies_PetPosts_PetPostId",
+                        column: x => x.PetPostId,
+                        principalTable: "PetPosts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Replies_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserPetPostLikes",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -276,85 +308,17 @@ namespace AnimalShelter.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserPetPosts", x => x.Id);
+                    table.PrimaryKey("PK_UserPetPostLikes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserPetPosts_AspNetUsers_ApplicationUserId",
+                        name: "FK_UserPetPostLikes_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_UserPetPosts_PetPosts_PetPostId",
+                        name: "FK_UserPetPostLikes_PetPosts_PetPostId",
                         column: x => x.PetPostId,
                         principalTable: "PetPosts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Replies",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    ModifiedOn = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
-                    Text = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true),
-                    PetPostId = table.Column<int>(nullable: true),
-                    SuccessStoryId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Replies", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Replies_PetPosts_PetPostId",
-                        column: x => x.PetPostId,
-                        principalTable: "PetPosts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Replies_SuccessStories_SuccessStoryId",
-                        column: x => x.SuccessStoryId,
-                        principalTable: "SuccessStories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Replies_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserSuccessStoryPosts",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    ModifiedOn = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
-                    UserId = table.Column<string>(nullable: true),
-                    SuccessStoryId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserSuccessStoryPosts", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_UserSuccessStoryPosts_SuccessStories_SuccessStoryId",
-                        column: x => x.SuccessStoryId,
-                        principalTable: "SuccessStories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_UserSuccessStoryPosts_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -377,8 +341,7 @@ namespace AnimalShelter.Data.Migrations
                     UserPictureId = table.Column<string>(nullable: true),
                     PostPictureId = table.Column<string>(nullable: true),
                     PetPostId = table.Column<int>(nullable: true),
-                    SuccessStoryId = table.Column<int>(nullable: true),
-                    ReplyId = table.Column<int>(nullable: true)
+                    SuccessStoryId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -396,12 +359,6 @@ namespace AnimalShelter.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Pictures_Replies_ReplyId",
-                        column: x => x.ReplyId,
-                        principalTable: "Replies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_Pictures_SuccessStories_SuccessStoryId",
                         column: x => x.SuccessStoryId,
                         principalTable: "SuccessStories",
@@ -411,6 +368,36 @@ namespace AnimalShelter.Data.Migrations
                         name: "FK_Pictures_AspNetUsers_UserPictureId",
                         column: x => x.UserPictureId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserSuccessStoryLikes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    ApplicationUserId = table.Column<string>(nullable: true),
+                    SuccessStoryId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserSuccessStoryLikes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserSuccessStoryLikes_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_UserSuccessStoryLikes_SuccessStories_SuccessStoryId",
+                        column: x => x.SuccessStoryId,
+                        principalTable: "SuccessStories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -495,11 +482,6 @@ namespace AnimalShelter.Data.Migrations
                 column: "PostPictureId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pictures_ReplyId",
-                table: "Pictures",
-                column: "ReplyId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Pictures_SuccessStoryId",
                 table: "Pictures",
                 column: "SuccessStoryId");
@@ -518,11 +500,6 @@ namespace AnimalShelter.Data.Migrations
                 name: "IX_Replies_PetPostId",
                 table: "Replies",
                 column: "PetPostId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Replies_SuccessStoryId",
-                table: "Replies",
-                column: "SuccessStoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Replies_UserId",
@@ -545,34 +522,34 @@ namespace AnimalShelter.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserPetPosts_ApplicationUserId",
-                table: "UserPetPosts",
+                name: "IX_UserPetPostLikes_ApplicationUserId",
+                table: "UserPetPostLikes",
                 column: "ApplicationUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserPetPosts_IsDeleted",
-                table: "UserPetPosts",
+                name: "IX_UserPetPostLikes_IsDeleted",
+                table: "UserPetPostLikes",
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserPetPosts_PetPostId",
-                table: "UserPetPosts",
+                name: "IX_UserPetPostLikes_PetPostId",
+                table: "UserPetPostLikes",
                 column: "PetPostId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserSuccessStoryPosts_IsDeleted",
-                table: "UserSuccessStoryPosts",
+                name: "IX_UserSuccessStoryLikes_ApplicationUserId",
+                table: "UserSuccessStoryLikes",
+                column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserSuccessStoryLikes_IsDeleted",
+                table: "UserSuccessStoryLikes",
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserSuccessStoryPosts_SuccessStoryId",
-                table: "UserSuccessStoryPosts",
+                name: "IX_UserSuccessStoryLikes_SuccessStoryId",
+                table: "UserSuccessStoryLikes",
                 column: "SuccessStoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserSuccessStoryPosts_UserId",
-                table: "UserSuccessStoryPosts",
-                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -599,19 +576,19 @@ namespace AnimalShelter.Data.Migrations
                 name: "Pictures");
 
             migrationBuilder.DropTable(
+                name: "Replies");
+
+            migrationBuilder.DropTable(
                 name: "Settings");
 
             migrationBuilder.DropTable(
-                name: "UserPetPosts");
+                name: "UserPetPostLikes");
 
             migrationBuilder.DropTable(
-                name: "UserSuccessStoryPosts");
+                name: "UserSuccessStoryLikes");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "Replies");
 
             migrationBuilder.DropTable(
                 name: "PetPosts");

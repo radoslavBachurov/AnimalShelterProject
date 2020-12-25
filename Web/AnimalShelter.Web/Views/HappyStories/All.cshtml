@@ -1,0 +1,37 @@
+﻿@using AnimalShelter.Data.Models
+@using Microsoft.AspNetCore.Identity
+@model AnimalShelter.Web.ViewModels.Pet.PetProfileViewModel
+@{
+    this.ViewData["Title"] = "Happy Stories Profile";
+}
+
+<!-- Breadcrumbs & Page title-->
+<div class="page-title">
+    <div class="page-title-text">Нашите истории</div>
+    <ul class="breadcrumbs-custom">
+        <li><a href="index.html">Начало</a></li>
+        <li class="active">Нашите истории</li>
+    </ul>
+</div>
+<!-- News & Events-->
+<section class="section-md section-md-alternate bg-white text-center">
+    <div class="shell">
+        <div class="group-xl group-middle">
+            <a asp-controller="HappyStories" asp-action="Create" class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" data-wow-delay="0.2s" data-wow-duration=".75s" style="margin-top:0">Разкажи твоята история</a>
+        </div>
+    </div>
+
+    <div class="shell" id="mainSection">
+    </div>
+</section>
+
+@section Scripts{
+    <script src="~/js/pagesManipulation/happyStoriesList.js"></script>
+    <script src="~/js/pagesManipulation/listStoriesCreator.js"></script>
+}
+
+
+
+
+
+

@@ -4,10 +4,9 @@
 }
 @using AnimalShelter.Data.Models.Enums
 @model AnimalShelter.Web.ViewModels.User.UserViewModel
-
 <!-- Breadcrumbs & Page title-->
 <div class="page-title">
-    <div class="page-title-text">Личен Профил на @Model.Nickname</div>
+    <div class="page-title-text">Личен Профил на <span id="nickName">@Model.Nickname</span></div>
     <ul class="breadcrumbs-custom">
         <li><a href="index.html">Начало</a></li>
         <li class="active">Личен Профил</li>
@@ -122,6 +121,14 @@
                                                     <span asp-validation-for="InputLiving" class="text-danger"></span>
                                                 </div>
                                             </div>
+                                            <div class="cell-sm-12">
+                                                <div class="form-group">
+                                                    <textarea class="form-control" maxlength="998" asp-for="Description"></textarea>
+                                                    <label class="form-label" asp-for="Description"></label>
+                                                    <span id="charsLeft"></span>
+                                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                                </div>
+                                            </div>
                                             <div class="cell-sm-6">
                                                 <div class="form-group">
                                                     <label for="Images" class="btn btn-tan-hide btn-block">Kaчи снимки</label>
@@ -160,8 +167,8 @@
         <div class="tabs-custom tabs-horizontal tabs-corporate" id="tabs-1">
             <!-- Nav tabs-->
             <ul class="nav nav-tabs">
-                <li onclick="loadAnimals(1, 'MyPosts')" class="active"><a href="#MyPosts" data-toggle="tab">Моите постове</a></li>
-                <li onclick="loadAnimals(1, 'LikedPosts')"><a href="#LikedPosts" data-toggle="tab">Харесани постове</a></li>
+                <li onclick="loadAnimals(1, 'MyPosts');" class="active"><a href="#MyPosts" data-toggle="tab">Моите постове</a></li>
+                <li onclick="loadAnimals(1, 'LikedPosts');"><a href="#LikedPosts" data-toggle="tab">Харесани постове</a></li>
             </ul>
             <!-- Tab panes-->
             <div class="tab-content">
@@ -177,7 +184,8 @@
 
 @section Scripts{
     <script src="~/js/pagesManipulation/userProfileList.js"></script>
-    <script src="~/js/pagesManipulation/listCreatorHorizontal.js"></script>
+    <script src="~/js/pagesManipulation/listPostCreatorHorizontal.js"></script>
+    <script src="~/js/pagesManipulation/descriptionCharactersCounter.js"></script>
 }
 
 

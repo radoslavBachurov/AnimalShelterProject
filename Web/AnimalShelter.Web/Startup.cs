@@ -94,6 +94,7 @@
             services.AddTransient<IPetProfileService, PetProfileService>();
             services.AddTransient<ISearchService, SearchService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IHappyStoriesService, HappyStoriesService>();
             services.AddTransient<IViewRenderService, ViewRenderService>();
         }
 

@@ -4,6 +4,7 @@ namespace AnimalShelter.Data.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations.Schema;
+
     using AnimalShelter.Data.Common.Models;
     using AnimalShelter.Data.Models.Enums;
     using Microsoft.AspNetCore.Identity;
@@ -20,8 +21,8 @@ namespace AnimalShelter.Data.Models
             this.SuccessStories = new HashSet<SuccessStory>();
             this.UserPictures = new HashSet<Picture>();
             this.PostPictures = new HashSet<Picture>();
-            this.LikedPosts = new HashSet<UserPetPost>();
-            this.LikedSuccessStoryPosts = new HashSet<UserSuccessStoryPost>();
+            this.LikedPosts = new HashSet<UserPetPostLikes>();
+            this.LikedSuccessStoryPosts = new HashSet<UserSuccessStoryLikes>();
         }
 
         // Audit info
@@ -39,6 +40,8 @@ namespace AnimalShelter.Data.Models
         public int Age { get; set; }
 
         public string Living { get; set; }
+
+        public string Description { get; set; }
 
         public UserSex Sex { get; set; }
 
@@ -60,8 +63,8 @@ namespace AnimalShelter.Data.Models
         [InverseProperty("PostPicture")]
         public virtual ICollection<Picture> PostPictures { get; set; }
 
-        public virtual ICollection<UserPetPost> LikedPosts { get; set; }
+        public virtual ICollection<UserPetPostLikes> LikedPosts { get; set; }
 
-        public virtual ICollection<UserSuccessStoryPost> LikedSuccessStoryPosts { get; set; }
+        public virtual ICollection<UserSuccessStoryLikes> LikedSuccessStoryPosts { get; set; }
     }
 }

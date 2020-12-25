@@ -102,9 +102,9 @@
             await this.petPostsRepository.SaveChangesAsync();
         }
 
-        private static string CreatePathInRoot(string categoryName, string userId)
+        private static string CreatePathInRoot(string categoryName, string nickName)
         {
-            return $"/UserImages/{categoryName}/{userId}/";
+            return $"/UserImages/{categoryName}/{nickName}/";
         }
     }
 }
