@@ -52,10 +52,10 @@
         <div class="shell range spacing-55 range range-sm-center">
             <div class="group-xl group-middle">
                 <div class="cell-xs-10 cell-sm-6 cell-md-6">
-                    <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" asp-area="" asp-controller="Adopt" asp-action="Create" data-wow-delay="0.2s" data-wow-duration=".75s">Добави животно за осиновяване</a>
+                    <a class="btn btn-circle btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" asp-area="" asp-controller="Adopt" asp-action="Create" data-wow-delay="0.2s" data-wow-duration=".75s">Добави животно за осиновяване</a>
                 </div>
                 <div class="cell-xs-10 cell-sm-6 cell-md-6">
-                    <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" asp-area="" asp-controller="Adopt" asp-action="Index" data-wow-delay="0.2s" data-wow-duration=".75s">Добави намерен/изгубен домашен любимец</a>
+                    <a class="btn btn-circle btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" asp-area="" asp-controller="Adopt" asp-action="Index" data-wow-delay="0.2s" data-wow-duration=".75s">Добави намерен/изгубен домашен любимец</a>
                 </div>
             </div>
         </div>
@@ -63,7 +63,8 @@
     <!-- Thumbnails-->
     <div class="shell">
         <div class="range range-sm-center">
-            <div class="cell-sm-11 cell-md-12">
+            <div class="cell-sm-11 cell-md-1"></div>
+            <div class="cell-sm-11 cell-md-10">
                 <div class="range spacing-30">
                     <div class="cell-md-1"></div>
                     <div class="cell-xs-6 cell-md-3">
@@ -96,7 +97,7 @@
     </div>
 
     <div class="shell text-center">
-        @if (Model.AllAnimals > 0)
+        @if (Model.AllAnimals > 1)
         {
             <article class="box-text">
                 <h1>повече от @Model.AllAnimals</h1>
@@ -108,28 +109,29 @@
     </div>
 </section>
 
-<!-- SUCCESS stories-->
-<section class="section-md bg-white">
-    <div class="shell">
-        <div class="range">
-            <div class="cell-xs-12">
-                <div class="complex-text complex-text-mod">
-                    <p class="h1 complex-text-main text-porcelain">Нашите</p>
-                    <div class="complex-text-aside">
-                        <p class="h2 text-porcelain"><a asp-controller="HappyStories" asp-action="All">истории</a></p>
-                        <p class="h4 header-lighter text-tan-hide">за осиновени любимци</p>
+
+@if (Model.HappyStories.Any())
+{
+    <!-- SUCCESS stories-->
+    <section class="section-md bg-white">
+        <div class="shell">
+            <div class="range">
+                <div class="cell-xs-12">
+                    <div class="complex-text complex-text-mod">
+                        <p class="h1 complex-text-main text-porcelain">Нашите</p>
+                        <div class="complex-text-aside">
+                            <p class="h2 text-porcelain"><a asp-controller="HappyStories" asp-action="All">истории</a></p>
+                            <p class="h4 header-lighter text-tan-hide">за осиновени любимци</p>
+                        </div>
                     </div>
-                </div>
-                <!-- Bootstrap tabs-->
-                <div class="tabs-custom tabs-horizontal tabs-complex" id="tabs-2">
-                    <!-- Nav tabs-->
-                    <div class="scroll-wrap">
-                        <ul class="nav nav-tabs">
-                            @if (Model.HappyStories.Any())
-                            {
-                                for (int i = 0; i < Model.HappyStories.Count; i++)
+                    <!-- Bootstrap tabs-->
+                    <div class="tabs-custom tabs-horizontal tabs-complex" id="tabs-2">
+                        <!-- Nav tabs-->
+                        <div class="scroll-wrap">
+                            <ul class="nav nav-tabs">
+                                @for (int i = 0; i < Model.HappyStories.Count; i++)
                                 {
-                                    <li class="@(i==0 ? "active":"")">
+                                    <li class="@(i == 0 ? "active" : "")">
                                         <a href="#tabs-2-@(i + 1)" data-toggle="tab">
                                             <blockquote class="quote-classic-preview">
                                                 <div class="quote-classic-preview-left">
@@ -143,44 +145,44 @@
                                         </a>
                                     </li>
                                 }
+                            </ul>
+                        </div>
+                        <!-- Tab panes-->
+                        <div class="tab-content tabs-centered">
+                            @for (int i = 0; i < Model.HappyStories.Count; i++)
+                            {
+                                <div class="@(i == 0 ? "tab-pane fade in active" : "tab-pane fade")" id="tabs-2-@(i + 1)">
+                                    <!-- Quote boxed-->
+                                    <blockquote class="quote-classic">
+                                        <div class="quote-classic-left">
+                                            <img class="quote-classic-image" src=@Model.HappyStories[i].CoverPicturePath alt="" width="280" height="320" />
+                                        </div>
+                                        <div class="quote-classic-body">
+                                            <div class="quote-classic-header">
+                                                <cite>@Model.HappyStories[i].PersonName</cite>
+                                                <p class="caption">and @Model.HappyStories[i].PetName</p>
+                                                <p><a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" asp-controller="HappyStories" asp-action="StoryProfile" asp-route-id=@Model.HappyStories[i].PostId data-wow-delay="0.2s" data-wow-duration=".75s">Виж повече</a></p>
+                                            </div>
+                                            <p class="quote-classic-text">
+                                                <q>@Model.HappyStories[i].Description</q>
+                                            </p>
+                                            <div class="quote-classic-meta">
+                                                <ul class="quote-classic-meta-list">
+                                                    <li class="object-inline"><span class="icon icon-sm icon-primary-filled icon-circle mdi mdi-thumb-up-outline"></span><span>@Model.HappyStories[i].Likes</span></li>
+                                                    <li><span>@Model.HappyStories[i].CreatedOn</span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </blockquote>
+                                </div>
                             }
-                        </ul>
-                    </div>
-                    <!-- Tab panes-->
-                    <div class="tab-content tabs-centered">
-                        @for (int i = 0; i < Model.HappyStories.Count; i++)
-                        {
-                            <div class="@(i==0 ? "tab-pane fade in active":"tab-pane fade")" id="tabs-2-@(i+1)">
-                                <!-- Quote boxed-->
-                                <blockquote class="quote-classic">
-                                    <div class="quote-classic-left">
-                                        <img class="quote-classic-image" src=@Model.HappyStories[i].CoverPicturePath alt="" width="280" height="320" />
-                                    </div>
-                                    <div class="quote-classic-body">
-                                        <div class="quote-classic-header">
-                                            <cite>@Model.HappyStories[i].PersonName</cite>
-                                            <p class="caption">and @Model.HappyStories[i].PetName</p>
-                                            <p><a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" asp-controller="HappyStories" asp-action="StoryProfile" asp-route-id=@Model.HappyStories[i].PostId data-wow-delay="0.2s" data-wow-duration=".75s">Виж повече</a></p>
-                                        </div>
-                                        <p class="quote-classic-text">
-                                            <q>@Model.HappyStories[i].Description</q>
-                                        </p>
-                                        <div class="quote-classic-meta">
-                                            <ul class="quote-classic-meta-list">
-                                                <li class="object-inline"><span class="icon icon-sm icon-primary-filled icon-circle mdi mdi-thumb-up-outline"></span><span>@Model.HappyStories[i].Likes</span></li>
-                                                <li><span>@Model.HappyStories[i].CreatedOn</span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </blockquote>
-                            </div>
-                        }
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+}
 
 
 

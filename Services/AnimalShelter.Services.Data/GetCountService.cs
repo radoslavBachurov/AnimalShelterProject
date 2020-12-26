@@ -13,18 +13,15 @@
     public class GetCountService : IGetCountService
     {
         private readonly IDeletableEntityRepository<PetPost> petPostsRepository;
-        private readonly IDeletableEntityRepository<Picture> pictureRepository;
         private readonly IDeletableEntityRepository<SuccessStory> successStoriesRepository;
         private readonly IDeletableEntityRepository<ApplicationUser> users;
 
         public GetCountService(
         IDeletableEntityRepository<PetPost> petPostsRepository,
-        IDeletableEntityRepository<Picture> pictureRepository,
         IDeletableEntityRepository<SuccessStory> successStoriesRepository,
         IDeletableEntityRepository<ApplicationUser> users)
         {
             this.petPostsRepository = petPostsRepository;
-            this.pictureRepository = pictureRepository;
             this.successStoriesRepository = successStoriesRepository;
             this.users = users;
         }

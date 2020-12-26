@@ -26,7 +26,9 @@
 
         public DbSet<Setting> Settings { get; set; }
 
-        public DbSet<BankAccount> BankAccounts { get; set; }
+        public DbSet<DonateOrganisation> DonateOrganisations { get; set; }
+
+        public DbSet<OrganisationLink> OrganisationLinks { get; set; }
 
         public DbSet<PetPost> PetPosts { get; set; }
 

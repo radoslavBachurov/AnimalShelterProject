@@ -10,6 +10,7 @@
     using AnimalShelter.Data.Repositories;
     using AnimalShelter.Data.Seeding;
     using AnimalShelter.Services.Data;
+    using AnimalShelter.Services.Data.AdministrationServices;
     using AnimalShelter.Services.Mapping;
     using AnimalShelter.Web.Infrastructure.EmailSender;
     using AnimalShelter.Web.ViewModels;
@@ -95,6 +96,7 @@
             services.AddTransient<ISearchService, SearchService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IHappyStoriesService, HappyStoriesService>();
+            services.AddTransient<IDonateService, DonateService>();
             services.AddTransient<IViewRenderService, ViewRenderService>();
         }
 

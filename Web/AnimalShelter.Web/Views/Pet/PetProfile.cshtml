@@ -34,9 +34,7 @@
 </div>
 <div class="group-xl group-middle">
     <div class="cell-xs-10 cell-sm-6 cell-md-8">
-        <div class="form-group">
-            <a href="##" onClick="history.go(-1); return false;" class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" data-wow-delay="0.2s" data-wow-duration=".75s">Назад</a>
-        </div>
+        <a href="##" onClick="history.go(-1); return false;" class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" data-wow-delay="0.2s" data-wow-duration=".75s">Назад</a>
     </div>
 </div>
 <!-- News & Events-->
@@ -46,7 +44,7 @@
         @if (Model.PetStatus == "Осиновен" || Model.PetStatus == "Намерени и загубени върнати вкъщи")
         {
             <div class="range spacing-55 range range-sm-center">
-                <h3 style="color:forestgreen">Този пост е маркиран като Осиновен/Върнат вкъщи</h3>
+                <h3 style="color:forestgreen">Този пост е маркиран като "@Model.PetStatus"</h3>
             </div>
         }
         else
@@ -59,7 +57,7 @@
                             <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" asp-area="" asp-controller="@Model.Category" asp-action="Edit" asp-route-id="@Model.PostId" data-wow-delay="0.2s" data-wow-duration=".75s" style="margin-top:0">Редактирай поста</a>
                         </div>
                         <div class="cell-xs-10 cell-sm-6 cell-md-8">
-                            <form method="post" id="changeStatus" asp-controller="@Model.Category" asp-action="ChangeStatus" asp-route-id="@Model.PostId"></form>
+                            <form method="post" id="changeStatus" asp-controller="Pet" asp-action="ChangeStatus" asp-route-id="@Model.PostId"></form>
                             <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" data-wow-delay="0.2s" data-wow-duration=".75s" data-toggle="modal" data-target="#modalChangeStatus" style="margin-top:0">Маркирай като осиновен/върнат вкъщи</a>
                         </div>
                     </div>
@@ -207,51 +205,7 @@
                     }
                 </div>
             </div>
-            <div class="cell-md-5 cell-lg-4">
-                <div class="range range-xs-center spacing-30">
-                    <div class="cell-xs-10 cell-sm-6 cell-md-12">
-                        <ul class="list-md">
-                            <li>
-                                <article class="post-preview">
-                                    <div class="unit unit-spacing-xs unit-horizontal unit-middle">
-                                        <div class="unit-left">
-                                            <img class="post-preview-image" src="images/news-1-103x60.jpg" alt="" width="103" height="60" />
-                                        </div>
-                                        <div class="unit-body">
-                                            <p class="post-preview-title"><a href="#">Wellness Care Plans for Your Pets and Their Benefitsli</a></p>
-                                        </div>
-                                    </div>
-                                </article>
-                            </li>
-                            <li>
-                                <article class="post-preview">
-                                    <div class="unit unit-spacing-xs unit-horizontal unit-middle">
-                                        <div class="unit-left">
-                                            <img class="post-preview-image" src="images/news-2-103x60.jpg" alt="" width="103" height="60" />
-                                        </div>
-                                        <div class="unit-body">
-                                            <p class="post-preview-title"><a href="#">Top 5 Most Affectionate Cats for You and Your Family</a></p>
-                                        </div>
-                                    </div>
-                                </article>
-                            </li>
-                            <li>
-                                <article class="post-preview">
-                                    <div class="unit unit-spacing-xs unit-horizontal unit-middle">
-                                        <div class="unit-left">
-                                            <img class="post-preview-image" src="images/news-3-103x60.jpg" alt="" width="103" height="60" />
-                                        </div>
-                                        <div class="unit-body">
-                                            <p class="post-preview-title"><a href="#">How Cats Can Improve Your Human Relationships</a></p>
-                                        </div>
-                                    </div>
-                                </article>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="cell-xs-10 cell-sm-6 cell-md-12"><a class="banner" href="#"><img src="images/banner 370x518.jpg" alt="" width="370" height="518" /></a></div>
-                </div>
-            </div>
+           
         </div>
     </div>
 </section>

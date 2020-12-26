@@ -113,23 +113,5 @@
                 return this.StatusCode(401);
             }
         }
-
-        [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> ChangeStatus(int id)
-        {
-            var user = await this.userManager.GetUserAsync(this.User);
-
-            if (await this.userService.IsUserPostAuthorized(id, user))
-            {
-                await this.postService.ChangeStatusAsync(id);
-
-                return this.Redirect($"/Search/SearchResults");
-            }
-            else
-            {
-                return this.StatusCode(401);
-            }
-        }
     }
 }

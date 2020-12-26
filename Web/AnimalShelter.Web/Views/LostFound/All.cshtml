@@ -3,10 +3,10 @@
 }
 <!-- Breadcrumbs & Page title-->
 <div class="page-title">
-    <div class="page-title-text"><span data-content-to="#found">Намерени</span><span data-content-to="#lost">Изгубени</span></div>
+    <div class="page-title-text"><span data-content-to="#found">Намерени</span><span data-content-to="#lost">Изгубени</span><span data-content-to="#backInHome">Върнати вкъщи</span></div>
     <ul class="breadcrumbs-custom">
-        <li><a href="index.html">Начало</a></li>
-        <li><a href="adopt-a-pet.html">Изгубени или намерени домашни любимци</a></li>
+        <li><a asp-controller="Home" asp-action="Index">Начало</a></li>
+        <li  class="active"><span> Изгубени или намерени домашни любимци</span></li>
         <li class="active"><span data-content-to="#found">Намерени</span><span data-content-to="#lost">Изгубени</span><span data-content-to="#backInHome">Върнати вкъщи</span></li>
     </ul>
 </div>

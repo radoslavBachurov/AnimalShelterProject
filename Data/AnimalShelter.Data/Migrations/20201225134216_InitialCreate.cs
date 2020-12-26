@@ -61,7 +61,7 @@ namespace AnimalShelter.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BankAccounts",
+                name: "DonateOrganisations",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -70,13 +70,12 @@ namespace AnimalShelter.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    VetClinic = table.Column<string>(nullable: true),
-                    Address = table.Column<string>(nullable: true),
-                    BankAccountNumber = table.Column<string>(nullable: true)
+                    Organisation = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BankAccounts", x => x.Id);
+                    table.PrimaryKey("PK_DonateOrganisations", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -258,6 +257,31 @@ namespace AnimalShelter.Data.Migrations
                         name: "FK_SuccessStories_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrganisationLinks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    LinkName = table.Column<string>(nullable: true),
+                    LinkHref = table.Column<string>(nullable: true),
+                    DonateOrganisationId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrganisationLinks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrganisationLinks_DonateOrganisations_DonateOrganisationId",
+                        column: x => x.DonateOrganisationId,
+                        principalTable: "DonateOrganisations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -452,8 +476,18 @@ namespace AnimalShelter.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BankAccounts_IsDeleted",
-                table: "BankAccounts",
+                name: "IX_DonateOrganisations_IsDeleted",
+                table: "DonateOrganisations",
+                column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrganisationLinks_DonateOrganisationId",
+                table: "OrganisationLinks",
+                column: "DonateOrganisationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrganisationLinks_IsDeleted",
+                table: "OrganisationLinks",
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
@@ -570,7 +604,7 @@ namespace AnimalShelter.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "BankAccounts");
+                name: "OrganisationLinks");
 
             migrationBuilder.DropTable(
                 name: "Pictures");
@@ -589,6 +623,9 @@ namespace AnimalShelter.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "DonateOrganisations");
 
             migrationBuilder.DropTable(
                 name: "PetPosts");

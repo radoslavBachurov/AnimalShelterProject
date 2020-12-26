@@ -157,18 +157,12 @@ namespace AnimalShelter.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("AnimalShelter.Data.Models.BankAccount", b =>
+            modelBuilder.Entity("AnimalShelter.Data.Models.DonateOrganisation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BankAccountNumber")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -176,20 +170,60 @@ namespace AnimalShelter.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("VetClinic")
+                    b.Property<string>("Organisation")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("BankAccounts");
+                    b.ToTable("DonateOrganisations");
+                });
+
+            modelBuilder.Entity("AnimalShelter.Data.Models.OrganisationLink", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DonateOrganisationId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LinkHref")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LinkName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DonateOrganisationId");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("OrganisationLinks");
                 });
 
             modelBuilder.Entity("AnimalShelter.Data.Models.PetPost", b =>
@@ -602,6 +636,13 @@ namespace AnimalShelter.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("AnimalShelter.Data.Models.OrganisationLink", b =>
+                {
+                    b.HasOne("AnimalShelter.Data.Models.DonateOrganisation", null)
+                        .WithMany("OrganisationLinks")
+                        .HasForeignKey("DonateOrganisationId");
                 });
 
             modelBuilder.Entity("AnimalShelter.Data.Models.PetPost", b =>
