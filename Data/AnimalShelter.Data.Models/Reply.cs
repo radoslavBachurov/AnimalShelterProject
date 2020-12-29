@@ -6,12 +6,16 @@
     {
         public string Text { get; set; }
 
+        public int? ParentId { get; set; }
+
+        public virtual Reply Parent { get; set; }
+
         public string UserId { get; set; }
 
-        public ApplicationUser User { get; set; }
+        public virtual ApplicationUser User { get; set; }
 
-        public int? PetPostId { get; set; }
+        public int PetPostId { get; set; }
 
-        public PetPost PetPost { get; set; }
+        public virtual PetPost PetPost { get; set; }
     }
 }

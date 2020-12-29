@@ -1,0 +1,38 @@
+﻿/* THE POPULAR RED NOTIFICATIONS COUNTER. */
+@media (max-width: 767px) {
+    #noti_Counter {
+        display: block;
+        position: absolute;
+        background: #E1141E;
+        color: #FFF;
+        font-size: 12px;
+        font-weight: normal;
+        padding: 1px 3px;
+        margin: -35px 0 0 90px;
+        border-radius: 2px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        z-index: 1;
+        /*# sourceMappingURL=style.css.map */
+    }
+
+}
+
+@media (min-width: 768px) {
+    #noti_Counter {
+        display: block;
+        position: absolute;
+        background: #E1141E;
+        color: #FFF;
+        font-size: 14px;
+        font-weight: normal;
+        padding: 10px 3px;
+        margin: -40px 0 0 15px;
+        border-radius: 2px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        z-index: 1;
+        /*# sourceMappingURL=style.css.map */
+    }
+
+}

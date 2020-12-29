@@ -31,7 +31,7 @@
                                 <p class="h2">живот</p>
                             </div>
                         </div>
-                        <p class="h3-alternate wow fadeInUpSmall" data-wow-delay=".1s" data-wow-duration=".75s">Направи дарение</p><a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" href="adopt-a-pet.html" data-wow-delay="0.2s" data-wow-duration=".75s">Дари</a>
+                        <p class="h3-alternate wow fadeInUpSmall" data-wow-delay=".1s" data-wow-duration=".75s">Направи дарение</p><a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" asp-controller="Donate" asp-action="All" data-wow-delay="0.2s" data-wow-duration=".75s">Дари</a>
                     </div>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                     <a class="btn btn-circle btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" asp-area="" asp-controller="Adopt" asp-action="Create" data-wow-delay="0.2s" data-wow-duration=".75s">Добави животно за осиновяване</a>
                 </div>
                 <div class="cell-xs-10 cell-sm-6 cell-md-6">
-                    <a class="btn btn-circle btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" asp-area="" asp-controller="Adopt" asp-action="Index" data-wow-delay="0.2s" data-wow-duration=".75s">Добави намерен/изгубен домашен любимец</a>
+                    <a class="btn btn-circle btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" asp-area="" asp-controller="LostFound" asp-action="Create" data-wow-delay="0.2s" data-wow-duration=".75s">Добави намерен/изгубен домашен любимец</a>
                 </div>
             </div>
         </div>
@@ -184,8 +184,6 @@
     </section>
 }
 
-
-
 <section class="bg-primary oh">
     <div class="shell">
         <div class="range range-custom-bordered-small">
@@ -211,7 +209,7 @@
                 <div class="col-decoration-skew">
                     <div class="col-decoration-skew-inner">
                         <h2>Не бъди</h2>
-                        <h5>безразличен</h5><a class="btn btn-trout-inverse btn-effect-anis btn-offset-medium" href="make-a-gift-online.html">дари сега</a>
+                        <h5>безразличен</h5><a class="btn btn-trout-inverse btn-effect-anis btn-offset-medium" asp-controller="Donate" asp-action="All">дари сега</a>
                     </div>
                 </div>
             </div>

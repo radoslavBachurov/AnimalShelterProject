@@ -4,6 +4,7 @@
 }
 @using AnimalShelter.Data.Models.Enums
 @model AnimalShelter.Web.ViewModels.User.UserViewModel
+
 <!-- Breadcrumbs & Page title-->
 <div class="page-title">
     <div class="page-title-text">Личен Профил на <span id="nickName">@Model.Nickname</span></div>
@@ -90,7 +91,7 @@
                             </div>
                             <div class="panel-collapse collapse in" id="accordion1Collapse1" role="tabpanel" aria-labelledby="accordion1Heading1">
                                 <div class="panel-body">
-                                    <form method="post" enctype="multipart/form-data">
+                                    <form id="uploadForm" method="post" enctype="multipart/form-data">
                                         <div asp-validation-summary="All" class="text-danger"></div>
                                         <div class="range range-sm-bottom spacing-20">
                                             <div class="cell-sm-6">
@@ -148,6 +149,12 @@
                                             </div>
                                         </div>
                                     </form>
+                                    @*<div class="progress-bar-bs progress-variant-primary" id="progressBar">
+                                        <p class="list-bars-item-header">Обновяване...</p>
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%"></div>
+                                        </div><span class="caption">85%</span>
+                                    </div>*@
                                 </div>
                             </div>
                         </div>

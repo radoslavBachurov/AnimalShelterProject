@@ -23,6 +23,8 @@ namespace AnimalShelter.Data.Models
             this.PostPictures = new HashSet<Picture>();
             this.LikedPosts = new HashSet<UserPetPostLikes>();
             this.LikedSuccessStoryPosts = new HashSet<UserSuccessStoryLikes>();
+            this.Replies = new HashSet<Reply>();
+            this.Answers = new HashSet<Answer>();
         }
 
         // Audit info
@@ -47,6 +49,8 @@ namespace AnimalShelter.Data.Models
 
         public DateTime DateOfBirth { get; set; }
 
+        public int AnswerCounter { get; set; }
+
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
@@ -66,5 +70,10 @@ namespace AnimalShelter.Data.Models
         public virtual ICollection<UserPetPostLikes> LikedPosts { get; set; }
 
         public virtual ICollection<UserSuccessStoryLikes> LikedSuccessStoryPosts { get; set; }
+
+        public virtual ICollection<Reply> Replies { get; set; }
+
+        public virtual ICollection<Answer> Answers { get; set; }
+
     }
 }

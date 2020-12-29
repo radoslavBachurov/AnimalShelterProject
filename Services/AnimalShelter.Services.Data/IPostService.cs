@@ -16,5 +16,7 @@
         Task UpdatePetPostAsync<T>(T input, string webRoot, string categoryName, IEnumerable<IFormFile> images, int id);
 
         Task ChangeStatusAsync(int id);
+
+        Task DeletePostAsync(int id);
     }
 }

@@ -52,5 +52,23 @@
                 return this.StatusCode(401);
             }
         }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            if (await this.userService.IsUserPostAuthorized(id, user))
+            {
+                await this.postService.DeletePostAsync(id);
+
+                return this.Redirect($"/Search/SearchResults");
+            }
+            else
+            {
+                return this.StatusCode(401);
+            }
+        }
     }
 }

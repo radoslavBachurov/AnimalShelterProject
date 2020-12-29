@@ -97,6 +97,7 @@
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IHappyStoriesService, HappyStoriesService>();
             services.AddTransient<IDonateService, DonateService>();
+            services.AddTransient<ICommentsService, CommentsService>();
             services.AddTransient<IViewRenderService, ViewRenderService>();
         }
 

@@ -1,9 +1,6 @@
 ﻿namespace AnimalShelter.Web.ViewModels.Contact
 {
-    using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Text;
 
     public class SendUsEmailFormInputModel
     {

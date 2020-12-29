@@ -6,6 +6,39 @@
 @model AnimalShelter.Web.ViewModels.Pet.PetProfileViewModel
 @{
     this.ViewData["Title"] = "Pet Profile";
+
+    async Task DisplayComments(int? parentId)
+    {
+        var comments = Model.Replies.Where(x => x.ParentId == parentId);
+
+        if (!comments.Any())
+        {
+            return;
+        }
+
+        @foreach (var reply in comments)
+        {
+            <!-- Comment-->
+            <article class="comment">
+                <div class="comment-avatar">
+                    <img src=@reply.UserProfilePicPath alt="" width="80" height="80" />
+                </div>
+                <div class="comment-body">
+                    <div class="comment-header">
+                        <p class="comment-title"><a asp-controller="User" asp-action="UserProfileGuest" asp-route-nickName=@reply.UsernickName>@reply.UsernickName</a></p>
+                        <time datetime="@reply.CreatedOn.ToString("O")"></time>
+                    </div>
+                    <div class="comment-text">
+                        <p>@reply.Text</p>
+                    </div>
+                    <div class="comment-footer"><a class="comment-link-reply" id="replyButton" onclick="replyAction(@reply.Id,`@parentId`,`@reply.UsernickName`)">Reply</a></div>
+                </div>
+            </article>
+            <div class="comment-group">
+                @{await DisplayComments(reply.Id);}
+            </div>
+        }
+    }
 }
 
 @if (TempData.ContainsKey("Message"))
@@ -14,13 +47,13 @@
 }
 
 <style>
-    #toProfile {
+    .toprofile {
         color: rgb(134, 115, 199);
     }
 
-        #toProfile:hover {
-            color: greenyellow;
-        }
+    #replyButton {
+        cursor: pointer;
+    }
 </style>
 
 <!-- Breadcrumbs & Page title-->
@@ -47,23 +80,6 @@
                 <h3 style="color:forestgreen">Този пост е маркиран като "@Model.PetStatus"</h3>
             </div>
         }
-        else
-        {
-            @if (Model.IsPostCreator || this.User.IsInRole(GlobalConstants.AdministratorRoleName) || this.User.IsInRole(GlobalConstants.ModeratorRoleName))
-            {
-                <div class="shell range spacing-55 range range-sm-center">
-                    <div class="group-xl group-middle">
-                        <div class="cell-xs-10 cell-sm-6 cell-md-8">
-                            <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" asp-area="" asp-controller="@Model.Category" asp-action="Edit" asp-route-id="@Model.PostId" data-wow-delay="0.2s" data-wow-duration=".75s" style="margin-top:0">Редактирай поста</a>
-                        </div>
-                        <div class="cell-xs-10 cell-sm-6 cell-md-8">
-                            <form method="post" id="changeStatus" asp-controller="Pet" asp-action="ChangeStatus" asp-route-id="@Model.PostId"></form>
-                            <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" data-wow-delay="0.2s" data-wow-duration=".75s" data-toggle="modal" data-target="#modalChangeStatus" style="margin-top:0">Маркирай като осиновен/върнат вкъщи</a>
-                        </div>
-                    </div>
-                </div>
-            }
-        }
         <ul class="post-meta">
             <li>
                 <span class="icon icon-xs icon-tan-hide material-icons-access_time"></span>
@@ -74,7 +90,7 @@
             <li><span class="icon icon-xs icon-tan-hide material-icons-place"></span><span>@Model.Location</span></li>
             <li><span class="icon icon-xs icon-tan-hide mdi mdi-thumb-up"></span><span id="likesCount">@Model.Likes</span></li>
             <li><span class="icon icon-xs icon-tan-hide mdi mdi-comment-outline"></span><span>6</span></li>
-            <li><span class="icon icon-xs icon-tan-hide mdi mdi-account"></span><a id="toProfile" asp-controller="User" asp-action="UserProfileGuest" asp-route-nickName=@Model.CreatorNickname>@Model.CreatorNickname</a></li>
+            <li><span class="icon icon-xs icon-tan-hide mdi mdi-account"></span><span class="toprofile"><a asp-controller="User" asp-action="UserProfileGuest" asp-route-nickName=@Model.CreatorNickname>@Model.CreatorNickname</a></span></li>
         </ul>
         @if (this.SignInManager.IsSignedIn(this.User))
         {
@@ -138,62 +154,32 @@
 <section class="section-sm bg-white text-left">
     <div class="shell">
         <div class="range spacing-55">
-
             <div class="cell-md-7 cell-lg-8">
                 <div class="blog-main">
                     @if (this.SignInManager.IsSignedIn(this.User))
                     {
                         <div class="blog-main-item">
-                            <h4>Comments</h4>
+                            <h4>Коментари</h4>
                             <div class="comment-group">
-
-                                <!-- Comment-->
-                                <article class="comment">
-                                    <div class="comment-avatar">
-                                        <img src="images/theresa-lane-80x80.jpg" alt="" width="80" height="80" />
-                                    </div>
-                                    <div class="comment-body">
-                                        <div class="comment-header">
-                                            <p class="comment-title">Theresa Lane</p><span class="comment-time">2 days ago</span>
-                                        </div>
-                                        <div class="comment-text">
-                                            <p>Thank you for your article, I think it can be very useful to volunteers of Animal Shelter.</p>
-                                        </div>
-                                        <div class="comment-footer"><a class="comment-link-reply" href="#">Reply</a></div>
-                                    </div>
-                                </article>
-                                <div class="comment-group">
-                                    <!-- Comment-->
-                                    <article class="comment">
-                                        <div class="comment-avatar">
-                                            <img src="images/ronald-austin-80x80.jpg" alt="" width="80" height="80" />
-                                        </div>
-                                        <div class="comment-body">
-                                            <div class="comment-header">
-                                                <p class="comment-title">Ronald Austin</p><span class="comment-time">2 days ago</span>
-                                            </div>
-                                            <div class="comment-text">
-                                                <p>Thank you!</p>
-                                            </div>
-                                            <div class="comment-footer"><a class="comment-link-reply" href="#">Reply</a></div>
-                                        </div>
-                                    </article>
-                                </div>
+                                @{await DisplayComments(null);}
                             </div>
                         </div>
                         <div class="blog-main-item">
-                            <h4>Send a Comment</h4>
+                            <h4>Напиши коментар</h4>
                             <!-- RD Mailform-->
-                            <form class="rd-mailform form-wide" data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php">
-                                <div class="range range-sm-bottom spacing-30">
-                                    <div class="cell-xs-12">
+                            <form method="post" asp-controller="Comments" asp-action="Create" id="CommentForm">
+                                <div class="range range-sm-bottom spacing-20">
+                                    <input type="hidden" name="PostId" value="@Model.PostId" />
+                                    <input type="hidden" name="ParentId" value="0" />
+                                    <input type="hidden" name="AnswerTo" value="" />
+                                    <div class="cell-sm-12">
                                         <div class="form-group">
-                                            <textarea class="form-control" id="comment-message" name="message" data-constraints="@@Required"></textarea>
-                                            <label class="form-label" for="comment-message">Message</label>
+                                            <textarea class="form-control" maxlength="998" name="Text" id="Description"></textarea>
+                                            <span id="charsLeft"></span>
                                         </div>
                                     </div>
                                     <div class="cell-sm-6">
-                                        <button class="btn btn-primary btn-effect-ujarak btn-block" type="submit">Submit</button>
+                                        <button class="btn btn-primary btn-effect-ujarak btn-block" type="submit">Изпрати</button>
                                     </div>
                                 </div>
                             </form>
@@ -205,12 +191,37 @@
                     }
                 </div>
             </div>
-           
+            <!-- Left -->
+            @if (Model.PetStatus != "Осиновен" && Model.PetStatus != "Намерени и загубени върнати вкъщи")
+            {
+                @if (Model.IsPostCreator || this.User.IsInRole(GlobalConstants.AdministratorRoleName) || this.User.IsInRole(GlobalConstants.ModeratorRoleName))
+                {
+                    <div class="cell-md-5 cell-lg-4">
+                        <div class="range range-xs-center spacing-30">
+                            <div class="cell-xs-10 cell-sm-6 cell-md-12">
+                                <ul class="list-md">
+                                    <li>
+                                        <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" asp-area="" asp-controller="@Model.Category" asp-action="Edit" asp-route-id="@Model.PostId" data-wow-delay="0.2s" data-wow-duration=".75s" style="margin-top:0">Редактирай поста</a>
+                                    </li>
+                                    <li>
+                                        <form method="post" id="changeStatus" asp-controller="Pet" asp-action="ChangeStatus" asp-route-id="@Model.PostId"></form>
+                                        <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" data-wow-delay="0.2s" data-wow-duration=".75s" data-toggle="modal" data-target="#modalChangeStatus" style="margin-top:0">Маркирай като осиновен/върнат вкъщи</a>
+                                    </li>
+                                    <li>
+                                        <form method="post" id="DeletePost" asp-controller="Pet" asp-action="Delete" asp-route-id="@Model.PostId"></form>
+                                        <a class="btn btn-danger" data-toggle="modal" data-target="#modalDelete">Изтрии поста</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
         </div>
     </div>
 </section>
 
-<!-- Modal -->
+<!-- Modal ChangeStatus-->
 <div class="modal" id="modalChangeStatus" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -233,8 +244,33 @@
     </div>
 </div>
 
+<!-- Modal ChangeStatus-->
+<div class="modal" id="modalDelete" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Потвърди заявката</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Сигурен ли сте ,че искате да изтриете поста?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Не</button>
+                <a class="btn btn-primary" style="margin-top:0px" onclick="DeletePost.submit()">Да</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts{
     <script src="~/js/pagesManipulation/likeController.js"></script>
+    <script src="~/js/pagesManipulation/descriptionCharactersCounter.js"></script>
+    <script src="~/js/pagesManipulation/AddValuesToReplyForm.js"></script>
 }
 
 

@@ -30,7 +30,7 @@ function getLastPage(event, lastPage) {
 }
 
 async function loadAnimals(page, category) {
-
+  
     if (page) {
         currentPage = page;
     }
@@ -53,3 +53,4 @@ async function loadAnimals(page, category) {
         .then(responce => responce.json())
         .then(data => listPostCreatorHorizontal(data.animals, data));
 }
+

@@ -19,6 +19,49 @@ namespace AnimalShelter.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("AnimalShelter.Data.Models.Answer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AnswerFromNickname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AnswerToId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PostName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("ReplyToComment")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnswerToId");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("Answer");
+                });
+
             modelBuilder.Entity("AnimalShelter.Data.Models.ApplicationRole", b =>
                 {
                     b.Property<string>("Id")
@@ -69,6 +112,9 @@ namespace AnimalShelter.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AnswerCounter")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -182,9 +228,14 @@ namespace AnimalShelter.Data.Migrations
                     b.Property<string>("Organisation")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("DonateOrganisations");
                 });
@@ -202,7 +253,7 @@ namespace AnimalShelter.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("DonateOrganisationId")
+                    b.Property<int>("DonateOrganisationId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
@@ -364,7 +415,10 @@ namespace AnimalShelter.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("PetPostId")
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PetPostId")
                         .HasColumnType("int");
 
                     b.Property<string>("Text")
@@ -376,6 +430,8 @@ namespace AnimalShelter.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
+
+                    b.HasIndex("ParentId");
 
                     b.HasIndex("PetPostId");
 
@@ -638,11 +694,27 @@ namespace AnimalShelter.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("AnimalShelter.Data.Models.Answer", b =>
+                {
+                    b.HasOne("AnimalShelter.Data.Models.ApplicationUser", "AnswerTo")
+                        .WithMany("Answers")
+                        .HasForeignKey("AnswerToId");
+                });
+
+            modelBuilder.Entity("AnimalShelter.Data.Models.DonateOrganisation", b =>
+                {
+                    b.HasOne("AnimalShelter.Data.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("AnimalShelter.Data.Models.OrganisationLink", b =>
                 {
-                    b.HasOne("AnimalShelter.Data.Models.DonateOrganisation", null)
+                    b.HasOne("AnimalShelter.Data.Models.DonateOrganisation", "DonateOrganisation")
                         .WithMany("OrganisationLinks")
-                        .HasForeignKey("DonateOrganisationId");
+                        .HasForeignKey("DonateOrganisationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("AnimalShelter.Data.Models.PetPost", b =>
@@ -673,12 +745,18 @@ namespace AnimalShelter.Data.Migrations
 
             modelBuilder.Entity("AnimalShelter.Data.Models.Reply", b =>
                 {
+                    b.HasOne("AnimalShelter.Data.Models.Reply", "Parent")
+                        .WithMany()
+                        .HasForeignKey("ParentId");
+
                     b.HasOne("AnimalShelter.Data.Models.PetPost", "PetPost")
                         .WithMany("Replies")
-                        .HasForeignKey("PetPostId");
+                        .HasForeignKey("PetPostId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("AnimalShelter.Data.Models.ApplicationUser", "User")
-                        .WithMany()
+                        .WithMany("Replies")
                         .HasForeignKey("UserId");
                 });
 

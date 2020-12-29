@@ -1,5 +1,7 @@
 ﻿namespace AnimalShelter.Services.Data.AdministrationServices
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using AnimalShelter.Data.Common.Repositories;
@@ -16,12 +18,20 @@
             this.donatePostsRepository = donatePostsRepository;
         }
 
-        public async Task AddDonateOrganisationAsync(CreateDonateOrganisationInputModel input)
+        public async Task AddDonateOrganisationAsync(CreateDonateOrganisationInputModel input, string userId)
         {
             var newOrganisation = AutoMapperConfig.MapperInstance.Map<DonateOrganisation>(input);
+            newOrganisation.UserId = userId;
 
             await this.donatePostsRepository.AddAsync(newOrganisation);
             await this.donatePostsRepository.SaveChangesAsync();
+        }
+
+        public List<T> GetAllOrganisations<T>()
+        {
+            var viewModel = this.donatePostsRepository.AllAsNoTracking().To<T>().ToList();
+
+            return viewModel;
         }
     }
 }

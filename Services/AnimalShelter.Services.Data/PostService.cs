@@ -102,6 +102,14 @@
             await this.petPostsRepository.SaveChangesAsync();
         }
 
+        public async Task DeletePostAsync(int id)
+        {
+            var deleteModel = this.petPostsRepository.All().FirstOrDefault(x => x.Id == id);
+
+            this.petPostsRepository.Delete(deleteModel);
+            await this.petPostsRepository.SaveChangesAsync();
+        }
+
         private static string CreatePathInRoot(string categoryName, string nickName)
         {
             return $"/UserImages/{categoryName}/{nickName}/";

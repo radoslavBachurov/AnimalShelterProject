@@ -53,29 +53,12 @@ namespace AnimalShelter.Data.Migrations
                     Living = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Sex = table.Column<int>(nullable: false),
-                    DateOfBirth = table.Column<DateTime>(nullable: false)
+                    DateOfBirth = table.Column<DateTime>(nullable: false),
+                    AnswerCounter = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DonateOrganisations",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    ModifiedOn = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
-                    Organisation = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DonateOrganisations", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -113,6 +96,33 @@ namespace AnimalShelter.Data.Migrations
                         name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Answer",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    ReplyToComment = table.Column<bool>(nullable: false),
+                    AnswerFromNickname = table.Column<string>(nullable: true),
+                    AnswerToId = table.Column<string>(nullable: true),
+                    PostName = table.Column<string>(nullable: true),
+                    PostId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Answer", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Answer_AspNetUsers_AnswerToId",
+                        column: x => x.AnswerToId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -203,6 +213,31 @@ namespace AnimalShelter.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DonateOrganisations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    Organisation = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DonateOrganisations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DonateOrganisations_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PetPosts",
                 columns: table => new
                 {
@@ -273,7 +308,7 @@ namespace AnimalShelter.Data.Migrations
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     LinkName = table.Column<string>(nullable: true),
                     LinkHref = table.Column<string>(nullable: true),
-                    DonateOrganisationId = table.Column<int>(nullable: true)
+                    DonateOrganisationId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -297,12 +332,19 @@ namespace AnimalShelter.Data.Migrations
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Text = table.Column<string>(nullable: true),
+                    ParentId = table.Column<int>(nullable: true),
                     UserId = table.Column<string>(nullable: true),
-                    PetPostId = table.Column<int>(nullable: true)
+                    PetPostId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Replies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Replies_Replies_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "Replies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Replies_PetPosts_PetPostId",
                         column: x => x.PetPostId,
@@ -427,6 +469,16 @@ namespace AnimalShelter.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Answer_AnswerToId",
+                table: "Answer",
+                column: "AnswerToId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Answer_IsDeleted",
+                table: "Answer",
+                column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
                 column: "RoleId");
@@ -481,6 +533,11 @@ namespace AnimalShelter.Data.Migrations
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
+                name: "IX_DonateOrganisations_UserId",
+                table: "DonateOrganisations",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OrganisationLinks_DonateOrganisationId",
                 table: "OrganisationLinks",
                 column: "DonateOrganisationId");
@@ -529,6 +586,11 @@ namespace AnimalShelter.Data.Migrations
                 name: "IX_Replies_IsDeleted",
                 table: "Replies",
                 column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Replies_ParentId",
+                table: "Replies",
+                column: "ParentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Replies_PetPostId",
@@ -588,6 +650,9 @@ namespace AnimalShelter.Data.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Answer");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 

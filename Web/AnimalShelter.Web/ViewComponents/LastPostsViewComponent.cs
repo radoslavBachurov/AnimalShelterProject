@@ -22,9 +22,10 @@
         public IViewComponentResult Invoke()
         {
             var randomPosts = this.petPostsRepository.All()
-              .Where(x => x.IsApproved && x.PetStatus == PetStatus.ForAdoption).To<LastPostViewComponentModel>()
+              .Where(x => x.IsApproved && x.PetStatus == PetStatus.ForAdoption)
               .OrderByDescending(x => x.Id)
-              .Take(6).ToList();
+              .Take(6)
+              .To<LastPostViewComponentModel>().ToList();
 
             return this.View(randomPosts);
         }

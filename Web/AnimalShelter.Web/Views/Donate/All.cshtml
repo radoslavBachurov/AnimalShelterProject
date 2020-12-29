@@ -1,0 +1,56 @@
+﻿@using AnimalShelter.Web.ViewModels.Administration.Donate
+@model List<DonateOrganisationUserViewModel>
+
+@{
+    this.ViewData["Title"] = "Donate Organisations";
+}
+<!-- Breadcrumbs & Page title-->
+<div class="page-title">
+    <div class="page-title-text">Организации</div>
+    <ul class="breadcrumbs-custom">
+        <li><a asp-controller="Home" asp-action="Index">Начало</a></li>
+        <li class="active">Организации</li>
+    </ul>
+</div>
+<!-- News & Events-->
+<section class="section-md section-md-alternate bg-white text-center">
+    <div class="shell">
+        <div class="range range-sm-center">
+            <div class="cell-sm-10 cell-md-10 cell-lg-9">
+                <h4>Организации</h4>
+                <!-- Bootstrap collapse-->
+                <div class="panel-group panel-group-custom panel-group-corporate" id="accordion1" role="tablist">
+                    @for (int i = 0; i < Model.Count(); i++)
+                    {
+                        <!-- Bootstrap panel-->
+                        <div class="panel panel-custom panel-corporate">
+                            <div class="panel-heading" id="accordion1Heading@(i+1)" role="tab">
+                                <div class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion1" href="#accordion1Collapse@(i+1)" aria-controls="accordion1Collapse@(i+1)" aria-expanded="false" class="collapsed">
+                                        @Model[i].Organisation
+                                        <div class="panel-arrow"></div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="panel-collapse collapse" id="accordion1Collapse@(i+1)" role="tabpanel" aria-expanded="false" aria-labelledby="accordion1Heading@(i+1)">
+                                <div class="panel-body">
+                                    <p>@Model[i].Description</p>
+                                    @foreach (var link in Model[i].OrganisationLinks)
+                                    {
+                                        <div  class="range">
+                                            <a class="btn btn-icon btn-icon-right btn-primary" href=@link.LinkHref target="_blank" rel="noreferrer noopener">Към @link.LinkName</a>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+

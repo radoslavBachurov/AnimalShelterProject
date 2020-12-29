@@ -57,7 +57,20 @@ var userAgent = navigator.userAgent.toLowerCase(),
  * Initialize All Scripts
  */
 $document.ready(function () {
+    //DateTime converter to currentTime
+    $(function () {
+        moment.locale("bg");
+        $("time").each(function (i, e) {
+            const dateTimeValue = $(e).attr("datetime");
+            if (!dateTimeValue) {
+                return;
+            }
 
+            const time = moment.utc(dateTimeValue).local();
+            $(e).html(time.format("llll"));
+            $(e).attr("title", $(e).attr("datetime"));
+        });
+    });
     /**
      * getSwiperHeight
      * @description  calculate the height of swiper slider basing on data attr

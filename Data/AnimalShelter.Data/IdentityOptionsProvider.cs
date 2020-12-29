@@ -13,7 +13,8 @@
             //options.Password.RequireNonAlphanumeric = false;
             //options.Password.RequiredLength = 6;
             //options.Lockout.DefaultLockoutTimeSpan = new TimeSpan(0, 15, 0);
-            //options.Lockout.MaxFailedAccessAttempts = 20;
+            options.Lockout.MaxFailedAccessAttempts = 2;
+            options.Lockout.AllowedForNewUsers = true;
             //options.User.RequireUniqueEmail = false;
 
             options.Password.RequireDigit = false;
