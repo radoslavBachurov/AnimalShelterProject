@@ -24,7 +24,6 @@ namespace AnimalShelter.Data.Models
             this.LikedPosts = new HashSet<UserPetPostLikes>();
             this.LikedSuccessStoryPosts = new HashSet<UserSuccessStoryLikes>();
             this.Replies = new HashSet<Reply>();
-            this.Answers = new HashSet<Answer>();
         }
 
         // Audit info
@@ -72,8 +71,5 @@ namespace AnimalShelter.Data.Models
         public virtual ICollection<UserSuccessStoryLikes> LikedSuccessStoryPosts { get; set; }
 
         public virtual ICollection<Reply> Replies { get; set; }
-
-        public virtual ICollection<Answer> Answers { get; set; }
-
     }
 }

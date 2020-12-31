@@ -1,24 +1,29 @@
 ﻿@model AnimalShelter.Web.ViewModels.ViewComponents.NotificationViewComponentModel
 
 <li>
-    <a class="icon icon-xs icon-tan-hide material-icons-notifications_active"></a>
+    <a onmouseover="clearEvent()" class="icon icon-xs icon-tan-hide material-icons-notifications_active"></a>
+    <form style="display:none" id="clearFormAFT" method="POST"></form>
     @if (Model.AnswerCounter > 0)
     {
         <div id="noti_Counter">@Model.AnswerCounter</div>
     }
-    <ul id="notiDrop" class="rd-navbar-dropdown tabs-nav">
-        @for (int i = 0; i < Model.AnswerCounter; i++)
+    <ul id="notiDrop" class="rd-navbar-dropdown tabs-nav" style="@(Model.Notifications.Count() > 5 ? "overflow-y:scroll;" : "") @(Model.Notifications.Count() > 5 ? $"height:450px;" : "")">
+        @for (int i = 0; i < Model.Notifications.Count(); i++)
         {
             <li>
-                <a asp-controller="Pet" asp-action="PetProfile" asp-route-id=@Model.Notifications[i].PostId>@(Model.Notifications[i].ReplyToComment?$"Имате отговор на ваш коментар в пост за {Model.Notifications[i].PostName}" : $"Имате нов коментар в вашият пост за {Model.Notifications[i].PostName}")</a>
+                <a class="active" asp-controller="Pet" asp-action="PetProfile" asp-route-id=@Model.Notifications[i].PostId>@(Model.Notifications[i].IsReplyToComment ? $"Имате отговор на ваш коментар в пост за {Model.Notifications[i].PostName} от {Model.Notifications[i].ReplyCreator}" : $"Имате нов коментар в вашият пост за {Model.Notifications[i].PostName} от {Model.Notifications[i].ReplyCreator}")</a>
             </li>
         }
+        <li>
+            <a asp-controller="Pet" asp-action="PetProfile">Виж всички</a>
+        </li>
     </ul>
 </li>
 
+<script src="~/js/pagesManipulation/notificationHandler.js"></script>
 
-<script>
-</script>
+
+
 
 
 

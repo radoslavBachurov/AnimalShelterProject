@@ -101,33 +101,6 @@ namespace AnimalShelter.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Answer",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    ModifiedOn = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
-                    ReplyToComment = table.Column<bool>(nullable: false),
-                    AnswerFromNickname = table.Column<string>(nullable: true),
-                    AnswerToId = table.Column<string>(nullable: true),
-                    PostName = table.Column<string>(nullable: true),
-                    PostId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Answer", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Answer_AspNetUsers_AnswerToId",
-                        column: x => x.AnswerToId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
@@ -334,7 +307,10 @@ namespace AnimalShelter.Data.Migrations
                     Text = table.Column<string>(nullable: true),
                     ParentId = table.Column<int>(nullable: true),
                     UserId = table.Column<string>(nullable: true),
-                    PetPostId = table.Column<int>(nullable: false)
+                    PostCreatorId = table.Column<string>(nullable: true),
+                    RepliedToUserId = table.Column<string>(nullable: true),
+                    PostId = table.Column<int>(nullable: false),
+                    IsReplyToComment = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -346,8 +322,8 @@ namespace AnimalShelter.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Replies_PetPosts_PetPostId",
-                        column: x => x.PetPostId,
+                        name: "FK_Replies_PetPosts_PostId",
+                        column: x => x.PostId,
                         principalTable: "PetPosts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -469,16 +445,6 @@ namespace AnimalShelter.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Answer_AnswerToId",
-                table: "Answer",
-                column: "AnswerToId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Answer_IsDeleted",
-                table: "Answer",
-                column: "IsDeleted");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
                 column: "RoleId");
@@ -593,9 +559,9 @@ namespace AnimalShelter.Data.Migrations
                 column: "ParentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Replies_PetPostId",
+                name: "IX_Replies_PostId",
                 table: "Replies",
-                column: "PetPostId");
+                column: "PostId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Replies_UserId",
@@ -650,9 +616,6 @@ namespace AnimalShelter.Data.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Answer");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 

@@ -1,13 +1,16 @@
 ﻿namespace AnimalShelter.Services.Data
 {
-    using AnimalShelter.Data.Models;
-    using AnimalShelter.Web.ViewModels.User;
-    using Microsoft.AspNetCore.Http;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using AnimalShelter.Data.Models;
+    using AnimalShelter.Web.ViewModels.User;
+    using Microsoft.AspNetCore.Http;
+
     public interface IUserService
     {
+        Task ClearNotificationsAsync(string userId);
+
         UserViewModel GetUserProfile(string userId);
 
         Task<bool> IsUserPostAuthorized(int postId, ApplicationUser user);

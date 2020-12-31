@@ -14,7 +14,6 @@
 
         public CommentsService(
             IDeletableEntityRepository<Reply> replyPostsRepository,
-            IDeletableEntityRepository<Answer> answerPostsRepository,
             IDeletableEntityRepository<ApplicationUser> userRepository,
             IDeletableEntityRepository<PetPost> postRepository)
         {
@@ -26,45 +25,44 @@
         public async Task CreateAsync(int postId, ApplicationUser currentUser, string text, string answerToNickName, int? parentId = null)
         {
             var postCreatorUserId = this.postRepository.All().Where(x => x.Id == postId).FirstOrDefault().UserId;
-            var replyToPostCreator = this.userRepository.All().Where(x => x.Id == postCreatorUserId).FirstOrDefault();
+            var postCreatorUser = this.userRepository.All().Where(x => x.Id == postCreatorUserId).FirstOrDefault();
 
-            if (replyToPostCreator.Id != currentUser.Id)
+            var answeredToCommentUser = this.userRepository.All().Where(x => x.Nickname == answerToNickName).FirstOrDefault();
+
+            var newReplytoCreator = new Reply()
             {
-                var newAnswertoCreator = new Answer()
-                {
-                    PostId = postId,
-                    AnswerToId = replyToPostCreator.Id,
-                    ReplyToComment = false,
-                };
-
-                replyToPostCreator.Answers.Add(newAnswertoCreator);
-                replyToPostCreator.AnswerCounter++;
-            }
-
-            if (answerToNickName != null)
-            {
-                var answeredToCommentUser = this.userRepository.All().Where(x => x.Nickname == answerToNickName).FirstOrDefault();
-
-                var newAnswertoComment = new Answer()
-                {
-                    PostId = postId,
-                    AnswerToId = answeredToCommentUser.Id,
-                    ReplyToComment = true,
-                };
-
-                answeredToCommentUser.Answers.Add(newAnswertoComment);
-                answeredToCommentUser.AnswerCounter++;
-            }
-
-            var newReply = new Reply()
-            {
-                PetPostId = postId,
-                Text = text,
+                PostId = postId,
                 UserId = currentUser.Id,
+                IsReplyToComment = answerToNickName != null ? true : false,
                 ParentId = parentId,
+                Text = text,
+                PostCreatorId = postCreatorUserId != currentUser.Id ? postCreatorUserId : null,
+                RepliedToUserId = answeredToCommentUser != null ? answeredToCommentUser.Id : null,
             };
 
-            await this.replyPostsRepository.AddAsync(newReply);
+            if (answeredToCommentUser != null)
+            {
+                if (postCreatorUserId == answeredToCommentUser.Id)
+                {
+                    postCreatorUser.AnswerCounter++;
+                }
+                else
+                {
+                    if (postCreatorUserId != currentUser.Id)
+                    {
+                        postCreatorUser.AnswerCounter++;
+                    }
+
+                    answeredToCommentUser.AnswerCounter++;
+                }
+            }
+            else if (postCreatorUserId != currentUser.Id)
+            {
+                postCreatorUser.AnswerCounter++;
+            }
+
+            await this.replyPostsRepository.AddAsync(newReplytoCreator);
+
             await this.replyPostsRepository.SaveChangesAsync();
             await this.userRepository.SaveChangesAsync();
         }
@@ -73,7 +71,7 @@
         {
             var result = this.replyPostsRepository.AllAsNoTracking()
                 .Where(x => x.Id == commentId)
-                .Select(x => x.PetPostId)
+                .Select(x => x.PostId)
                 .FirstOrDefault();
 
             return result == postId ? true : false;

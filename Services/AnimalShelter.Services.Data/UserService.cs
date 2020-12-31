@@ -1,6 +1,5 @@
 ﻿namespace AnimalShelter.Services.Data
 {
-    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -166,6 +165,14 @@
                 .FirstOrDefault();
 
             return viewModel;
+        }
+
+        public async Task ClearNotificationsAsync(string userId)
+        {
+            var user = this.userRepository.All().Where(x => x.Id == userId).FirstOrDefault();
+            user.AnswerCounter = 0;
+
+            await this.userRepository.SaveChangesAsync();
         }
     }
 }

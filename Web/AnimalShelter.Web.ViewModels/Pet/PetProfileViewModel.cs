@@ -47,7 +47,7 @@
             configuration.CreateMap<PetPost, PetProfileViewModel>()
                 .ForMember(x => x.CreatedOn, opt => opt.MapFrom(x => x.CreatedOn.Date.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)))
                 .ForMember(x => x.Pictures, opt => opt.MapFrom(x => x.PostPictures))
-                .ForMember(x => x.Replies, opt => opt.MapFrom(x => x.Replies))
+                .ForMember(x => x.Replies, opt => opt.MapFrom(x => x.Replies.OrderByDescending(x => x.Id)))
                 .ForMember(x => x.PostId, opt => opt.MapFrom(x => x.Id))
                 .ForMember(x => x.PetStatus, opt => opt.MapFrom(x => EnumHelper<PetStatus>.GetDisplayValue(x.PetStatus)))
                 .ForMember(x => x.Sex, opt => opt.MapFrom(x => EnumHelper<Sex>.GetDisplayValue(x.Sex)))

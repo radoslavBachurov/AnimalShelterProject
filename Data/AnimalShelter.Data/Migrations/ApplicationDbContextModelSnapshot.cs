@@ -19,49 +19,6 @@ namespace AnimalShelter.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("AnimalShelter.Data.Models.Answer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AnswerFromNickname")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AnswerToId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PostName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("ReplyToComment")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AnswerToId");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.ToTable("Answer");
-                });
-
             modelBuilder.Entity("AnimalShelter.Data.Models.ApplicationRole", b =>
                 {
                     b.Property<string>("Id")
@@ -412,14 +369,23 @@ namespace AnimalShelter.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsReplyToComment")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("ParentId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PetPostId")
+                    b.Property<string>("PostCreatorId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PostId")
                         .HasColumnType("int");
+
+                    b.Property<string>("RepliedToUserId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
@@ -433,7 +399,7 @@ namespace AnimalShelter.Data.Migrations
 
                     b.HasIndex("ParentId");
 
-                    b.HasIndex("PetPostId");
+                    b.HasIndex("PostId");
 
                     b.HasIndex("UserId");
 
@@ -694,13 +660,6 @@ namespace AnimalShelter.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("AnimalShelter.Data.Models.Answer", b =>
-                {
-                    b.HasOne("AnimalShelter.Data.Models.ApplicationUser", "AnswerTo")
-                        .WithMany("Answers")
-                        .HasForeignKey("AnswerToId");
-                });
-
             modelBuilder.Entity("AnimalShelter.Data.Models.DonateOrganisation", b =>
                 {
                     b.HasOne("AnimalShelter.Data.Models.ApplicationUser", "User")
@@ -749,9 +708,9 @@ namespace AnimalShelter.Data.Migrations
                         .WithMany()
                         .HasForeignKey("ParentId");
 
-                    b.HasOne("AnimalShelter.Data.Models.PetPost", "PetPost")
+                    b.HasOne("AnimalShelter.Data.Models.PetPost", "Post")
                         .WithMany("Replies")
-                        .HasForeignKey("PetPostId")
+                        .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 

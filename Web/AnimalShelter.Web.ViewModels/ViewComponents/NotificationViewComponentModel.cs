@@ -7,16 +7,10 @@
     using AnimalShelter.Services.Mapping;
     using AutoMapper;
 
-    public class NotificationViewComponentModel : IMapFrom<ApplicationUser>, IHaveCustomMappings
+    public class NotificationViewComponentModel : IMapFrom<ApplicationUser>
     {
         public int AnswerCounter { get; set; }
 
         public List<RepliesViewComponentModel> Notifications { get; set; }
-
-        public void CreateMappings(IProfileExpression configuration)
-        {
-            configuration.CreateMap<ApplicationUser, NotificationViewComponentModel>()
-            .ForMember(x => x.Notifications, opt => opt.MapFrom(x => x.Answers.OrderByDescending(x => x.Id).Take(40)));
-        }
     }
 }

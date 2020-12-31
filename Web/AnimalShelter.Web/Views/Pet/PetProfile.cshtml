@@ -159,12 +159,6 @@
                     @if (this.SignInManager.IsSignedIn(this.User))
                     {
                         <div class="blog-main-item">
-                            <h4>Коментари</h4>
-                            <div class="comment-group">
-                                @{await DisplayComments(null);}
-                            </div>
-                        </div>
-                        <div class="blog-main-item">
                             <h4>Напиши коментар</h4>
                             <!-- RD Mailform-->
                             <form method="post" asp-controller="Comments" asp-action="Create" id="CommentForm">
@@ -183,6 +177,12 @@
                                     </div>
                                 </div>
                             </form>
+                        </div>
+                        <div class="blog-main-item">
+                            <h4>Коментари</h4>
+                            <div class="comment-group">
+                                @{await DisplayComments(null);}
+                            </div>
                         </div>
                     }
                     else
@@ -270,7 +270,7 @@
 @section Scripts{
     <script src="~/js/pagesManipulation/likeController.js"></script>
     <script src="~/js/pagesManipulation/descriptionCharactersCounter.js"></script>
-    <script src="~/js/pagesManipulation/AddValuesToReplyForm.js"></script>
+    <script src="~/js/pagesManipulation/addValuesToReplyForm.js"></script>
 }
 
 

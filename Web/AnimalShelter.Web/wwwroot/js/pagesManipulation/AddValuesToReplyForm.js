@@ -14,6 +14,6 @@
     $("#CommentForm input[name='ParentId']").val(atachTo);
 
     $([document.documentElement, document.body]).animate({
-        scrollTop: $("#CommentForm").offset().top
+        scrollTop: $("#CommentForm").offset().top -200
     }, 1000);
 }

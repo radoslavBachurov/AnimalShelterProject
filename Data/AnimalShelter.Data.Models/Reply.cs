@@ -14,8 +14,14 @@
 
         public virtual ApplicationUser User { get; set; }
 
-        public int PetPostId { get; set; }
+        public string PostCreatorId { get; set; }
 
-        public virtual PetPost PetPost { get; set; }
+        public string RepliedToUserId { get; set; }
+
+        public int PostId { get; set; }
+
+        public virtual PetPost Post { get; set; }
+
+        public bool IsReplyToComment { get; set; }
     }
 }

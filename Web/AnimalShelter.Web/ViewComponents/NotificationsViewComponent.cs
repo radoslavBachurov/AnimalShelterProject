@@ -13,13 +13,16 @@
     public class NotificationsViewComponent : ViewComponent
     {
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
+        private readonly IDeletableEntityRepository<Reply> replyRepository;
         private readonly UserManager<ApplicationUser> userManager;
 
         public NotificationsViewComponent(
             IDeletableEntityRepository<ApplicationUser> userRepository,
+            IDeletableEntityRepository<Reply> replyRepository,
             UserManager<ApplicationUser> userManager)
         {
             this.userRepository = userRepository;
+            this.replyRepository = replyRepository;
             this.userManager = userManager;
         }
 
@@ -34,6 +37,11 @@
                                                      .Where(x => x.Id == user.Id)
                                                      .To<NotificationViewComponentModel>()
                                                      .FirstOrDefault();
+
+                newNotifications.Notifications = this.replyRepository.AllAsNoTracking()
+                                                                     .Where(x => x.PostCreatorId == user.Id || x.RepliedToUserId == user.Id)
+                                                                     .OrderByDescending(x => x.Id).Take(20).To<RepliesViewComponentModel>()
+                                                                     .ToList();
             }
 
             return this.View(newNotifications);
