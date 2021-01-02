@@ -4,6 +4,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.Globalization;
     using System.Linq;
+
     using AnimalShelter.Common;
     using AnimalShelter.Data.Models;
     using AnimalShelter.Data.Models.Enums;

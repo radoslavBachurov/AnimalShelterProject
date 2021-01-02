@@ -27,6 +27,8 @@
 
         T GetUserByNickName<T>(string nickName);
 
+        IEnumerable<T> GetNotifications<T>(string userId, int pageNumber, int itemsPerPage);
+
         IEnumerable<T> GetAllUserProfilePics<T>(string id);
 
         Task UpdateUserInfo(UserViewModel input, ApplicationUser user, string webRoot, string categoryName, IEnumerable<IFormFile> images);

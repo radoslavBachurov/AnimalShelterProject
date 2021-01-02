@@ -110,5 +110,24 @@
             await this.userService.UpdateUserInfo(input, user, webRoot, CategoryFileFolder, input.Images);
             return this.RedirectToAction(nameof(UserProfile));
         }
+
+        [Authorize]
+        public async Task<IActionResult> Notifications(int page = 1)
+        {
+            const int itemsPerPage = 5;
+
+            var viewModel = new UserListNotificationViewModel()
+            {
+                ItemsPerPage = itemsPerPage,
+                PageNumber = page,
+            };
+
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            viewModel.Count = this.getCountService.GetNotificationsCount(user.Id);
+            viewModel.Notifications = this.userService.GetNotifications<UserNotificationViewModel>(user.Id, page, itemsPerPage);
+
+            return this.View(viewModel);
+        }
     }
 }

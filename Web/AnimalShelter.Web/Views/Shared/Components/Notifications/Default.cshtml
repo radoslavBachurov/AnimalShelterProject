@@ -8,15 +8,15 @@
         <div id="noti_Counter">@Model.AnswerCounter</div>
     }
     <ul id="notiDrop" class="rd-navbar-dropdown tabs-nav" style="@(Model.Notifications.Count() > 5 ? "overflow-y:scroll;" : "") @(Model.Notifications.Count() > 5 ? $"height:450px;" : "")">
+        <li>
+            <a asp-controller="User" asp-action="Notifications">Виж всички</a>
+        </li>
         @for (int i = 0; i < Model.Notifications.Count(); i++)
         {
             <li>
-                <a class="active" asp-controller="Pet" asp-action="PetProfile" asp-route-id=@Model.Notifications[i].PostId>@(Model.Notifications[i].IsReplyToComment ? $"Имате отговор на ваш коментар в пост за {Model.Notifications[i].PostName} от {Model.Notifications[i].ReplyCreator}" : $"Имате нов коментар в вашият пост за {Model.Notifications[i].PostName} от {Model.Notifications[i].ReplyCreator}")</a>
+                <a class="active" asp-controller="Pet" asp-action="PetProfile" asp-route-id=@Model.Notifications[i].PostId>@(Model.Notifications[i].IsReplyToComment ? $"Имате отговор на ваш коментар в пост за {Model.Notifications[i].PostName} от {Model.Notifications[i].ReplyCreator}" : $"Имате нов коментар във вашият пост за {Model.Notifications[i].PostName} от {Model.Notifications[i].ReplyCreator}")</a>
             </li>
         }
-        <li>
-            <a asp-controller="Pet" asp-action="PetProfile">Виж всички</a>
-        </li>
     </ul>
 </li>
 

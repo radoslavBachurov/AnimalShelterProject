@@ -20,6 +20,7 @@
         private readonly IDeletableEntityRepository<PetPost> petPostsRepository;
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
         private readonly IDeletableEntityRepository<Picture> pictureRepository;
+        private readonly IDeletableEntityRepository<Reply> replyRepository;
         private readonly UserManager<ApplicationUser> userManager;
         private ImageBuilder imageBuilder;
 
@@ -27,11 +28,13 @@
                            IDeletableEntityRepository<PetPost> petPostsRepository,
                            IDeletableEntityRepository<ApplicationUser> userRepository,
                            IDeletableEntityRepository<Picture> pictureRepository,
+                           IDeletableEntityRepository<Reply> replyRepository,
                            UserManager<ApplicationUser> userManager)
         {
             this.petPostsRepository = petPostsRepository;
             this.userRepository = userRepository;
             this.pictureRepository = pictureRepository;
+            this.replyRepository = replyRepository;
             this.userManager = userManager;
             this.imageBuilder = new ImageBuilder();
         }
@@ -173,6 +176,18 @@
             user.AnswerCounter = 0;
 
             await this.userRepository.SaveChangesAsync();
+        }
+
+        public IEnumerable<T> GetNotifications<T>(string userId, int pageNumber, int itemsPerPage)
+        {
+            var notifications = this.replyRepository.AllAsNoTracking()
+                                                    .Where(x => x.PostCreatorId == userId || x.RepliedToUserId == userId)
+                                                    .OrderByDescending(x => x.Id)
+                                                    .Skip((pageNumber - 1) * itemsPerPage)
+                                                    .Take(itemsPerPage)
+                                                    .To<T>()
+                                                    .ToList();
+            return notifications;
         }
     }
 }

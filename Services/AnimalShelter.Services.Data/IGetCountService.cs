@@ -15,5 +15,7 @@
         int GetAllUserAnimalsCountByCategory(string category, string nickName);
 
         int GetAllStoriesCount();
+
+        int GetNotificationsCount(string userId);
     }
 }

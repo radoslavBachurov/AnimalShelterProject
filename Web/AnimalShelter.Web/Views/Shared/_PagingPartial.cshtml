@@ -1,0 +1,23 @@
+﻿@model PagingViewModel
+
+<ul class="pagination-custom">
+    <li class=@(!Model.HasPreviousPage ? "disabled" : "")><a asp-action="Notifications" asp-route-page=@Model.PreviousPageNumber aria-label="Previous"></a></li>
+    <li class=@(!Model.HasPreviousPage ? "disabled" : "")><a asp-action="Notifications" asp-route-page="1"><<<</a></li>
+    @for (int i = Model.PageNumber - 3; i < Model.PageNumber; i++)
+    {
+        if (i > 0)
+        {
+            <li><a asp-action="Notifications" asp-route-page=@i>@i</a></li>
+        }
+    }
+    <li class="active"><a href="#">@Model.PageNumber</a></li>
+    @for (int i = Model.PageNumber + 1; i <= Model.PageNumber + 3; i++)
+    {
+        if (i <= Model.PagesCount)
+        {
+            <li><a asp-action="Notifications" asp-route-page=@i>@i</a></li>
+        }
+    }
+    <li class=@(!Model.HasNextPage ? "disabled" : "")><a asp-action="Notifications" asp-route-page=@Model.PagesCount>>>></a></li>
+    <li class=@(!Model.HasNextPage ? "disabled" : "")><a asp-action="Notifications" asp-route-page=@Model.NextPageNumber aria-label="Next"></a></li>
+</ul>

@@ -15,15 +15,18 @@
         private readonly IDeletableEntityRepository<PetPost> petPostsRepository;
         private readonly IDeletableEntityRepository<SuccessStory> successStoriesRepository;
         private readonly IDeletableEntityRepository<ApplicationUser> users;
+        private readonly IDeletableEntityRepository<Reply> replyRepository;
 
         public GetCountService(
         IDeletableEntityRepository<PetPost> petPostsRepository,
         IDeletableEntityRepository<SuccessStory> successStoriesRepository,
-        IDeletableEntityRepository<ApplicationUser> users)
+        IDeletableEntityRepository<ApplicationUser> users,
+        IDeletableEntityRepository<Reply> replyRepository)
         {
             this.petPostsRepository = petPostsRepository;
             this.successStoriesRepository = successStoriesRepository;
             this.users = users;
+            this.replyRepository = replyRepository;
         }
 
         public IndexViewModel GetIndexCounts()
@@ -110,6 +113,14 @@
             int count = this.successStoriesRepository.AllAsNoTracking().Where(x => x.IsApproved).Count();
 
             return count;
+        }
+
+        public int GetNotificationsCount(string userId)
+        {
+            var notificationsCount = this.replyRepository.AllAsNoTracking()
+                                                   .Where(x => x.PostCreatorId == userId || x.RepliedToUserId == userId)
+                                                   .ToList().Count();
+            return notificationsCount;
         }
     }
 }
