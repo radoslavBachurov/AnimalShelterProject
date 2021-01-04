@@ -12,10 +12,14 @@
 
         public const int MaxPostPhotosUserCanUpload = 20;
 
-        public const int MaxUserPhotosUserCanUpload = 500;
+        public const int MaxUserPhotosUserCanUpload = 200;
 
         public const int MaxCharactersInPostDescription = 6000;
 
         public const int MaxCharactersInStoryDescription = 2000;
+
+        public const int MaxCharactersInUserDescription = 2000;
+
+        public const int MaximumSizeOfOnePicture = 15 * 1024 * 1024;
     }
 }

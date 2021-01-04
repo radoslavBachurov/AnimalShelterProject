@@ -34,7 +34,7 @@
         [Required]
         public TypePet Type { get; set; }
 
-        [ImageValidationAttribute(15 * 1024 * 1024, GlobalConstants.MaxPostPhotosUserCanUpload)]
+        [ImageValidationAttribute(GlobalConstants.MaximumSizeOfOnePicture, GlobalConstants.MaxPostPhotosUserCanUpload)]
         public IEnumerable<IFormFile> Images { get; set; }
     }
 }

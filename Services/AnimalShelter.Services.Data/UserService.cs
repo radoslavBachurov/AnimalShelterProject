@@ -8,6 +8,7 @@
     using AnimalShelter.Common;
     using AnimalShelter.Data.Common.Repositories;
     using AnimalShelter.Data.Models;
+    using AnimalShelter.Data.Models.Enums;
     using AnimalShelter.Services.Mapping;
     using AnimalShelter.Web.Infrastructure;
     using AnimalShelter.Web.ViewModels.User;
@@ -135,17 +136,11 @@
             return isUserTaken.Any();
         }
 
-        public async Task UpdateUserInfo(UserViewModel input, ApplicationUser user, string webRoot, string categoryName, IEnumerable<IFormFile> images)
+        public async Task UpdateUserImagesAsync(ApplicationUser user, string webRoot, string categoryName, IEnumerable<IFormFile> images)
         {
             var baseUser = this.userRepository.All().Where(x => x.Id == user.Id).FirstOrDefault();
 
-            baseUser.Nickname = input.InputNickname;
-            baseUser.Living = input.InputLiving;
-            baseUser.Age = input.InputAge;
-            baseUser.Sex = input.InputSex;
-            baseUser.Description = input.Description;
-
-            int count = input.Images?.ToList().Count() ?? 0;
+            int count = images?.ToList().Count() ?? 0;
             if (count != 0)
             {
                 var pathInRoot = $"/UserImages/{categoryName}/{user.Nickname}/";
@@ -156,6 +151,19 @@
                 var pictures = await this.imageBuilder.CreatePicturesAsync(images, pathInRoot, user.Id, directory, categoryName);
                 pictures.ForEach(x => { baseUser.UserPictures.Add(x); });
             }
+
+            await this.userRepository.SaveChangesAsync();
+        }
+
+        public async Task UpdateUserInfoAsync(UserInfoInputModel input, ApplicationUser user)
+        {
+            var baseUser = this.userRepository.All().Where(x => x.Id == user.Id).FirstOrDefault();
+
+            baseUser.Nickname = input.Nickname;
+            baseUser.Living = input.Living;
+            baseUser.Age = input.Age;
+            baseUser.Sex = (UserSex)input.Sex;
+            baseUser.Description = input.Description;
 
             await this.userRepository.SaveChangesAsync();
         }

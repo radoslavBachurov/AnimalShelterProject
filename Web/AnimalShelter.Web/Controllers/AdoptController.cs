@@ -86,9 +86,9 @@
 
             if ((countPhotos + countPhotosToUpload) > GlobalConstants.MaxPostPhotosUserCanUpload)
             {
-                string photosLeft = GlobalConstants.MaxPostPhotosUserCanUpload - countPhotos > 0 ? $"Остават ви {GlobalConstants.MaxPostPhotosUserCanUpload - countPhotos }" : "Не можете да качите повече снимки";
+                string photosLeft = GlobalConstants.MaxPostPhotosUserCanUpload - countPhotos > 0 ? string.Format(ErrorMessages.LeftPhotosToUpload, GlobalConstants.MaxPostPhotosUserCanUpload - countPhotos) : ErrorMessages.PhotosLimitReached;
 
-                this.ModelState.AddModelError("Images", $"Можете да качите максимум 20 снимки за един пост.{photosLeft}");
+                this.ModelState.AddModelError("Images", string.Format(ErrorMessages.MaximumPhotosLeftToUpload, GlobalConstants.MaxPostPhotosUserCanUpload, photosLeft));
             }
 
             if (!this.ModelState.IsValid)

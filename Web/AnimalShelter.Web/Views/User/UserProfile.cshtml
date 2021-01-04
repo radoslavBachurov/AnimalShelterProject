@@ -3,8 +3,9 @@
     this.ViewData["Title"] = "User Profile";
 }
 @using AnimalShelter.Data.Models.Enums
+@using AnimalShelter.Common
+@using AnimalShelter.Web.Infrastructure
 @model AnimalShelter.Web.ViewModels.User.UserViewModel
-
 <!-- Breadcrumbs & Page title-->
 <div class="page-title">
     <div class="page-title-text">Личен Профил на <span id="nickName">@Model.Nickname</span></div>
@@ -28,9 +29,9 @@
                 <span class="icon icon-xs icon-tan-hide material-icons-access_time"></span>
                 <time datetime="">@Model.CreatedOn</time>
             </li>
-            <li><span class="icon icon-xs icon-tan-hide mdi mdi-gender-male-female"></span><span>@Model.Sex</span></li>
+            <li><span class="icon icon-xs icon-tan-hide mdi mdi-gender-male-female"></span><span>@(Model.Sex==0?"Не е въведен пол": EnumHelper<UserSex>.GetDisplayValue(Model.Sex))</span></li>
             <li><span class="icon icon-xs icon-tan-hide material-icons-place"></span><span>@Model.Living</span></li>
-            <li><span class="icon icon-xs icon-tan-hide material-icons-hourglass_empty"></span><span>@Model.Age</span></li>
+            <li><span class="icon icon-xs icon-tan-hide material-icons-hourglass_empty"></span><span>@(Model.Age==0?"Не са въведени години": Model.Age.ToString())</span></li>
         </ul>
         <div class="range range-sm-center">
             <div class="cell-sm-9 cell-md-12">
@@ -84,81 +85,91 @@
                             <div class="panel-heading" id="accordion1Heading1" role="tab">
                                 <div class="panel-title">
                                     <a role="button" data-toggle="collapse" data-parent="#accordion1" href="#accordion1Collapse1" aria-controls="accordion1Collapse1" aria-expanded="true">
-                                        Информация и снимки на потребителя
+                                        Информация за потребителя
                                         <div class="panel-arrow"></div>
                                     </a>
                                 </div>
                             </div>
                             <div class="panel-collapse collapse in" id="accordion1Collapse1" role="tabpanel" aria-labelledby="accordion1Heading1">
                                 <div class="panel-body">
-                                    <form id="uploadForm" method="post" enctype="multipart/form-data">
-                                        <div asp-validation-summary="All" class="text-danger"></div>
+                                    <form method="post" id="userInfo">
                                         <div class="range range-sm-bottom spacing-20">
                                             <div class="cell-sm-6">
                                                 <div class="form-group">
-                                                    <input class="form-control" asp-for="InputNickname"></input>
-                                                    <label class="form-label" asp-for="InputNickname"></label>
-                                                    <span asp-validation-for="InputNickname" class="text-danger"></span>
+                                                    <input class="form-control" asp-for="Nickname"></input>
+                                                    <label class="form-label" asp-for="Nickname"></label>
                                                 </div>
                                             </div>
                                             <div class="cell-xs-6">
                                                 <div class="form-group">
-                                                    <select class="form-control" asp-for="InputSex" asp-items="@Html.GetEnumSelectList<UserSex>()"></select>
-                                                    <label class="form-label" asp-for="InputSex"></label>
-                                                    <span asp-validation-for="InputSex" class="text-danger"></span>
+                                                    <select class="form-control" asp-for="Sex" asp-items="@Html.GetEnumSelectList<UserSex>()"></select>
+                                                    <label class="form-label" asp-for="Sex"></label>
                                                 </div>
                                             </div>
                                             <div class="cell-sm-6">
                                                 <div class="form-group">
-                                                    <input class="form-control" asp-for="InputAge"></input>
-                                                    <label class="form-label" asp-for="InputAge"></label>
-                                                    <span asp-validation-for="InputAge" class="text-danger"></span>
+                                                    <input class="form-control" asp-for="Age"></input>
+                                                    <label class="form-label" asp-for="Age"></label>
                                                 </div>
                                             </div>
                                             <div class="cell-sm-6">
                                                 <div class="form-group">
-                                                    <input class="form-control" asp-for="InputLiving"></input>
-                                                    <label class="form-label" asp-for="InputLiving"></label>
-                                                    <span asp-validation-for="InputLiving" class="text-danger"></span>
+                                                    <input class="form-control" asp-for="Living"></input>
+                                                    <label class="form-label" asp-for="Living"></label>
                                                 </div>
                                             </div>
                                             <div class="cell-sm-12">
                                                 <div class="form-group">
-                                                    <textarea class="form-control" maxlength="998" asp-for="Description"></textarea>
+                                                    <textarea class="form-control" maxlength=@(GlobalConstants.MaxCharactersInUserDescription-2) asp-for="Description"></textarea>
                                                     <label class="form-label" asp-for="Description"></label>
                                                     <span id="charsLeft"></span>
-                                                    <span asp-validation-for="Description" class="text-danger"></span>
                                                 </div>
                                             </div>
-                                            <div class="cell-sm-6">
-                                                <div class="form-group">
-                                                    <label for="Images" class="btn btn-tan-hide btn-block">Kaчи снимки</label>
-                                                    <div id="numberPhotos"></div>
-                                                    <input class="form-control" style="visibility:hidden;" asp-for="Images" />
-                                                    <span asp-validation-for="Images" class="text-danger"></span>
-                                                </div>
-                                            </div>
-                                            <div class="shell range spacing-55 range range-sm-center" style="margin-top:10px">
-                                                <div class="group-xl group-middle">
-                                                    <div class="cell-sm-12">
-                                                        <div class="form-group">
-                                                            <button type="submit" class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall">Обнови</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            <div class="form-group">
+                                                <a onclick="uploadInfo()" class="btn btn-tan-hide btn-block">Обнови</a>
                                             </div>
                                         </div>
                                     </form>
-                                    @*<div class="progress-bar-bs progress-variant-primary" id="progressBar">
-                                        <p class="list-bars-item-header">Обновяване...</p>
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%"></div>
-                                        </div><span class="caption">85%</span>
-                                    </div>*@
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-custom panel-corporate">
+                            <div class="panel-heading" id="accordion1Heading2" role="tab">
+                                <div class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="#accordion1Collapse2" aria-controls="accordion1Collapse2">
+                                        Качи снимки
+                                        <div class="panel-arrow"></div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="panel-collapse collapse" id="accordion1Collapse2" role="tabpanel" aria-labelledby="accordion1Heading2">
+                                <div class="panel-body">
+                                    <form method="post" id="uploadPhotos" enctype="multipart/form-data">
+                                        <div class="range range-sm-bottom spacing-20">
+                                            <div class="cell-sm-6">
+                                                <div class="form-group">
+                                                    <label for="Images" class="btn btn-tan-hide btn-block">Избери снимки</label>
+                                                    <div id="numberPhotos"></div>
+                                                    <input class="form-control" style="visibility:hidden;" type="file" multiple id="Images" name="Images"></input>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <a onclick="uploadPhotos()" class="btn btn-tan-hide btn-block">Качи снимки</a>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    @*<div class="progress-bar-bs progress-variant-primary" id="progressBar">
+                            <p class="list-bars-item-header">Обновяване...</p>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%"></div>
+                            </div><span class="caption">85%</span>
+                        </div>*@
+
                 </article>
             </div>
         </div>
@@ -193,6 +204,108 @@
     <script src="~/js/pagesManipulation/userProfileList.js"></script>
     <script src="~/js/pagesManipulation/listPostCreatorHorizontal.js"></script>
     <script src="~/js/pagesManipulation/descriptionCharactersCounter.js"></script>
+    <script>
+        $("#Images").change(function () {
+            filename = this.files.length
+            $("#numberPhotos").text(`${filename} снимки са избрани`);
+        });
+
+        function uploadInfo() {
+            var token = $("#userInfo input[name=__RequestVerificationToken]").val();
+            let formData = new FormData(document.getElementById("userInfo"));
+
+            $.ajax({
+                url: "/api/UserInfo/info",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                headers: { 'X-CSRF-TOKEN': token },
+                success: function (data) {
+                    window.location.href = data.redirectToUrl;
+                },
+                error: function (jqXHR) {
+                    cleanCerificationErrors();
+                    cleanCerificationErrors();
+                    var error = $.parseJSON(jqXHR.responseText);
+                    let erMes;
+                    if (error.Nickname != undefined) {
+                        erMes = error.Nickname;
+                        $('#Nickname').before(`<p class="text-danger field-validation-error">${erMes}</p>`)
+                    }
+                    else {
+                        if (error.errors.Nickname) {
+                            for (var i = 0; i < error.errors.Nickname.length; i++) {
+                                $('#Nickname').before(`<p class="text-danger field-validation-error">${error.errors.Nickname[i]}</p>`)
+                            }
+                        }
+                        if (error.errors.Sex) {
+                            for (var i = 0; i < error.errors.Sex.length; i++) {
+                                $('#Sex').before(`<p class="text-danger field-validation-error">${error.errors.Sex[i]}</p>`)
+                            }
+                        }
+                        if (error.errors.Age) {
+                            for (var i = 0; i < error.errors.Age.length; i++) {
+                                $('#Age').before(`<p class="text-danger field-validation-error">${error.errors.Age[i]}</p>`)
+                            }
+                        }
+                        if (error.errors.Living) {
+                            for (var i = 0; i < error.errors.Living.length; i++) {
+                                $('#Living').before(`<p class="text-danger field-validation-error">${error.errors.Living[i]}</p>`)
+                            }
+                        }
+                        if (error.errors.Description) {
+                            for (var i = 0; i < error.errors.Description.length; i++) {
+                                $('#Description').before(`<p class="text-danger field-validation-error">${error.errors.Description[i]}</p>`)
+                            }
+                        }
+                    }
+                }
+            })
+        }
+
+        function uploadPhotos() {
+            var token = $("#uploadPhotos input[name=__RequestVerificationToken]").val();
+            var dosya = $('input[type=file]');
+            var form = $('#uploadPhotos')[0];
+            var formData = new FormData(form);
+            formData.append("file", dosya[0].files[0]);
+
+            $.ajax({
+                url: "/api/UserInfo/images",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                headers: { 'X-CSRF-TOKEN': token },
+                success: function (data) {
+                    window.location.href = data.redirectToUrl;
+                },
+                error: function (jqXHR) {
+                    cleanCerificationErrors();
+                    var error = $.parseJSON(jqXHR.responseText);
+                    let erMes;
+                    if (error.Images != undefined) {
+                        erMes = error.Images;
+                    }
+                    else {
+                        erMes = error.errors.Images;
+                    }
+                    for (var i = 0; i < erMes.length; i++) {
+                        $('#Images').before(`<p class="text-danger field-validation-error">${erMes}</p>`)
+                    }
+                }
+            })
+        }
+
+        function cleanCerificationErrors() {
+            var paras = document.getElementsByClassName('field-validation-error');
+
+            for (var i = 0; i < paras.length; i++) {
+                paras[i].parentNode.removeChild(paras[i]);
+            }
+        }
+    </script>
 }
 
 

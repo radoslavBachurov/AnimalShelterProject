@@ -31,6 +31,8 @@
 
         IEnumerable<T> GetAllUserProfilePics<T>(string id);
 
-        Task UpdateUserInfo(UserViewModel input, ApplicationUser user, string webRoot, string categoryName, IEnumerable<IFormFile> images);
+        Task UpdateUserInfoAsync(UserInfoInputModel input, ApplicationUser user);
+
+        Task UpdateUserImagesAsync(ApplicationUser user, string webRoot, string categoryName, IEnumerable<IFormFile> images);
     }
 }

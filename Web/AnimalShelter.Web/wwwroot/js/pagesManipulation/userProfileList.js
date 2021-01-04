@@ -1,9 +1,4 @@
-﻿$("#Images").change(function () {
-    filename = this.files.length
-    $("#numberPhotos").text(`${filename} снимки са избрани`);
-});
-
-//Posts
+﻿//Posts
 
 var currentPage = 1;
 var currentCategory = "MyPosts";

@@ -39,7 +39,7 @@
         public LostFoundCreateOptions Status { get; set; }
 
         [Required(ErrorMessage = "Трябва да качите поне 1 снимка")]
-        [ImageValidationAttribute(15 * 1024 * 1024, GlobalConstants.MaxPostPhotosUserCanUpload)]
+        [ImageValidationAttribute(GlobalConstants.MaximumSizeOfOnePicture, GlobalConstants.MaxPostPhotosUserCanUpload)]
         public IEnumerable<IFormFile> Images { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)

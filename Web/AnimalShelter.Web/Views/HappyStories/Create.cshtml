@@ -2,9 +2,8 @@
     this.ViewData["Title"] = "Create";
 }
 @using AnimalShelter.Web.ViewModels.StoriesModels
-
+@using AnimalShelter.Common
 @model CreateStoryInputModel
-
 <!-- Breadcrumbs & Page title-->
 <div class="page-title">
     <div class="page-title-text">Създай твоята история</div>
@@ -38,7 +37,7 @@
                         </div>
                         <div class="cell-sm-12">
                             <div class="form-group">
-                                <textarea class="form-control" maxlength="1998" asp-for="Description"></textarea>
+                                <textarea class="form-control" maxlength=@(GlobalConstants.MaxCharactersInStoryDescription-2) asp-for="Description"></textarea>
                                 <label class="form-label" asp-for="Description"></label>
                                 <span id="charsLeft"></span>
                                 <span asp-validation-for="Description" class="text-danger"></span>
