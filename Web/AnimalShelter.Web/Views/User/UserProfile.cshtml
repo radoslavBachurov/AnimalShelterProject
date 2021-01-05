@@ -72,9 +72,7 @@
                             <div class="shell range spacing-55 range range-sm-center">
                                 <div class="group-xl group-middle">
                                     <div class="cell-xs-10 cell-sm-6 cell-md-8">
-                                        <div class="form-group">
-                                            <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" asp-area="" asp-controller="User" asp-action="ChangeProfilePic" data-wow-delay="0.2s" data-wow-duration=".75s" style="margin-top:0">Избери профилна снимка/изтрий снимки</a>
-                                        </div>
+                                        <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" asp-area="" asp-controller="User" asp-action="ChangeProfilePic" data-wow-delay="0.2s" data-wow-duration=".75s" style="margin-top:0">Избери профилна снимка/изтрий снимки</a>
                                     </div>
                                 </div>
                             </div>
@@ -146,15 +144,19 @@
                                 <div class="panel-body">
                                     <form method="post" id="uploadPhotos" enctype="multipart/form-data">
                                         <div class="range range-sm-bottom spacing-20">
-                                            <div class="cell-sm-6">
+                                            <div class="cell-sm-12">
                                                 <div class="form-group">
                                                     <label for="Images" class="btn btn-tan-hide btn-block">Избери снимки</label>
                                                     <div id="numberPhotos"></div>
                                                     <input class="form-control" style="visibility:hidden;" type="file" multiple id="Images" name="Images"></input>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <a onclick="uploadPhotos()" class="btn btn-tan-hide btn-block">Качи снимки</a>
+                                            <div class="shell range spacing-55 range range-sm-center">
+                                                <div class="group-xl group-middle">
+                                                    <div class="form-group">
+                                                        <a onclick="uploadPhotos()" class="btn btn-success">Качи снимки</a>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </form>
@@ -162,14 +164,6 @@
                             </div>
                         </div>
                     </div>
-
-                    @*<div class="progress-bar-bs progress-variant-primary" id="progressBar">
-                            <p class="list-bars-item-header">Обновяване...</p>
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%"></div>
-                            </div><span class="caption">85%</span>
-                        </div>*@
-
                 </article>
             </div>
         </div>
@@ -204,108 +198,7 @@
     <script src="~/js/pagesManipulation/userProfileList.js"></script>
     <script src="~/js/pagesManipulation/listPostCreatorHorizontal.js"></script>
     <script src="~/js/pagesManipulation/descriptionCharactersCounter.js"></script>
-    <script>
-        $("#Images").change(function () {
-            filename = this.files.length
-            $("#numberPhotos").text(`${filename} снимки са избрани`);
-        });
-
-        function uploadInfo() {
-            var token = $("#userInfo input[name=__RequestVerificationToken]").val();
-            let formData = new FormData(document.getElementById("userInfo"));
-
-            $.ajax({
-                url: "/api/UserInfo/info",
-                type: "POST",
-                data: formData,
-                processData: false,
-                contentType: false,
-                headers: { 'X-CSRF-TOKEN': token },
-                success: function (data) {
-                    window.location.href = data.redirectToUrl;
-                },
-                error: function (jqXHR) {
-                    cleanCerificationErrors();
-                    cleanCerificationErrors();
-                    var error = $.parseJSON(jqXHR.responseText);
-                    let erMes;
-                    if (error.Nickname != undefined) {
-                        erMes = error.Nickname;
-                        $('#Nickname').before(`<p class="text-danger field-validation-error">${erMes}</p>`)
-                    }
-                    else {
-                        if (error.errors.Nickname) {
-                            for (var i = 0; i < error.errors.Nickname.length; i++) {
-                                $('#Nickname').before(`<p class="text-danger field-validation-error">${error.errors.Nickname[i]}</p>`)
-                            }
-                        }
-                        if (error.errors.Sex) {
-                            for (var i = 0; i < error.errors.Sex.length; i++) {
-                                $('#Sex').before(`<p class="text-danger field-validation-error">${error.errors.Sex[i]}</p>`)
-                            }
-                        }
-                        if (error.errors.Age) {
-                            for (var i = 0; i < error.errors.Age.length; i++) {
-                                $('#Age').before(`<p class="text-danger field-validation-error">${error.errors.Age[i]}</p>`)
-                            }
-                        }
-                        if (error.errors.Living) {
-                            for (var i = 0; i < error.errors.Living.length; i++) {
-                                $('#Living').before(`<p class="text-danger field-validation-error">${error.errors.Living[i]}</p>`)
-                            }
-                        }
-                        if (error.errors.Description) {
-                            for (var i = 0; i < error.errors.Description.length; i++) {
-                                $('#Description').before(`<p class="text-danger field-validation-error">${error.errors.Description[i]}</p>`)
-                            }
-                        }
-                    }
-                }
-            })
-        }
-
-        function uploadPhotos() {
-            var token = $("#uploadPhotos input[name=__RequestVerificationToken]").val();
-            var dosya = $('input[type=file]');
-            var form = $('#uploadPhotos')[0];
-            var formData = new FormData(form);
-            formData.append("file", dosya[0].files[0]);
-
-            $.ajax({
-                url: "/api/UserInfo/images",
-                type: "POST",
-                data: formData,
-                processData: false,
-                contentType: false,
-                headers: { 'X-CSRF-TOKEN': token },
-                success: function (data) {
-                    window.location.href = data.redirectToUrl;
-                },
-                error: function (jqXHR) {
-                    cleanCerificationErrors();
-                    var error = $.parseJSON(jqXHR.responseText);
-                    let erMes;
-                    if (error.Images != undefined) {
-                        erMes = error.Images;
-                    }
-                    else {
-                        erMes = error.errors.Images;
-                    }
-                    for (var i = 0; i < erMes.length; i++) {
-                        $('#Images').before(`<p class="text-danger field-validation-error">${erMes}</p>`)
-                    }
-                }
-            })
-        }
-
-        function cleanCerificationErrors() {
-            var paras = document.getElementsByClassName('field-validation-error');
-
-            for (var i = 0; i < paras.length; i++) {
-                paras[i].parentNode.removeChild(paras[i]);
-            }
-        }
-    </script>
+    <script src="~/js/pagesManipulation/uploadSpinner.js"></script>
 }
 
 

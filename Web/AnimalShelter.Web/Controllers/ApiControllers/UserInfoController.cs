@@ -75,6 +75,7 @@
         }
 
         [HttpPost("images")]
+        [DisableRequestSizeLimit]
         public async Task<IActionResult> GetPictures([FromForm] UserImageInputModel uploadPhotos)
         {
             var user = await this.userManager.GetUserAsync(this.User);

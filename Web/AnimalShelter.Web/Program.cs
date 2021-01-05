@@ -1,5 +1,6 @@
 ﻿namespace AnimalShelter.Web
 {
+    using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Hosting;
 
@@ -16,5 +17,17 @@
                     {
                         webBuilder.UseStartup<Startup>();
                     });
+
+        public static IWebHost BuildWebHost(string[] args)
+        {
+            return WebHost.CreateDefaultBuilder(args)
+                .UseStartup<Startup>()
+                .UseKestrel(options =>
+                {
+                    options.Limits.MaxRequestBodySize = long.MaxValue;
+                })
+                .UseIISIntegration()
+                .Build();
+        }
     }
 }
