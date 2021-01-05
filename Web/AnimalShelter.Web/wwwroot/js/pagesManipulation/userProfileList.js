@@ -25,7 +25,7 @@ function getLastPage(event, lastPage) {
 }
 
 async function loadAnimals(page, category) {
-  
+
     if (page) {
         currentPage = page;
     }
