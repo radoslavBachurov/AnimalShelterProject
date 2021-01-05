@@ -16,6 +16,7 @@
 }
 
 function removeSpinner() {
+    console.log()
     var spinner = document.getElementById("spinner");
     spinner.remove();
 }
