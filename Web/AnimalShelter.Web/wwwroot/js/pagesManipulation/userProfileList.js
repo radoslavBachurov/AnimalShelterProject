@@ -57,6 +57,7 @@ $("#Images").change(function () {
 });
 
 function uploadInfo() {
+   
     var token = $("#userInfo input[name=__RequestVerificationToken]").val();
     let formData = new FormData(document.getElementById("userInfo"));
 
@@ -110,9 +111,14 @@ function uploadInfo() {
     })
 }
 
-function uploadPhotos() {
-    showSpinner("uploadPhotos");
+function uploadPhotos(e) {
+    e.preventDefault();
 
+    var button = $(e.target);
+    button.attr('disabled', 'disabled');
+
+    removeSpinner();
+    showSpinner("uploadPhotos");
     var token = $("#uploadPhotos input[name=__RequestVerificationToken]").val();
     var dosya = $('input[type=file]');
     var form = $('#uploadPhotos')[0];
@@ -130,6 +136,7 @@ function uploadPhotos() {
             window.location.href = data.redirectToUrl;
         },
         error: function (jqXHR) {
+            button.removeAttr('disabled');
             removeSpinner();
             cleanCerificationErrors();
             var error = $.parseJSON(jqXHR.responseText);
@@ -155,4 +162,5 @@ function cleanCerificationErrors() {
         paras[i].parentNode.removeChild(paras[i]);
     }
 }
+
 

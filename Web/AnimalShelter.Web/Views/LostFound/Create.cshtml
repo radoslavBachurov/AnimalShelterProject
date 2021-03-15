@@ -22,7 +22,7 @@
         <p>Ако сте намерил животно ,което видимо не е бездомно или е с каишка изберете опция "Намерени домашни любимци"</p>
         <div class="range range-sm-center spacing-55">
             <div class="cell-md-10 cell-lg-8">
-                <form method="post" enctype="multipart/form-data">
+                <form method="post" enctype="multipart/form-data" id="uploadInfo">
                     <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="range range-sm-bottom spacing-20">
                         <div class="cell-sm-6">
@@ -75,7 +75,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-tan-hide btn-block">Създай</button>
+                            <button type="submit" class="btn btn-tan-hide btn-block" onclick="checkForErrors()">Създай</button>
                         </div>
                     </div>
                 </form>
@@ -86,5 +86,7 @@
 
 @section Scripts{
     <script src="~/js/pagesManipulation/descriptionCharactersCounter.js"></script>
+    <script src="~/js/pagesManipulation/uploadSpinner.js"></script>
+    <script src="~/js/pagesManipulation/disableSubmitButton.js"></script>
 }
 
