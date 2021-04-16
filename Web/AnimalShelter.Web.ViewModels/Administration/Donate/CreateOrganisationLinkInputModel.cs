@@ -5,7 +5,7 @@
     using AnimalShelter.Data.Models;
     using AnimalShelter.Services.Mapping;
 
-    public class CreateOrganisationLinkInputModel : IMapTo<OrganisationLink>
+    public class CreateOrganisationLinkInputModel : IMapTo<OrganisationLink>,IMapFrom<OrganisationLink>
     {
         [Display(Name = "Име на линка")]
         [StringLength(1000, MinimumLength = 2, ErrorMessage = "Името трябва да е от 2 до 1000 символа")]

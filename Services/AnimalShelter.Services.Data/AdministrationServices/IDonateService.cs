@@ -10,5 +10,11 @@
         Task AddDonateOrganisationAsync(CreateDonateOrganisationInputModel input, string userId);
 
         List<T> GetAllOrganisations<T>();
+
+        Task Delete(int id);
+
+        T GetOrganisationById<T>(int id);
+
+        Task EditDonateOrganisationAsync(EditDonateOrganisationModel input, string userId);
     }
 }

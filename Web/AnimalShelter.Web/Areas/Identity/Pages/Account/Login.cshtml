@@ -50,6 +50,13 @@
                             }
                         }
                     </section>
+                    @if (TempData.ContainsKey("NotConfirmed"))
+                    {
+                        <div class="alert alert-danger">@this.TempData["NotConfirmed"]</div>
+                        <p>
+                            <a asp-page-handler="ResendConfirmEmail" asp-route-returnUrl="@Model.ReturnUrl" asp-route-email="@this.TempData["Email".ToString()]">Resend email</a>
+                        </p>
+                    }
                     <div class="text-decoration-lines"><span class="text-decoration-lines-content">OR</span></div>
                     <!-- RD Mailform-->
                     <form id="account" method="post">

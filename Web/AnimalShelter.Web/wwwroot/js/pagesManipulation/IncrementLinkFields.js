@@ -1,4 +1,5 @@
-﻿var counter = 0;
+﻿var hiddenCounter = document.getElementById("count");
+var counter = hiddenCounter.getAttribute("data-attribute");
 
 function AddLinks() {
     //for linkName
@@ -11,7 +12,6 @@ function AddLinks() {
     let inputName = document.createElement('input');
     inputName.classList.add("form-control");
     inputName.setAttribute("type", "text");
-    inputName.setAttribute("id", "LinkName");
     inputName.setAttribute("name", `OrganisationLinks[${counter}].LinkName`);
 
     let labelName = document.createElement('label');
@@ -33,7 +33,6 @@ function AddLinks() {
     let inputLink = document.createElement('input');
     inputLink.classList.add("form-control");
     inputLink.setAttribute("type", "text");
-    inputLink.setAttribute("id", "LinkHref");
     inputLink.setAttribute("name", `OrganisationLinks[${counter}].LinkHref`);
 
     let labelLink = document.createElement('label');
@@ -50,4 +49,8 @@ function AddLinks() {
     form.appendChild(LinkDiv);
 
     counter++;
+}
+
+function RemoveLinks() {
+
 }

@@ -33,5 +33,36 @@
 
             return viewModel;
         }
+
+        public async Task Delete(int id)
+        {
+            var organisation = this.donatePostsRepository.All().Where(x => x.Id == id).FirstOrDefault();
+
+            this.donatePostsRepository.Delete(organisation);
+            await this.donatePostsRepository.SaveChangesAsync();
+        }
+
+        public T GetOrganisationById<T>(int id)
+        {
+            var organisation = this.donatePostsRepository.AllAsNoTracking().Where(x => x.Id == id).To<T>().FirstOrDefault();
+
+            return organisation;
+        }
+
+        public async Task EditDonateOrganisationAsync(EditDonateOrganisationModel input, string userId)
+        {
+            var organisation = this.donatePostsRepository.All().FirstOrDefault(x => x.Id == input.Id);
+
+            organisation.Organisation = input.Organisation;
+            organisation.Description = input.Description;
+
+            foreach (var link in input.OrganisationLinks)
+            {
+                var mappedLink = AutoMapperConfig.MapperInstance.Map<OrganisationLink>(link);
+                organisation.OrganisationLinks.Add(mappedLink);
+            }
+
+            await this.donatePostsRepository.SaveChangesAsync();
+        }
     }
 }

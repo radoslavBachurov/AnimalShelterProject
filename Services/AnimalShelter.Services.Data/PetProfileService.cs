@@ -58,6 +58,8 @@
         public async Task<LikeOutputModel> AddRemoveLikeToPostAsync(LikeInputModel input, ApplicationUser user)
         {
             var outputModel = new LikeOutputModel();
+            outputModel.ToLike = "Post";
+
             var post = this.petPostsRepository.All().Where(x => x.Id == input.PostId && x.IsApproved).FirstOrDefault();
 
             if (post != null)

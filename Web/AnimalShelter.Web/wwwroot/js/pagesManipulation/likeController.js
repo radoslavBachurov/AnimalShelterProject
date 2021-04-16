@@ -12,7 +12,7 @@
         dataType: "json",
         headers: { 'X-CSRF-TOKEN': token },
         success: function (data) {
-
+            console.log(data)
             if (data.likes === -1) {
                 data.likes = 0;
             }
@@ -21,7 +21,7 @@
             var likeIcon = likeElement.firstElementChild;
             likeElement.innerHTML = '';
 
-            likeElement.setAttribute("onClick", `likeController(${postId},${data.isLiked})`);
+            likeElement.setAttribute("onClick", `likeController(${postId},${data.isLiked},"${data.toLike}")`);
 
             var likeCount = document.getElementById("likesCount");
             likeCount.innerHTML = data.likes;

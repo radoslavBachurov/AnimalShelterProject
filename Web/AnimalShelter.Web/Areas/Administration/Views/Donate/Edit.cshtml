@@ -1,1 +1,81 @@
-﻿
+﻿@{
+    this.ViewData["Title"] = "Edit";
+}
+@using AnimalShelter.Web.ViewModels.Administration.Donate
+@model EditDonateOrganisationModel
+<!-- Breadcrumbs & Page title-->
+<div class="page-title">
+    <div class="page-title-text">Промени организация</div>
+    <ul class="breadcrumbs-custom">
+        <li><a asp-controller="Home" asp-action="Index">Начало</a></li>
+        <li class="active">Създай</li>
+    </ul>
+</div>
+<!-- Your information-->
+<section class="section-md bg-white text-center">
+    <div class="shell">
+        <h4>Информация за Организацията</h4>
+        <div type="hidden" data-attribute=@Model.OrganisationLinks.Count() id="count"/>
+        <div class="range range-sm-center spacing-55">
+            <div class="cell-md-10 cell-lg-8">
+                <form method="post" enctype="multipart/form-data" id="donateForm" asp-area="Administration" asp-controller="Donate" asp-action="Edit">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="range range-sm-bottom spacing-20" id="OrganisationForm">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="cell-sm-6">
+                            <div class="form-group">
+                                <input class="form-control" asp-for="Organisation">
+                                <label class="form-label" asp-for="Organisation"></label>
+                                <span asp-validation-for="Organisation" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="cell-sm-12">
+                            <div class="form-group">
+                                <textarea class="form-control" maxlength="4998" asp-for="Description"></textarea>
+                                <label class="form-label" asp-for="Description"></label>
+                                <span id="charsLeft"></span>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                        </div>
+                        @for (int i = 0; i < Model.OrganisationLinks.Count(); i++)
+                        {
+                            <div class="cell-sm-6">
+                                <div class="form-group">
+                                    <input class="form-control" type="text" name="OrganisationLinks[@i].LinkName" value=@Model.OrganisationLinks.ToArray()[i].LinkName>
+                                    <label for="LinkName">Име на линка</label>
+                                </div>
+                            </div>
+                            <div class="cell-sm-6">
+                                <div class="form-group">
+                                    <input class="form-control" type="text" name="OrganisationLinks[@i].LinkHref" value=@Model.OrganisationLinks.ToArray()[i].LinkHref>
+                                    <label for="LinkHref">Линк</label>
+                                </div>
+                            </div>
+                        }
+                        <div class="group-xl group-middle">
+                            <div class="cell-xs-10 cell-sm-6 cell-md-8">
+                                <a class="btn btn-success btn-block" onclick="AddLinks()">Добави линкове за организацията</a>
+                            </div>
+                        </div>
+                        <div class="group-xl group-middle">
+                            <div class="cell-xs-10 cell-sm-6 cell-md-8">
+                                <a class="btn btn-danger btn-block" onclick="RemoveLinks()">Премахни последния линк</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="group-xl group-middle">
+                        <div class="cell-xs-10 cell-sm-6 cell-md-8">
+                            <a class="btn btn-tan-hide btn-block" onclick="donateForm.submit()">Обнови</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    <script src="~/js/pagesManipulation/descriptionCharactersCounter.js"></script>
+    <script src="~/js/pagesManipulation/IncrementLinkFields.js"></script>
+}
+
