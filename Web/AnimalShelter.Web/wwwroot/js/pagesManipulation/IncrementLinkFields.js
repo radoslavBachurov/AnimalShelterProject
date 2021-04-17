@@ -1,5 +1,14 @@
 ﻿var hiddenCounter = document.getElementById("count");
-var counter = hiddenCounter.getAttribute("data-attribute");
+
+var counter = 0;
+if (hiddenCounter != null && hiddenCounter != undefined) {
+
+    counter = hiddenCounter.getAttribute("data-attribute");
+}
+
+if (counter == 0) {
+    $("#removeLink").hide();
+}
 
 function AddLinks() {
     //for linkName
@@ -44,13 +53,25 @@ function AddLinks() {
     divLinkForm.appendChild(labelLink);
     LinkDiv.appendChild(divLinkForm);
 
-    let form = document.getElementById("OrganisationForm");
-    form.appendChild(LinkNameDiv);
-    form.appendChild(LinkDiv);
+    //Add link
+    $(LinkNameDiv).insertBefore($('#OrganisationForm > .group-xl')[0]);
+    $(LinkDiv).insertBefore($('#OrganisationForm > .group-xl')[0]);
 
     counter++;
+    $("#removeLink").show();
 }
 
 function RemoveLinks() {
+    let linkForm = $("#OrganisationForm").children(".cell-sm-6");
 
+    if (counter == 1) {
+        $("#removeLink").hide();
+    }
+
+    if (linkForm.length > 1) {
+        linkForm[linkForm.length - 1].remove();
+        linkForm[linkForm.length - 2].remove();
+    }
+
+    counter--;
 }

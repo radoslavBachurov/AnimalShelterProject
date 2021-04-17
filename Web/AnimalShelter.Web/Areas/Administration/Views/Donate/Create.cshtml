@@ -15,6 +15,7 @@
 <section class="section-md bg-white text-center">
     <div class="shell">
         <h4>Информация за Организацията</h4>
+        <div type="hidden" data-attribute=0 id="count" />
         <div class="range range-sm-center spacing-55">
             <div class="cell-md-10 cell-lg-8">
                 <form method="post" enctype="multipart/form-data" id="donateForm" asp-area="Administration" asp-controller="Donate" asp-action="Create">
@@ -38,6 +39,11 @@
                         <div class="group-xl group-middle">
                             <div class="cell-xs-10 cell-sm-6 cell-md-8">
                                 <a class="btn btn-success btn-block" onclick="AddLinks()">Добави линкове за организацията</a>
+                            </div>
+                        </div>
+                        <div class="group-xl group-middle" id="removeLink">
+                            <div class="cell-xs-10 cell-sm-6 cell-md-8">
+                                <a class="btn btn-danger btn-block" onclick="RemoveLinks()">Премахни последния линк</a>
                             </div>
                         </div>
                     </div>

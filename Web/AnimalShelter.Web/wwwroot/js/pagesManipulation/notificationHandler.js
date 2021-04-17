@@ -19,5 +19,8 @@
 function hideCounter() {
     var counter = document.getElementById("noti_Counter");
 
-    counter.style.display = "none";
+    if (counter != null) {
+
+        counter.style.display = "none";
+    }
 }

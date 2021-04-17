@@ -12,7 +12,7 @@
         dataType: "json",
         headers: { 'X-CSRF-TOKEN': token },
         success: function (data) {
-            console.log(data)
+           
             if (data.likes === -1) {
                 data.likes = 0;
             }
