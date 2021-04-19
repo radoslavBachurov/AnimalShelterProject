@@ -1,0 +1,42 @@
+﻿@{
+    this.ViewData["Title"] = "User Notifications";
+}
+@model AnimalShelter.Web.ViewModels.User.UserListNotificationViewModel
+<section class="section-md section-md-alternate bg-white text-center">
+    <div class="shell">
+        <div class="group-xl group-middle">
+            <h2 class="text-center">Известия</h2>
+        </div>
+    </div>
+    <div class="shell">
+        <div class="table-custom-responsive">
+            <table class="table-custom table-custom-primary table-custom-striped">
+                <thead>
+                    <tr>
+                        <th>Дата</th>
+                        <th>Пост</th>
+                        <th>Потребител</th>
+                        <th>Категория</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @*@foreach (var notification in Model.Notifications)
+                        {
+                            <tr>
+                                <td><time datetime="@notification.CreatedOn.ToString("O")"></time></td>
+                                <td>@(notification.IsReplyToComment ? $"Имате отговор на ваш коментар" : $"Имате нов коментар във вашият пост")</td>
+                                <td><a asp-controller="Pet" asp-action="PetProfile" asp-route-id=@notification.PostId>@notification.PostName</a></td>
+                                <td><a asp-controller="User" asp-action="UserProfileGuest" asp-route-nickName=@notification.ReplyCreator>@notification.ReplyCreator</a></td>
+                            </tr>
+                        }*@
+                </tbody>
+            </table>
+        </div>
+        @*<partial name="_PagingPartial" model="@Model"></partial>*@
+    </div>
+</section>
+
+
+
+
+

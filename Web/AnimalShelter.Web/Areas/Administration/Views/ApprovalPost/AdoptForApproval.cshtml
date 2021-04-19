@@ -1,0 +1,43 @@
+﻿@{
+    this.ViewData["Title"] = "User Notifications";
+}
+@using AnimalShelter.Web.ViewModels.Administration.ApprovalPost
+@model PetApprovalListViewModel
+
+<section class="section-md section-md-alternate bg-white text-center">
+    <div class="shell">
+        <div class="group-xl group-middle">
+            <h2 class="text-center">Adoption post for approval</h2>
+        </div>
+    </div>
+    <div class="shell">
+        <div class="table-custom-responsive">
+            <table class="table-custom table-custom-primary table-custom-striped">
+                <thead>
+                    <tr>
+                        <th>Created on</th>
+                        <th>Post Name</th>
+                        <th>Created By</th>
+                        <th>Is Approved</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var post in Model.PetPosts)
+                    {
+                        <tr>
+                            <td><time datetime="@post.CreatedOn.ToString("O")">@post.CreatedOn</time></td>
+                            <td><a asp-area="" asp-controller="Pet" asp-action="PetProfile" asp-route-id=@post.PostId>@post.Name</a></td>
+                            <td><a asp-area="" asp-controller="User" asp-action="UserProfileGuest" asp-route-nickName=@post.CreatorNickname>@post.CreatorNickname</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <partial name="_PagingPartial" model="@Model"></partial>
+    </div>
+</section>
+
+
+
+
+

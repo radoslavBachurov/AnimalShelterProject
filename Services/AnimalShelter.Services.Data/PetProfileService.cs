@@ -32,12 +32,12 @@
             }
 
             var viewModel = this.petPostsRepository.AllAsNoTracking()
-                         .Where(x => x.Id == postId && x.IsApproved == true)
+                         .Where(x => x.Id == postId)
                          .To<PetProfileViewModel>()
                          .FirstOrDefault();
 
             var postCreatorId = this.petPostsRepository.AllAsNoTracking()
-                          .Where(x => x.Id == postId && x.IsApproved == true).FirstOrDefault().UserId;
+                          .Where(x => x.Id == postId).FirstOrDefault().UserId;
 
             var currentUserId = user?.Id;
             viewModel.IsPostLiked = userLikedThisPost.Any();
@@ -60,7 +60,7 @@
             var outputModel = new LikeOutputModel();
             outputModel.ToLike = "Post";
 
-            var post = this.petPostsRepository.All().Where(x => x.Id == input.PostId && x.IsApproved).FirstOrDefault();
+            var post = this.petPostsRepository.All().Where(x => x.Id == input.PostId).FirstOrDefault();
 
             if (post != null)
             {

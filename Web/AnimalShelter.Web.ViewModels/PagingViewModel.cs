@@ -19,5 +19,9 @@
         public int NextPageNumber => this.PageNumber + 1;
 
         public int Count { get; set; }
+
+        public string Area { get; set; }
+
+        public string Action { get; set; }
     }
 }

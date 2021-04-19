@@ -37,7 +37,7 @@
 
         public PetStatus PetStatus { get; set; }
 
-        public bool IsApproved { get; set; } = true;
+        public bool IsApproved { get; set; }
 
         public virtual ICollection<Picture> PostPictures { get; set; }
 

@@ -1,0 +1,34 @@
+﻿@{
+    this.ViewData["Title"] = "Donate organisations";
+}
+@using AnimalShelter.Web.ViewModels.Administration.Donate
+@model List<OrganisationListModel>
+<section class="section-md section-md-alternate bg-white text-center">
+    <div class="shell">
+        <div class="group-xl group-middle">
+            <h2 class="text-center">
+                Аwaiting approval
+            </h2>
+        </div>
+    </div>
+    <div class="group-xl group-middle">
+        <div class="cell-xs-10 cell-sm-6 cell-md-8">
+            <a class="btn btn-outline-dark" asp-area="Administration" asp-controller="ApprovalPost" asp-action="AdoptForApproval" style="margin-bottom:25px">Adopt Posts</a>
+        </div>
+    </div>
+    <div class="group-xl group-middle">
+        <div class="cell-xs-10 cell-sm-6 cell-md-8">
+            <a class="btn btn-outline-dark" asp-area="Administration" asp-controller="ApprovalPost" asp-action="LostFoundForApproval" style="margin-bottom:25px">Lost and Found Posts</a>
+        </div>
+    </div>
+    <div class="group-xl group-middle">
+        <div class="cell-xs-10 cell-sm-6 cell-md-8">
+            <a class="btn btn-outline-dark" asp-area="Administration" asp-controller="ApprovalPost" asp-action="StoriesForApproval" style="margin-bottom:25px">Stories Posts</a>
+        </div>
+    </div>
+</section>
+
+
+
+
+

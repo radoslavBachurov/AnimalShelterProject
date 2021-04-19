@@ -17,5 +17,7 @@
         int GetAllStoriesCount();
 
         int GetNotificationsCount(string userId);
+
+        int GetAllAdoptPostsForApprovalCount();
     }
 }

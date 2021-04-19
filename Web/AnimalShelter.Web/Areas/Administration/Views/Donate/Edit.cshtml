@@ -3,19 +3,11 @@
 }
 @using AnimalShelter.Web.ViewModels.Administration.Donate
 @model EditDonateOrganisationModel
-<!-- Breadcrumbs & Page title-->
-<div class="page-title">
-    <div class="page-title-text">Промени организация</div>
-    <ul class="breadcrumbs-custom">
-        <li><a asp-controller="Home" asp-action="Index">Начало</a></li>
-        <li class="active">Създай</li>
-    </ul>
-</div>
 <!-- Your information-->
 <section class="section-md bg-white text-center">
     <div class="shell">
         <h4>Информация за Организацията</h4>
-        <div type="hidden" data-attribute=@Model.OrganisationLinks.Count() id="count"/>
+        <div type="hidden" data-attribute=@Model.OrganisationLinks.Count() id="count" />
         <div class="range range-sm-center spacing-55">
             <div class="cell-md-10 cell-lg-8">
                 <form method="post" enctype="multipart/form-data" id="donateForm" asp-area="Administration" asp-controller="Donate" asp-action="Edit">
@@ -65,7 +57,7 @@
                     </div>
                     <div class="group-xl group-middle">
                         <div class="cell-xs-10 cell-sm-6 cell-md-8">
-                            <a class="btn btn-tan-hide btn-block" onclick="donateForm.submit()">Обнови</a>
+                            <a class="btn btn-outline-dark" onclick="donateForm.submit()">Обнови</a>
                         </div>
                     </div>
                 </form>

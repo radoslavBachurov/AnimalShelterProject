@@ -52,7 +52,7 @@
             var outputModel = new LikeOutputModel();
             outputModel.ToLike = "Story";
 
-            var post = this.storyRepository.All().Where(x => x.Id == input.PostId && x.IsApproved).FirstOrDefault();
+            var post = this.storyRepository.All().Where(x => x.Id == input.PostId).FirstOrDefault();
 
             if (post != null)
             {
@@ -98,12 +98,12 @@
             }
 
             var viewModel = this.storyRepository.AllAsNoTracking()
-                         .Where(x => x.Id == postId && x.IsApproved)
+                         .Where(x => x.Id == postId)
                          .To<StoryProfileViewModel>()
                          .FirstOrDefault();
 
             var postCreatorId = this.storyRepository.AllAsNoTracking()
-                          .Where(x => x.Id == postId && x.IsApproved == true).FirstOrDefault().UserId;
+                          .Where(x => x.Id == postId).FirstOrDefault().UserId;
 
             var currentUserId = user?.Id;
             viewModel.IsPostLiked = userLikedThisStory.Any();

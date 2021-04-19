@@ -87,6 +87,8 @@
             {
                 ItemsPerPage = itemsPerPage,
                 PageNumber = page,
+                Area = "",
+                Action = "Notifications",
             };
 
             var user = await this.userManager.GetUserAsync(this.User);

@@ -22,7 +22,7 @@ namespace AnimalShelter.Data.Models
 
         public int Likes { get; set; }
 
-        public bool IsApproved { get; set; } = true;
+        public bool IsApproved { get; set; }
 
         public string UserId { get; set; }
 

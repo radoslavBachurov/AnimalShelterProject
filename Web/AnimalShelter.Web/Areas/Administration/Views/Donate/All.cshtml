@@ -1,26 +1,17 @@
 ﻿@{
     this.ViewData["Title"] = "Donate organisations";
 }
-
 @using AnimalShelter.Web.ViewModels.Administration.Donate
 @model List<OrganisationListModel>
-<!-- Breadcrumbs & Page title-->
-<div class="page-title">
-    <div class="page-title-text">Всички организации</div>
-    <ul class="breadcrumbs-custom">
-        <li><a href="index.html">Начало</a></li>
-        <li class="active">Организации</li>
-    </ul>
-</div>
 <section class="section-md section-md-alternate bg-white text-center">
     <div class="shell">
         <div class="group-xl group-middle">
-            <h2 class="text-center">Организации</h2>
+            <h2 class="text-center">Organisations</h2>
         </div>
     </div>
     <div class="group-xl group-middle">
         <div class="cell-xs-10 cell-sm-6 cell-md-8">
-            <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" asp-area="Administration" asp-controller="Donate" asp-action="Create" data-wow-delay="0.2s" data-wow-duration=".75s" style="margin-bottom:25px">Добави организация</a>
+            <a class="btn btn-outline-dark" asp-area="Administration" asp-controller="Donate" asp-action="Create" style="margin-bottom:25px">Add new organisation</a>
         </div>
     </div>
     <div class="shell">
@@ -28,10 +19,10 @@
             <table class="table-custom table-custom-primary table-custom-striped">
                 <thead>
                     <tr>
-                        <th>Име</th>
-                        <th>Добавено от</th>
-                        <th>Промени</th>
-                        <th>Изтрий</th>
+                        <th>Name</th>
+                        <th>Added by</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>

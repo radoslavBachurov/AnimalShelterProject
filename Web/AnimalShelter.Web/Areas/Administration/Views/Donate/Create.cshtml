@@ -3,14 +3,6 @@
 }
 @using AnimalShelter.Web.ViewModels.Administration.Donate
 @model CreateDonateOrganisationInputModel
-<!-- Breadcrumbs & Page title-->
-<div class="page-title">
-    <div class="page-title-text">Създай нова организация</div>
-    <ul class="breadcrumbs-custom">
-        <li><a asp-controller="Home" asp-action="Index">Начало</a></li>
-        <li class="active">Създай</li>
-    </ul>
-</div>
 <!-- Your information-->
 <section class="section-md bg-white text-center">
     <div class="shell">
@@ -49,7 +41,7 @@
                     </div>
                     <div class="group-xl group-middle">
                         <div class="cell-xs-10 cell-sm-6 cell-md-8">
-                            <a class="btn btn-tan-hide btn-block" onclick="donateForm.submit()">Добави</a>
+                            <a class="btn btn-outline-dark" onclick="donateForm.submit()">Добави</a>
                         </div>
                     </div>
                 </form>

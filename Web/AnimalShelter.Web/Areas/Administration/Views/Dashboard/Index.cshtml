@@ -1,18 +1,21 @@
 ﻿@{
     this.ViewData["Title"] = "Admin dashboard";
 }
-
-<!-- Breadcrumbs & Page title-->
-<div class="page-title">
-    <div class="page-title-text">Admin dashboard</div>
-    <ul class="breadcrumbs-custom">
-        <li><a href="index.html">Начало</a></li>
-    </ul>
-</div>
-<section class="section-md section-md-alternate bg-white">
+<section class="section-md section-md-alternate bg-white text-center">
     <div class="shell">
-        <div class="cell-xs-10 cell-sm-6 cell-md-8">
-            <a class="btn btn-blue-marguerite btn-effect-anis wow fadeInUpSmall" asp-area="Administration" asp-controller="Donate" asp-action="All" data-wow-delay="0.2s" data-wow-duration=".75s">Организации</a>
+        <div class="group-xl group-middle">
+            <h2 class="text-center">Admin dashboard</h2>
         </div>
+        <div class="group-xl group-middle">
+            <div class="cell-xs-10 cell-sm-6 cell-md-8">
+                <a class="btn btn-outline-dark" asp-area="Administration" asp-controller="Donate" asp-action="All" data-wow-delay="0.2s" data-wow-duration=".75s">Organisations</a>
+            </div>
+        </div>
+        <div class="group-xl group-middle">
+            <div class="cell-xs-10 cell-sm-6 cell-md-8">
+                <a class="btn btn-outline-dark" asp-area="Administration" asp-controller="ApprovalPost" asp-action="Index" data-wow-delay="0.2s" data-wow-duration=".75s">Аwaiting approval</a>
+            </div>
+        </div>
+       
     </div>
 </section>

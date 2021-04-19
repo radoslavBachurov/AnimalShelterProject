@@ -122,5 +122,15 @@
                                                    .ToList().Count();
             return notificationsCount;
         }
+
+        public int GetAllAdoptPostsForApprovalCount()
+        {
+            var adoptPostsForApprovalCount = this.petPostsRepository.AllAsNoTracking()
+                .Where(x => (x.PetStatus == PetStatus.Adopted || x.PetStatus == PetStatus.ForAdoption) && !x.IsApproved)
+                .ToList()
+                .Count();
+
+            return adoptPostsForApprovalCount;
+        }
     }
 }

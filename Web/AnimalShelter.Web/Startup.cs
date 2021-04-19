@@ -99,6 +99,7 @@
             services.AddTransient<IDonateService, DonateService>();
             services.AddTransient<ICommentsService, CommentsService>();
             services.AddTransient<IViewRenderService, ViewRenderService>();
+            services.AddTransient<IApprovalPostService, ApprovalPostService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
